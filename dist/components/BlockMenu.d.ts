@@ -31,6 +31,7 @@ declare type State = {
 declare class BlockMenu extends React.Component<Props, State> {
     menuRef: React.RefObject<HTMLDivElement>;
     inputRef: React.RefObject<HTMLInputElement>;
+    fileInputRef: React.RefObject<HTMLInputElement>;
     state: State;
     componentDidMount(): void;
     shouldComponentUpdate(nextProps: any, nextState: any): boolean;

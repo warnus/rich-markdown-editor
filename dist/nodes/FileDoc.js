@@ -28,7 +28,7 @@ const prosemirror_inputrules_1 = require("prosemirror-inputrules");
 const prosemirror_utils_1 = require("prosemirror-utils");
 const styled_components_1 = __importDefault(require("styled-components"));
 const getDataTransferFiles_1 = __importDefault(require("../lib/getDataTransferFiles"));
-const uploadPlaceholder_1 = __importDefault(require("../lib/uploadPlaceholder"));
+const uploadFilePlaceholder_1 = __importDefault(require("../lib/uploadFilePlaceholder"));
 const insertAllFiles_1 = __importDefault(require("../commands/insertAllFiles"));
 const Node_1 = __importDefault(require("./Node"));
 const FILE_INPUT_REGEX = /!\[(.+|:?)]\((\S+)(?:(?:\s+)["'](\S+)["'])?\)/;
@@ -197,7 +197,7 @@ class File extends Node_1.default {
         ];
     }
     get plugins() {
-        return [uploadPlaceholder_1.default, uploadPlugin(this.options)];
+        return [uploadFilePlaceholder_1.default, uploadPlugin(this.options)];
     }
 }
 exports.default = File;

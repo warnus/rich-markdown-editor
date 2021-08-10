@@ -22,7 +22,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const uploadPlaceholder_1 = __importStar(require("../lib/uploadPlaceholder"));
 const types_1 = require("../types");
 const insertFiles = function (view, event, pos, files, options) {
-    const images = files;
+    const images = files.filter(file => /image/i.test(file.type));
     if (images.length === 0)
         return;
     const { dictionary, uploadImage, onImageUploadStart, onImageUploadStop, onShowToast, } = options;

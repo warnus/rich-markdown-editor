@@ -59,6 +59,7 @@ class BlockMenu extends React.Component {
         super(...arguments);
         this.menuRef = React.createRef();
         this.inputRef = React.createRef();
+        this.fileInputRef = React.createRef();
         this.state = {
             left: -1000,
             top: 0,
@@ -192,8 +193,8 @@ class BlockMenu extends React.Component {
             }
         };
         this.triggerFilePick = () => {
-            if (this.inputRef.current) {
-                this.inputRef.current.click();
+            if (this.fileInputRef.current) {
+                this.fileInputRef.current.click();
             }
         };
         this.triggerLinkInput = item => {
@@ -421,7 +422,7 @@ class BlockMenu extends React.Component {
                 uploadImage && (React.createElement(VisuallyHidden_1.default, null,
                     React.createElement("input", { type: "file", ref: this.inputRef, onChange: this.handleImagePicked, accept: "image/*" }))),
                 uploadFile && (React.createElement(VisuallyHidden_1.default, null,
-                    React.createElement("input", { type: "file", ref: this.inputRef, onChange: this.handleFilePicked, accept: "*" }))))));
+                    React.createElement("input", { type: "file", ref: this.fileInputRef, onChange: this.handleFilePicked, accept: "*" }))))));
     }
 }
 const LinkInputWrapper = styled_components_1.default.div `

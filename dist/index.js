@@ -563,7 +563,6 @@ const StyledEditor = styled_components_1.default("div") `
   }
 
 .file {
-    text-align: center;
     a {
       pointer-events: ${props => (props.readOnly ? "initial" : "none")};
     }

@@ -54,6 +54,7 @@ type State = {
 class BlockMenu extends React.Component<Props, State> {
   menuRef = React.createRef<HTMLDivElement>();
   inputRef = React.createRef<HTMLInputElement>();
+  fileInputRef = React.createRef<HTMLInputElement>();
 
   state: State = {
     left: -1000,
@@ -249,8 +250,8 @@ class BlockMenu extends React.Component<Props, State> {
     }
   };
   triggerFilePick = () => {
-    if (this.inputRef.current) {
-      this.inputRef.current.click();
+	  if (this.fileInputRef.current) {
+      this.fileInputRef.current.click();
     }
   };
 
@@ -579,7 +580,7 @@ class BlockMenu extends React.Component<Props, State> {
             <VisuallyHidden>
               <input
                 type="file"
-                ref={this.inputRef}
+				ref={this.fileInputRef}
                 onChange={this.handleFilePicked}
                 accept="*"
               />
