@@ -23,10 +23,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const React = __importStar(require("react"));
+const outline_icons_1 = require("outline-icons");
 const prosemirror_state_1 = require("prosemirror-state");
 const prosemirror_inputrules_1 = require("prosemirror-inputrules");
 const prosemirror_utils_1 = require("prosemirror-utils");
 const styled_components_1 = __importDefault(require("styled-components"));
+const react_medium_image_zoom_1 = __importDefault(require("react-medium-image-zoom"));
 const getDataTransferFiles_1 = __importDefault(require("../lib/getDataTransferFiles"));
 const uploadPlaceholder_1 = __importDefault(require("../lib/uploadPlaceholder"));
 const insertFiles_1 = __importDefault(require("../commands/insertFiles"));
@@ -160,7 +162,19 @@ class Image extends Node_1.default {
             const { alt, src, title, layoutClass } = props.node.attrs;
             const className = layoutClass ? `image image-${layoutClass}` : "image";
             return (React.createElement("div", { contentEditable: false, className: className },
-                React.createElement("a", { href: src }, "My Doc")));
+                React.createElement(ImageWrapper, { className: isSelected ? "ProseMirror-selectednode" : "", onClick: this.handleSelect(props) },
+                    React.createElement(Button, null,
+                        React.createElement(outline_icons_1.DownloadIcon, { color: "currentColor", onClick: this.handleDownload(props) })),
+                    React.createElement(react_medium_image_zoom_1.default, { image: {
+                            src,
+                            alt,
+                            title,
+                        }, defaultStyles: {
+                            overlay: {
+                                backgroundColor: theme.background,
+                            },
+                        }, shouldRespectMaxDimension: true })),
+                React.createElement(Caption, { onKeyDown: this.handleKeyDown(props), onBlur: this.handleBlur(props), className: "caption", tabIndex: -1, role: "textbox", contentEditable: true, suppressContentEditableWarning: true, "data-caption": this.options.dictionary.imageCaptionPlaceholder }, alt)));
         };
     }
     get name() {

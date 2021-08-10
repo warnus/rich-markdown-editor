@@ -41,6 +41,7 @@ import HardBreak from "./nodes/HardBreak";
 import Heading from "./nodes/Heading";
 import HorizontalRule from "./nodes/HorizontalRule";
 import Image from "./nodes/Image";
+import FileDoc from "./nodes/FileDoc";
 import ListItem from "./nodes/ListItem";
 import Notice from "./nodes/Notice";
 import OrderedList from "./nodes/OrderedList";
@@ -127,6 +128,7 @@ export type Props = {
     [name: string]: (view: EditorView, event: Event) => boolean;
   };
   uploadImage?: (file: File) => Promise<string>;
+  uploadFile?: (file: File) => Promise<string>;
   onBlur?: () => void;
   onFocus?: () => void;
   onSave?: ({ done: boolean }) => void;
@@ -134,6 +136,8 @@ export type Props = {
   onChange?: (value: () => string) => void;
   onImageUploadStart?: () => void;
   onImageUploadStop?: () => void;
+  onFileUploadStart?: () => void;
+  onFileUploadStop?: () => void;
   onCreateLink?: (title: string) => Promise<string>;
   onSearchLink?: (term: string) => Promise<SearchResult[]>;
   onClickLink: (href: string, event: MouseEvent) => void;
@@ -169,6 +173,12 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
       // no default behavior
     },
     onImageUploadStop: () => {
+      // no default behavior
+    },
+					   onFileUploadStart: () => {
+      // no default behavior
+    },
+    onFileUploadStop: () => {
       // no default behavior
     },
     onClickLink: href => {
@@ -335,6 +345,13 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
             onImageUploadStop: this.props.onImageUploadStop,
             onShowToast: this.props.onShowToast,
           }),
+		  new FileDoc({
+          dictionary,
+          uploadFile: this.props.uploadFile,
+          onFileUploadStart: this.props.onFileUploadStart,
+          onFileUploadStop: this.props.onFileUploadStop,
+          onShowToast: this.props.onShowToast,
+        }),
           new Table(),
           new TableCell({
             onSelectTable: this.handleSelectTable,
@@ -769,6 +786,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
                   search={this.state.blockMenuSearch}
                   onClose={this.handleCloseBlockMenu}
                   uploadImage={this.props.uploadImage}
+				  uploadFile={this.props.uploadFile}
                   onLinkToolbarOpen={this.handleOpenLinkMenu}
                   onImageUploadStart={this.props.onImageUploadStart}
                   onImageUploadStop={this.props.onImageUploadStop}
@@ -816,6 +834,19 @@ const StyledEditor = styled("div")<{
     position: relative;
   }
 
+.file {
+    text-align: center;
+    a {
+      pointer-events: ${props => (props.readOnly ? "initial" : "none")};
+    }
+  }
+  .file.placeholder {
+    position: relative;
+    background: ${props => props.theme.background};
+    a {
+      opacity: 0.5;
+    }
+  }
   .image {
     text-align: center;
     max-width: 100%;

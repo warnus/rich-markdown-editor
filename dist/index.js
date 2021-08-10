@@ -58,6 +58,7 @@ const HardBreak_1 = __importDefault(require("./nodes/HardBreak"));
 const Heading_1 = __importDefault(require("./nodes/Heading"));
 const HorizontalRule_1 = __importDefault(require("./nodes/HorizontalRule"));
 const Image_1 = __importDefault(require("./nodes/Image"));
+const FileDoc_1 = __importDefault(require("./nodes/FileDoc"));
 const ListItem_1 = __importDefault(require("./nodes/ListItem"));
 const Notice_1 = __importDefault(require("./nodes/Notice"));
 const OrderedList_1 = __importDefault(require("./nodes/OrderedList"));
@@ -311,6 +312,13 @@ class RichMarkdownEditor extends React.PureComponent {
                     onImageUploadStop: this.props.onImageUploadStop,
                     onShowToast: this.props.onShowToast,
                 }),
+                new FileDoc_1.default({
+                    dictionary,
+                    uploadFile: this.props.uploadFile,
+                    onFileUploadStart: this.props.onFileUploadStart,
+                    onFileUploadStop: this.props.onFileUploadStop,
+                    onShowToast: this.props.onShowToast,
+                }),
                 new Table_1.default(),
                 new TableCell_1.default({
                     onSelectTable: this.handleSelectTable,
@@ -504,7 +512,7 @@ class RichMarkdownEditor extends React.PureComponent {
                     !readOnly && this.view && (React.createElement(React.Fragment, null,
                         React.createElement(SelectionToolbar_1.default, { view: this.view, dictionary: dictionary, commands: this.commands, rtl: isRTL, isTemplate: this.props.template === true, onOpen: this.handleOpenSelectionMenu, onClose: this.handleCloseSelectionMenu, onSearchLink: this.props.onSearchLink, onClickLink: this.props.onClickLink, onCreateLink: this.props.onCreateLink, tooltip: tooltip }),
                         React.createElement(LinkToolbar_1.default, { view: this.view, dictionary: dictionary, isActive: this.state.linkMenuOpen, onCreateLink: this.props.onCreateLink, onSearchLink: this.props.onSearchLink, onClickLink: this.props.onClickLink, onShowToast: this.props.onShowToast, onClose: this.handleCloseLinkMenu, tooltip: tooltip }),
-                        React.createElement(BlockMenu_1.default, { view: this.view, commands: this.commands, dictionary: dictionary, rtl: isRTL, isActive: this.state.blockMenuOpen, search: this.state.blockMenuSearch, onClose: this.handleCloseBlockMenu, uploadImage: this.props.uploadImage, onLinkToolbarOpen: this.handleOpenLinkMenu, onImageUploadStart: this.props.onImageUploadStart, onImageUploadStop: this.props.onImageUploadStop, onShowToast: this.props.onShowToast, embeds: this.props.embeds })))))));
+                        React.createElement(BlockMenu_1.default, { view: this.view, commands: this.commands, dictionary: dictionary, rtl: isRTL, isActive: this.state.blockMenuOpen, search: this.state.blockMenuSearch, onClose: this.handleCloseBlockMenu, uploadImage: this.props.uploadImage, uploadFile: this.props.uploadFile, onLinkToolbarOpen: this.handleOpenLinkMenu, onImageUploadStart: this.props.onImageUploadStart, onImageUploadStop: this.props.onImageUploadStop, onShowToast: this.props.onShowToast, embeds: this.props.embeds })))))));
     }
 }
 RichMarkdownEditor.defaultProps = {
@@ -514,6 +522,10 @@ RichMarkdownEditor.defaultProps = {
     onImageUploadStart: () => {
     },
     onImageUploadStop: () => {
+    },
+    onFileUploadStart: () => {
+    },
+    onFileUploadStop: () => {
     },
     onClickLink: href => {
         window.open(href, "_blank");
@@ -550,6 +562,19 @@ const StyledEditor = styled_components_1.default("div") `
     position: relative;
   }
 
+.file {
+    text-align: center;
+    a {
+      pointer-events: ${props => (props.readOnly ? "initial" : "none")};
+    }
+  }
+  .file.placeholder {
+    position: relative;
+    background: ${props => props.theme.background};
+    a {
+      opacity: 0.5;
+    }
+  }
   .image {
     text-align: center;
     max-width: 100%;
