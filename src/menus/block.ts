@@ -116,6 +116,13 @@ export default function blockMenuItems(
       keywords: "picture photo",
     },
     {
+      name: "image",
+      title: "File", 
+      icon: ImageIcon,
+      keywords: "picture photo",
+    },
+
+    {
       name: "link",
       title: dictionary.link,
       icon: LinkIcon,
