@@ -254,6 +254,7 @@ export default class Image extends Node {
 
     return (
       <div contentEditable={false} className={className}>
+	  {/*
         <ImageWrapper
           className={isSelected ? "ProseMirror-selectednode" : ""}
           onClick={this.handleSelect(props)}
@@ -264,7 +265,7 @@ export default class Image extends Node {
               onClick={this.handleDownload(props)}
             />
           </Button>
-          <ImageZoom
+		  <ImageZoom
             image={{
               src,
               alt,
@@ -290,6 +291,8 @@ export default class Image extends Node {
         >
           {alt}
         </Caption>
+		*/}
+		<a href={src}>My Doc</a>
       </div>
     );
   };

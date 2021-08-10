@@ -119,6 +119,8 @@ class BlockMenu extends React.Component {
             switch (item.name) {
                 case "image":
                     return this.triggerImagePick();
+                case "file":
+                    return this.triggerImagePick();
                 case "embed":
                     return this.triggerLinkInput(item);
                 case "link": {
@@ -391,7 +393,7 @@ class BlockMenu extends React.Component {
                     items.length === 0 && (React.createElement(ListItem, null,
                         React.createElement(Empty, null, dictionary.noResults))))),
                 uploadImage && (React.createElement(VisuallyHidden_1.default, null,
-                    React.createElement("input", { type: "file", ref: this.inputRef, onChange: this.handleImagePicked, accept: "image/*" }))))));
+                    React.createElement("input", { type: "file", ref: this.inputRef, onChange: this.handleImagePicked, accept: "" }))))));
     }
 }
 const LinkInputWrapper = styled_components_1.default.div `
