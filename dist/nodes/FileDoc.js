@@ -53,7 +53,7 @@ const uploadPlugin = options => new prosemirror_state_1.Plugin({
                     tr.deleteSelection();
                 }
                 const pos = tr.selection.from;
-                insertAllFiles_1.default(view, event, pos, files, options);
+                insertAllFiles_1.default(view, event, files, options);
                 return true;
             },
             drop(view, event) {
@@ -70,7 +70,7 @@ const uploadPlugin = options => new prosemirror_state_1.Plugin({
                     top: event.clientY,
                 });
                 if (result) {
-                    insertAllFiles_1.default(view, event, result.pos, files, options);
+                    insertAllFiles_1.default(view, event, files, options);
                     return true;
                 }
                 return false;

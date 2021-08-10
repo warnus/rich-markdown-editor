@@ -46,7 +46,7 @@ const uploadPlugin = options =>
           }
           const pos = tr.selection.from;
 
-          insertAllFiles(view, event, pos, files, options);
+          insertAllFiles(view, event, files, options);
           return true;
         },
         drop(view, event: DragEvent): boolean {
@@ -69,7 +69,7 @@ const uploadPlugin = options =>
           });
 
           if (result) {
-            insertAllFiles(view, event, result.pos, files, options);
+            insertAllFiles(view, event, files, options);
             return true;
           }
 

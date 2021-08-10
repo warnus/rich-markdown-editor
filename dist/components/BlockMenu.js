@@ -223,17 +223,17 @@ class BlockMenu extends React.Component {
         this.handleFilePicked = event => {
             const files = getDataTransferFiles_1.default(event);
             console.log(files);
-            const { view, uploadFile, onFileUploadStart, onFileUploadStop, onShowToast, } = this.props;
-            const { state, dispatch } = view;
+            const { view, uploadFile, onFileUploadStart, onFileUploadStop, onShowToast, onCreateLink, } = this.props;
+            const { state } = view;
             const parent = prosemirror_utils_1.findParentNode(node => !!node)(state.selection);
             if (parent) {
-                dispatch(state.tr.insertText("", parent.pos, parent.pos + parent.node.textContent.length + 1));
-                insertAllFiles_1.default(view, event, parent.pos, files, {
+                insertAllFiles_1.default(view, event, files, {
                     uploadFile,
                     onFileUploadStart,
                     onFileUploadStop,
                     onShowToast,
                     dictionary: this.props.dictionary,
+                    onCreateLink,
                 });
             }
             this.props.onClose();
