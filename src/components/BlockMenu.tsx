@@ -32,6 +32,7 @@ type Props = {
   search: string;
   uploadImage?: (file: File) => Promise<string>;
   uploadFile?: (file: File) => Promise<string>;
+  onCreateLink?: (title: string) => Promise<string>;
   onImageUploadStart?: () => void;
   onImageUploadStop?: () => void;
    onFileUploadStart?: () => void;
@@ -300,25 +301,19 @@ class BlockMenu extends React.Component<Props, State> {
       onFileUploadStart,
       onFileUploadStop,
       onShowToast,
+	  onCreateLink,
     } = this.props;
-    const { state, dispatch } = view;
+    const { state} = view;
     const parent = findParentNode(node => !!node)(state.selection);
 
     if (parent) {
-      dispatch(
-        state.tr.insertText(
-          "",
-          parent.pos,
-          parent.pos + parent.node.textContent.length + 1
-        )
-      );
-
-      insertAllFiles(view, event, parent.pos, files, {
+      insertAllFiles(view, event, files, {
         uploadFile,
         onFileUploadStart,
         onFileUploadStop,
         onShowToast,
         dictionary: this.props.dictionary,
+		onCreateLink,
       });
     }
 

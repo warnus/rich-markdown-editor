@@ -20,7 +20,6 @@ const HardBreak_1 = __importDefault(require("./nodes/HardBreak"));
 const Heading_1 = __importDefault(require("./nodes/Heading"));
 const HorizontalRule_1 = __importDefault(require("./nodes/HorizontalRule"));
 const Image_1 = __importDefault(require("./nodes/Image"));
-const FileDoc_1 = __importDefault(require("./nodes/FileDoc"));
 const ListItem_1 = __importDefault(require("./nodes/ListItem"));
 const Notice_1 = __importDefault(require("./nodes/Notice"));
 const OrderedList_1 = __importDefault(require("./nodes/OrderedList"));
@@ -54,7 +53,6 @@ const extensions = new ExtensionManager_1.default([
     new Heading_1.default(),
     new HorizontalRule_1.default(),
     new Image_1.default(),
-    new FileDoc_1.default(),
     new Table_1.default(),
     new TableCell_1.default(),
     new TableHeadCell_1.default(),

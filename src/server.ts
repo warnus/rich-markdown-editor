@@ -16,7 +16,6 @@ import HardBreak from "./nodes/HardBreak";
 import Heading from "./nodes/Heading";
 import HorizontalRule from "./nodes/HorizontalRule";
 import Image from "./nodes/Image";
-import FileDoc from "./nodes/FileDoc";
 import ListItem from "./nodes/ListItem";
 import Notice from "./nodes/Notice";
 import OrderedList from "./nodes/OrderedList";
@@ -53,7 +52,6 @@ const extensions = new ExtensionManager([
   new Heading(),
   new HorizontalRule(),
   new Image(),
-  new FileDoc(),
   new Table(),
   new TableCell(),
   new TableHeadCell(),

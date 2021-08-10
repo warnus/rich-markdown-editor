@@ -11,6 +11,7 @@ declare type Props = {
     search: string;
     uploadImage?: (file: File) => Promise<string>;
     uploadFile?: (file: File) => Promise<string>;
+    onCreateLink?: (title: string) => Promise<string>;
     onImageUploadStart?: () => void;
     onImageUploadStop?: () => void;
     onFileUploadStart?: () => void;
