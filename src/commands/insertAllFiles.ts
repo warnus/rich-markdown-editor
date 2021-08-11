@@ -1,5 +1,4 @@
 import { ToastType } from "../types";
-import createAndInsertLink from "../commands/createAndInsertLink";
 
 const insertAllFiles = function(view, event, files, options) {
   if (files.length === 0) return;
@@ -10,7 +9,6 @@ const insertAllFiles = function(view, event, files, options) {
     onFileUploadStart,
     onFileUploadStop,
     onShowToast,
-	onCreateLink,
   } = options;
 
   if (!uploadFile) {
@@ -41,7 +39,7 @@ const insertAllFiles = function(view, event, files, options) {
     uploadFile(file)
     .then(src => {
 	const title = file.name;
-        const href = `creating#${src}…`;
+        const href = src;
 
         view.dispatch(
           view.state.tr
@@ -53,11 +51,6 @@ const insertAllFiles = function(view, event, files, options) {
             )
         );
 
-        createAndInsertLink(view, src, href, {
-          onCreateLink,
-          onShowToast,
-          dictionary,
-        });
       })
       .catch(error => {
         console.error(error);

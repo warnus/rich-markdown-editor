@@ -223,7 +223,7 @@ class BlockMenu extends React.Component {
         this.handleFilePicked = event => {
             const files = getDataTransferFiles_1.default(event);
             console.log(files);
-            const { view, uploadFile, onFileUploadStart, onFileUploadStop, onShowToast, onCreateLink, } = this.props;
+            const { view, uploadFile, onFileUploadStart, onFileUploadStop, onShowToast, } = this.props;
             const { state } = view;
             const parent = prosemirror_utils_1.findParentNode(node => !!node)(state.selection);
             if (parent) {
@@ -233,7 +233,6 @@ class BlockMenu extends React.Component {
                     onFileUploadStop,
                     onShowToast,
                     dictionary: this.props.dictionary,
-                    onCreateLink,
                 });
             }
             this.props.onClose();
