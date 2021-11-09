@@ -1,6 +1,9 @@
+import uploadPlaceholderPlugin, {
+  findPlaceholder,
+} from "../lib/uploadPlaceholder";
 import { ToastType } from "../types";
 
-const insertAllFiles = function(view, event, files, options) {
+const insertAllFiles = function(view, event, pos, files, options) {
   if (files.length === 0) return;
 
   const {
@@ -12,7 +15,9 @@ const insertAllFiles = function(view, event, files, options) {
   } = options;
 
   if (!uploadFile) {
-    console.warn("uploadFile callback must be defined to handle file uploads.");
+    console.warn(
+      "uploadImage callback must be defined to handle image uploads."
+    );
     return;
   }
 
@@ -23,38 +28,63 @@ const insertAllFiles = function(view, event, files, options) {
   // let the user know we're starting to process the files
   if (onFileUploadStart) onFileUploadStart();
 
+  const { schema } = view.state;
 
   // we'll use this to track of how many files have succeeded or failed
   let complete = 0;
 
-  const { state } = view;
-  const { from, to } = state.selection;
-
-  // the user might have dropped multiple files at once, we need to loop
+   // the user might have dropped multiple images at once, we need to loop
   for (const file of files) {
+    // Use an object to act as the ID for this upload, clever.
+    const id = {};
 
-    // start uploading the file file to the server. Using "then" syntax
+    const { tr } = view.state;
+  
+    // insert a placeholder at this position
+    tr.setMeta(uploadPlaceholderPlugin, {
+      add: { id, file, pos },
+    });
+    view.dispatch(tr);
+
+    // start uploading the image file to the server. Using "then" syntax
     // to allow all placeholders to be entered at once with the uploads
     // happening in the background in parallel.
     uploadFile(file)
     .then(src => {
-	const title = file.name;
-        const href = src;
+      // otherwise, insert it at the placeholder's position, and remove
+        // the placeholder itself
+        const newFile = new File();
 
-        view.dispatch(
-          view.state.tr
-            .insertText(title, from, to)
-            .addMark(
-              from,
-              to + title.length,
-              state.schema.marks.link.create({ href })
-            )
-        );
+        newFile.onload = () => {
+          const pos = findPlaceholder(view.state, id);
 
+          // if the content around the placeholder has been deleted
+          // then forget about inserting this image
+          if (pos === null) return;
+
+          const transaction = view.state.tr
+            .replaceWith(pos, pos, schema.nodes.image.create({ src }))
+            .setMeta(uploadPlaceholderPlugin, { remove: { id } });
+
+          view.dispatch(transaction);
+        };
+
+        newFile.onerror = error => {
+          throw error;
+        };
+
+        newFile.src = src;
       })
       .catch(error => {
         console.error(error);
 
+        // cleanup the placeholder if there is a failure
+        const transaction = view.state.tr.setMeta(uploadPlaceholderPlugin, {
+          remove: { id },
+        });
+        view.dispatch(transaction);
+
+        // let the user know
         if (onShowToast) {
           onShowToast(dictionary.fileUploadError, ToastType.Error);
         }
@@ -64,8 +94,8 @@ const insertAllFiles = function(view, event, files, options) {
         complete++;
 
         // once everything is done, let the user know
-        if (complete === files.length) {
-          if (onFileUploadStop) onFileUploadStop();
+        if (complete === files.length && onFileUploadStop) {
+          onFileUploadStop();
         }
       });
   }
