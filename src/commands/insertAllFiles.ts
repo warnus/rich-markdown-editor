@@ -63,7 +63,7 @@ const insertAllFiles = function(view, event, pos, files, options) {
           if (pos === null) return;
 
           const transaction = view.state.tr
-            .replaceWith(pos, pos, schema.nodes.image.create({ src }))
+            .replaceWith(pos, pos, schema.nodes.file.create({ src }))
             .setMeta(uploadPlaceholderPlugin, { remove: { id } });
 
           view.dispatch(transaction);
@@ -92,6 +92,8 @@ const insertAllFiles = function(view, event, pos, files, options) {
       // eslint-disable-next-line no-loop-func
       .finally(() => {
         complete++;
+
+        console.log("LWS TEST MESSAGE")
 
         // once everything is done, let the user know
         if (complete === files.length && onFileUploadStop) {
