@@ -11,20 +11,24 @@ import { inputRules, InputRule } from "prosemirror-inputrules";
 import { keymap } from "prosemirror-keymap";
 import { baseKeymap } from "prosemirror-commands";
 import { selectColumn, selectRow, selectTable } from "prosemirror-utils";
-import styled, { ThemeProvider } from "styled-components";
-import { light as lightTheme, dark as darkTheme } from "./theme";
+import { ThemeProvider } from "styled-components";
+import { light as lightTheme, dark as darkTheme } from "./styles/theme";
 import baseDictionary from "./dictionary";
 import Flex from "./components/Flex";
 import { SearchResult } from "./components/LinkEditor";
 import { EmbedDescriptor, ToastType } from "./types";
 import SelectionToolbar from "./components/SelectionToolbar";
 import BlockMenu from "./components/BlockMenu";
+import EmojiMenu from "./components/EmojiMenu";
 import LinkToolbar from "./components/LinkToolbar";
 import Tooltip from "./components/Tooltip";
 import Extension from "./lib/Extension";
 import ExtensionManager from "./lib/ExtensionManager";
 import ComponentView from "./lib/ComponentView";
 import headingToSlug from "./lib/headingToSlug";
+
+// styles
+import { StyledEditor } from "./styles/editor";
 
 // nodes
 import ReactNode from "./nodes/ReactNode";
@@ -35,6 +39,7 @@ import BulletList from "./nodes/BulletList";
 import CodeBlock from "./nodes/CodeBlock";
 import CodeFence from "./nodes/CodeFence";
 import CheckboxList from "./nodes/CheckboxList";
+import Emoji from "./nodes/Emoji";
 import CheckboxItem from "./nodes/CheckboxItem";
 import Embed from "./nodes/Embed";
 import HardBreak from "./nodes/HardBreak";
@@ -63,6 +68,7 @@ import Underline from "./marks/Underline";
 
 // plugins
 import BlockMenuTrigger from "./plugins/BlockMenuTrigger";
+import EmojiTrigger from "./plugins/EmojiTrigger";
 import Folding from "./plugins/Folding";
 import History from "./plugins/History";
 import Keys from "./plugins/Keys";
@@ -71,6 +77,7 @@ import Placeholder from "./plugins/Placeholder";
 import SmartText from "./plugins/SmartText";
 import TrailingNode from "./plugins/TrailingNode";
 import PasteHandler from "./plugins/PasteHandler";
+import { PluginSimple } from "markdown-it";
 
 export { schema, parser, serializer, renderToHtml } from "./server";
 
@@ -112,6 +119,7 @@ export type Props = {
     | "td"
     | "th"
     | "tr"
+    | "emoji"
   )[];
   autoFocus?: boolean;
   readOnly?: boolean;
@@ -158,6 +166,7 @@ type State = {
   blockMenuOpen: boolean;
   linkMenuOpen: boolean;
   blockMenuSearch: string;
+  emojiMenuOpen: boolean;
 };
 
 type Step = {
@@ -196,6 +205,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
     blockMenuOpen: false,
     linkMenuOpen: false,
     blockMenuSearch: "",
+    emojiMenuOpen: false,
   };
 
   isBlurred: boolean;
@@ -215,6 +225,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
   nodes: { [name: string]: NodeSpec };
   marks: { [name: string]: MarkSpec };
   commands: Record<string, any>;
+  rulePlugins: PluginSimple[];
 
   componentDidMount() {
     this.init();
@@ -294,6 +305,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
     this.marks = this.createMarks();
     this.schema = this.createSchema();
     this.plugins = this.createPlugins();
+    this.rulePlugins = this.createRulePlugins();
     this.keymaps = this.createKeymaps();
     this.serializer = this.createSerializer();
     this.parser = this.createParser();
@@ -312,7 +324,6 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
       [
         ...[
           new Doc(),
-          new Text(),
           new HardBreak(),
           new Paragraph(),
           new Blockquote(),
@@ -324,10 +335,12 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
             dictionary,
             onShowToast: this.props.onShowToast,
           }),
+          new Emoji(),
+          new Text(),
           new CheckboxList(),
           new CheckboxItem(),
           new BulletList(),
-          new Embed(),
+          new Embed({ embeds: this.props.embeds }),
           new ListItem(),
           new Notice({
             dictionary,
@@ -392,6 +405,14 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
             onOpen: this.handleOpenBlockMenu,
             onClose: this.handleCloseBlockMenu,
           }),
+          new EmojiTrigger({
+            onOpen: (search: string) => {
+              this.setState({ emojiMenuOpen: true, blockMenuSearch: search });
+            },
+            onClose: () => {
+              this.setState({ emojiMenuOpen: false });
+            },
+          }),
           new Placeholder({
             placeholder: this.props.placeholder,
           }),
@@ -415,6 +436,10 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
 
   createPlugins() {
     return this.extensions.plugins;
+  }
+
+  createRulePlugins() {
+    return this.extensions.rulePlugins;
   }
 
   createKeymaps() {
@@ -480,6 +505,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
   createParser() {
     return this.extensions.parser({
       schema: this.schema,
+      plugins: this.rulePlugins,
     });
   }
 
@@ -487,6 +513,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
     return this.extensions.parser({
       schema: this.schema,
       rules: { linkify: true },
+      plugins: this.rulePlugins,
     });
   }
 
@@ -776,6 +803,15 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
                   onShowToast={this.props.onShowToast}
                   onClose={this.handleCloseLinkMenu}
                   tooltip={tooltip}
+                />
+                <EmojiMenu
+                  view={this.view}
+                  commands={this.commands}
+                  dictionary={dictionary}
+                  rtl={isRTL}
+                  isActive={this.state.emojiMenuOpen}
+                  search={this.state.blockMenuSearch}
+                  onClose={() => this.setState({ emojiMenuOpen: false })}
                 />
                 <BlockMenu
                   view={this.view}

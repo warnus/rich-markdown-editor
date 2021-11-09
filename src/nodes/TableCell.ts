@@ -69,6 +69,7 @@ export default class TableCell extends Node {
                       grip.className = className;
                       grip.addEventListener("mousedown", event => {
                         event.preventDefault();
+                        event.stopImmediatePropagation();
                         this.options.onSelectTable(state);
                       });
                       return grip;
@@ -85,13 +86,15 @@ export default class TableCell extends Node {
                     }
                     if (index === 0) {
                       className += " first";
-                    } else if (index === cells.length - 1) {
+                    }
+                    if (index === cells.length - 1) {
                       className += " last";
                     }
                     const grip = document.createElement("a");
                     grip.className = className;
                     grip.addEventListener("mousedown", event => {
                       event.preventDefault();
+                      event.stopImmediatePropagation();
                       this.options.onSelectRow(index, state);
                     });
                     return grip;
