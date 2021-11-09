@@ -111,6 +111,7 @@ const downloadImageNode = async node => {
   document.body.appendChild(link);
   link.click();
 
+  console.log("Image Download")
   // cleanup
   document.body.removeChild(link);
 };
