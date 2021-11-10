@@ -136,6 +136,7 @@ class File extends Node_1.default {
                         const caption = dom.getElementsByTagName("p")[0];
                         return {
                             src: a.getAttribute("href"),
+                            alt: caption.innerText,
                         };
                     },
                 },

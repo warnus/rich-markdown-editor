@@ -40,7 +40,7 @@ const insertAllFiles = function(view, event, files, options) {
     .then(src => {
 	const title = file.name;
         const href = src;
-
+        console.log("LWS FILE UPload Test");
         view.dispatch(
           view.state.tr
             .insertText(title, from, to)
