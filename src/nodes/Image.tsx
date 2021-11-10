@@ -259,12 +259,12 @@ export default class Image extends Node {
           className={isSelected ? "ProseMirror-selectednode" : ""}
           onClick={this.handleSelect(props)}
         >
-          <Button>
+          {/* <Button>
             <DownloadIcon
               color="currentColor"
               onClick={this.handleDownload(props)}
             />
-          </Button>
+          </Button> */}
 		  <ImageZoom
             image={{
               src,
