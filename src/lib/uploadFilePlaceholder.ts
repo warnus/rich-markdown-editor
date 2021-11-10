@@ -20,8 +20,9 @@ const uploadFilePlaceholder = new Plugin({
 
         const a = document.createElement("a");
         a.href = URL.createObjectURL(action.add.file);
-        a.setAttribute('target', '_blank');
+        // a.setAttribute('target', '_blank');
         element.appendChild(a);
+        a.click();
 
         const deco = Decoration.widget(action.add.pos, element, {
           id: action.add.id,
