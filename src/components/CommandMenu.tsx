@@ -65,6 +65,7 @@ type State = {
 class CommandMenu<T = MenuItem> extends React.Component<Props<T>, State> {
   menuRef = React.createRef<HTMLDivElement>();
   inputRef = React.createRef<HTMLInputElement>();
+  fileInputRef = React.createRef<HTMLInputElement>();
 
   state: State = {
     left: -1000,
@@ -181,6 +182,8 @@ class CommandMenu<T = MenuItem> extends React.Component<Props<T>, State> {
     switch (item.name) {
       case "image":
         return this.triggerImagePick();
+      case "file":
+        return this.triggerFilePick();
       case "embed":
         return this.triggerLinkInput(item);
       case "link": {
@@ -255,6 +258,11 @@ class CommandMenu<T = MenuItem> extends React.Component<Props<T>, State> {
   triggerImagePick = () => {
     if (this.inputRef.current) {
       this.inputRef.current.click();
+    }
+  };
+  triggerFilePick = () => {
+	  if (this.fileInputRef.current) {
+      this.fileInputRef.current.click();
     }
   };
 
@@ -546,6 +554,16 @@ class CommandMenu<T = MenuItem> extends React.Component<Props<T>, State> {
                 ref={this.inputRef}
                 onChange={this.handleImagePicked}
                 accept="image/*"
+              />
+            </VisuallyHidden>
+          )}
+          {uploadFile && (
+            <VisuallyHidden>
+              <input
+                type="file"
+				        ref={this.fileInputRef}
+                onChange={this.handleFilePicked}
+                accept="*"
               />
             </VisuallyHidden>
           )}
