@@ -344,7 +344,7 @@ class CommandMenu extends React.Component {
         }
     }
     get filtered() {
-        const { embeds = [], search = "", uploadImage, commands, filterable = true, } = this.props;
+        const { embeds = [], search = "", uploadImage, uploadFile, commands, filterable = true, } = this.props;
         let items = this.props.items;
         const embedItems = [];
         for (const embed of embeds) {
@@ -367,6 +367,8 @@ class CommandMenu extends React.Component {
                 return false;
             }
             if (!uploadImage && item.name === "image")
+                return false;
+            if (!uploadFile && item.name === "file")
                 return false;
             if (!search)
                 return !item.defaultHidden;

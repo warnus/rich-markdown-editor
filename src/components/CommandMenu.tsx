@@ -435,6 +435,7 @@ class CommandMenu<T = MenuItem> extends React.Component<Props<T>, State> {
       embeds = [],
       search = "",
       uploadImage,
+      uploadFile,
       commands,
       filterable = true,
     } = this.props;
@@ -472,6 +473,9 @@ class CommandMenu<T = MenuItem> extends React.Component<Props<T>, State> {
       // If no image upload callback has been passed, filter the image block out
       if (!uploadImage && item.name === "image") return false;
 
+      // If no file upload callback has been passed, filter the file block out
+      if (!uploadFile && item.name === "file") return false;
+      
       // some items (defaultHidden) are not visible until a search query exists
       if (!search) return !item.defaultHidden;
 
