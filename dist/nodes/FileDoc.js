@@ -105,9 +105,11 @@ class File extends Node_1.default {
             });
             view.dispatch(transaction);
         };
-        this.component = options => {
-            const { alt, src } = options.node.attrs;
-            return (React.createElement("div", { className: "file", contentEditable: false }, "test"));
+        this.component = props => {
+            const { alt, src } = props.node.attrs;
+            return (React.createElement("div", { className: "file", contentEditable: false },
+                React.createElement("a", { href: src }, "My File"),
+                (props.isEditable || alt) && (React.createElement(Caption, { onKeyDown: this.handleKeyDown(props), onBlur: this.handleBlur(props), tabIndex: -1, contentEditable: props.isEditable, suppressContentEditableWarning: true }, alt))));
         };
     }
     get name() {

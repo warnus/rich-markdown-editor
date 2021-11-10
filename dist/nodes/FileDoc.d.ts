@@ -35,7 +35,7 @@ export default class File extends Node {
         node: any;
         getPos: any;
     }) => (event: any) => void;
-    component: (options: any) => JSX.Element;
+    component: (props: any) => JSX.Element;
     toMarkdown(state: any, node: any): void;
     parseMarkdown(): {
         node: string;
