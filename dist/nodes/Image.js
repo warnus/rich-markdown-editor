@@ -23,6 +23,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const React = __importStar(require("react"));
+const outline_icons_1 = require("outline-icons");
 const prosemirror_state_1 = require("prosemirror-state");
 const prosemirror_inputrules_1 = require("prosemirror-inputrules");
 const styled_components_1 = __importDefault(require("styled-components"));
@@ -161,6 +162,8 @@ class Image extends Node_1.default {
             const className = layoutClass ? `image image-${layoutClass}` : "image";
             return (React.createElement("div", { contentEditable: false, className: className },
                 React.createElement(ImageWrapper, { className: isSelected ? "ProseMirror-selectednode" : "", onClick: this.handleSelect(props) },
+                    React.createElement(Button, null,
+                        React.createElement(outline_icons_1.DownloadIcon, { color: "currentColor", onClick: this.handleDownload(props) })),
                     React.createElement(react_medium_image_zoom_1.default, { image: {
                             src,
                             alt,
