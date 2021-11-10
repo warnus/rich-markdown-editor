@@ -158,7 +158,7 @@ export default class File extends Node {
 
     return (
       <div className="file" contentEditable={false}>
-        <a href={src}>My File</a>
+        {/* <a href={src}>My File</a>
         {(options.isEditable || alt) && (
           <Caption
             onKeyDown={this.handleKeyDown(options)}
@@ -169,7 +169,8 @@ export default class File extends Node {
           >
             {alt}
           </Caption>
-        )}
+        )} */}
+        test
       </div>
     );
   };

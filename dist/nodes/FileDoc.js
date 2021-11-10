@@ -107,9 +107,7 @@ class File extends Node_1.default {
         };
         this.component = options => {
             const { alt, src } = options.node.attrs;
-            return (React.createElement("div", { className: "file", contentEditable: false },
-                React.createElement("a", { href: src }, "My File"),
-                (options.isEditable || alt) && (React.createElement(Caption, { onKeyDown: this.handleKeyDown(options), onBlur: this.handleBlur(options), tabIndex: -1, contentEditable: options.isEditable, suppressContentEditableWarning: true }, alt))));
+            return (React.createElement("div", { className: "file", contentEditable: false }, "test"));
         };
     }
     get name() {
