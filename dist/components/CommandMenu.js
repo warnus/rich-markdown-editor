@@ -58,6 +58,7 @@ class CommandMenu extends React.Component {
         super(...arguments);
         this.menuRef = React.createRef();
         this.inputRef = React.createRef();
+        this.fileInputRef = React.createRef();
         this.state = {
             left: -1000,
             top: 0,
@@ -122,6 +123,8 @@ class CommandMenu extends React.Component {
             switch (item.name) {
                 case "image":
                     return this.triggerImagePick();
+                case "file":
+                    return this.triggerFilePick();
                 case "embed":
                     return this.triggerLinkInput(item);
                 case "link": {
@@ -185,6 +188,11 @@ class CommandMenu extends React.Component {
         this.triggerImagePick = () => {
             if (this.inputRef.current) {
                 this.inputRef.current.click();
+            }
+        };
+        this.triggerFilePick = () => {
+            if (this.fileInputRef.current) {
+                this.fileInputRef.current.click();
             }
         };
         this.triggerLinkInput = item => {
@@ -372,7 +380,7 @@ class CommandMenu extends React.Component {
         return filterExcessSeparators_1.default(filtered);
     }
     render() {
-        const { dictionary, isActive, uploadImage } = this.props;
+        const { dictionary, isActive, uploadImage, uploadFile } = this.props;
         const items = this.filtered;
         const _a = this.state, { insertItem } = _a, positioning = __rest(_a, ["insertItem"]);
         return (React.createElement(react_portal_1.Portal, null,
@@ -398,7 +406,9 @@ class CommandMenu extends React.Component {
                     items.length === 0 && (React.createElement(ListItem, null,
                         React.createElement(Empty, null, dictionary.noResults))))),
                 uploadImage && (React.createElement(VisuallyHidden_1.default, null,
-                    React.createElement("input", { type: "file", ref: this.inputRef, onChange: this.handleImagePicked, accept: "image/*" }))))));
+                    React.createElement("input", { type: "file", ref: this.inputRef, onChange: this.handleImagePicked, accept: "image/*" }))),
+                uploadFile && (React.createElement(VisuallyHidden_1.default, null,
+                    React.createElement("input", { type: "file", ref: this.fileInputRef, onChange: this.handleFilePicked, accept: "*" }))))));
     }
 }
 const LinkInputWrapper = styled_components_1.default.div `

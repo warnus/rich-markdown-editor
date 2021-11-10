@@ -39,6 +39,7 @@ declare type State = {
 declare class CommandMenu<T = MenuItem> extends React.Component<Props<T>, State> {
     menuRef: React.RefObject<HTMLDivElement>;
     inputRef: React.RefObject<HTMLInputElement>;
+    fileInputRef: React.RefObject<HTMLInputElement>;
     state: State;
     componentDidMount(): void;
     shouldComponentUpdate(nextProps: any, nextState: any): boolean;
@@ -50,6 +51,7 @@ declare class CommandMenu<T = MenuItem> extends React.Component<Props<T>, State>
     handleLinkInputKeydown: (event: React.KeyboardEvent<HTMLInputElement>) => void;
     handleLinkInputPaste: (event: React.ClipboardEvent<HTMLInputElement>) => void;
     triggerImagePick: () => void;
+    triggerFilePick: () => void;
     triggerLinkInput: (item: any) => void;
     handleImagePicked: (event: any) => void;
     handleFilePicked: (event: any) => void;
