@@ -7,8 +7,7 @@ const prosemirror_commands_1 = require("prosemirror-commands");
 const prosemirror_state_1 = require("prosemirror-state");
 const prosemirror_inputrules_1 = require("prosemirror-inputrules");
 const Mark_1 = __importDefault(require("./Mark"));
-const isModKey_1 = __importDefault(require("../lib/isModKey"));
-const LINK_INPUT_REGEX = /\[(.+)]\((\S+)\)/;
+const LINK_INPUT_REGEX = /\[([^[]+)]\((\S+)\)$/;
 function isPlainURL(link, parent, index, side) {
     if (link.attrs.title || !/^\w+:/.test(link.attrs.href)) {
         return false;
@@ -83,7 +82,7 @@ class Link extends Mark_1.default {
             new prosemirror_state_1.Plugin({
                 props: {
                     handleDOMEvents: {
-                        mouseover: (view, event) => {
+                        mouseover: (_view, event) => {
                             if (event.target instanceof HTMLAnchorElement &&
                                 !event.target.className.includes("ProseMirror-widget")) {
                                 if (this.options.onHoverLink) {
@@ -92,12 +91,7 @@ class Link extends Mark_1.default {
                             }
                             return false;
                         },
-                        click: (view, event) => {
-                            if (view.props.editable &&
-                                view.props.editable(view.state) &&
-                                !isModKey_1.default(event)) {
-                                return false;
-                            }
+                        click: (_view, event) => {
                             if (event.target instanceof HTMLAnchorElement) {
                                 const href = event.target.href ||
                                     (event.target.parentNode instanceof HTMLAnchorElement

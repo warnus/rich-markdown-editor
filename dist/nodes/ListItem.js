@@ -8,6 +8,7 @@ const prosemirror_state_1 = require("prosemirror-state");
 const prosemirror_view_1 = require("prosemirror-view");
 const prosemirror_utils_1 = require("prosemirror-utils");
 const Node_1 = __importDefault(require("./Node"));
+const isList_1 = __importDefault(require("../queries/isList"));
 const isInList_1 = __importDefault(require("../queries/isInList"));
 const getParentListItem_1 = __importDefault(require("../queries/getParentListItem"));
 class ListItem extends Node_1.default {
@@ -43,9 +44,26 @@ class ListItem extends Node_1.default {
                                 if (!result) {
                                     return set;
                                 }
-                                return prosemirror_view_1.DecorationSet.create(tr.doc, [
+                                const list = prosemirror_utils_1.findParentNodeClosestToPos(newState.doc.resolve(action.pos), node => isList_1.default(node, this.editor.schema));
+                                if (!list) {
+                                    return set;
+                                }
+                                const start = list.node.attrs.order || 1;
+                                let listItemNumber = 0;
+                                list.node.content.forEach((li, _, index) => {
+                                    if (li === result.node) {
+                                        listItemNumber = index;
+                                    }
+                                });
+                                const counterLength = String(start + listItemNumber).length;
+                                return set.add(tr.doc, [
                                     prosemirror_view_1.Decoration.node(result.pos, result.pos + result.node.nodeSize, {
-                                        class: "hovering",
+                                        class: `hovering`,
+                                    }, {
+                                        hover: true,
+                                    }),
+                                    prosemirror_view_1.Decoration.node(result.pos, result.pos + result.node.nodeSize, {
+                                        class: `counter-${counterLength}`,
                                     }),
                                 ]);
                             }
@@ -55,7 +73,7 @@ class ListItem extends Node_1.default {
                                 if (!result) {
                                     return set;
                                 }
-                                return set.remove(set.find(result.pos, result.pos + result.node.nodeSize));
+                                return set.remove(set.find(result.pos, result.pos + result.node.nodeSize, spec => spec.hover));
                             }
                             default:
                         }

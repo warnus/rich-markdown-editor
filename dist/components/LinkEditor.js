@@ -62,7 +62,10 @@ class LinkEditor extends React.Component {
                 return;
             this.discardInputValue = true;
             const { from, to } = this.props;
-            if (!isUrl_1.default(href) && !href.startsWith("/") && !href.startsWith("#")) {
+            if (!isUrl_1.default(href) &&
+                !href.startsWith("/") &&
+                !href.startsWith("#") &&
+                !href.startsWith("mailto:")) {
                 href = `https://${href}`;
             }
             this.props.onSelectLink({ href, title, from, to });
@@ -152,6 +155,9 @@ class LinkEditor extends React.Component {
                 }
             }
         };
+        this.handlePaste = () => {
+            setTimeout(() => this.save(this.state.value, this.state.value), 0);
+        };
         this.handleOpenLink = (event) => {
             event.preventDefault();
             this.props.onClickLink(this.href, event);
@@ -217,7 +223,7 @@ class LinkEditor extends React.Component {
         return (React.createElement(Wrapper, null,
             React.createElement(Input_1.default, { value: value, placeholder: showCreateLink
                     ? dictionary.findOrCreateDoc
-                    : dictionary.searchOrPasteLink, onKeyDown: this.handleKeyDown, onChange: this.handleChange, autoFocus: this.href === "" }),
+                    : dictionary.searchOrPasteLink, onKeyDown: this.handleKeyDown, onPaste: this.handlePaste, onChange: this.handleChange, autoFocus: this.href === "" }),
             React.createElement(ToolbarButton_1.default, { onClick: this.handleOpenLink, disabled: !value },
                 React.createElement(Tooltip, { tooltip: dictionary.openLink, placement: "top" },
                     React.createElement(outline_icons_1.OpenIcon, { color: theme.toolbarItem }))),
@@ -237,6 +243,7 @@ const Wrapper = styled_components_1.default(Flex_1.default) `
   margin-left: -8px;
   margin-right: -8px;
   min-width: 336px;
+  pointer-events: all;
 `;
 const SearchResults = styled_components_1.default.ol `
   background: ${props => props.theme.toolbarBackground};

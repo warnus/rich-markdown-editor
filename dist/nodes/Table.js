@@ -8,6 +8,7 @@ const prosemirror_view_1 = require("prosemirror-view");
 const prosemirror_tables_1 = require("prosemirror-tables");
 const prosemirror_utils_1 = require("prosemirror-utils");
 const prosemirror_state_1 = require("prosemirror-state");
+const tables_1 = __importDefault(require("../rules/tables"));
 class Table extends Node_1.default {
     get name() {
         return "table";
@@ -31,6 +32,9 @@ class Table extends Node_1.default {
                 ];
             },
         };
+    }
+    get rulePlugins() {
+        return [tables_1.default];
     }
     commands({ schema }) {
         return {

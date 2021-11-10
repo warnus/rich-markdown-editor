@@ -44,11 +44,11 @@ const insertFiles = function (view, event, pos, files, options) {
         view.dispatch(tr);
         uploadImage(file)
             .then(src => {
-            const pos = uploadPlaceholder_1.findPlaceholder(view.state, id);
-            if (pos === null)
-                return;
             const newImg = new Image();
             newImg.onload = () => {
+                const pos = uploadPlaceholder_1.findPlaceholder(view.state, id);
+                if (pos === null)
+                    return;
                 const transaction = view.state.tr
                     .replaceWith(pos, pos, schema.nodes.image.create({ src }))
                     .setMeta(uploadPlaceholder_1.default, { remove: { id } });
@@ -71,9 +71,8 @@ const insertFiles = function (view, event, pos, files, options) {
         })
             .finally(() => {
             complete++;
-            if (complete === images.length) {
-                if (onImageUploadStop)
-                    onImageUploadStop();
+            if (complete === images.length && onImageUploadStop) {
+                onImageUploadStop();
             }
         });
     }

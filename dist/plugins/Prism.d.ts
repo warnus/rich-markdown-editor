@@ -10,6 +10,7 @@ export declare const LANGUAGES: {
     java: string;
     javascript: string;
     json: string;
+    perl: string;
     php: string;
     powershell: string;
     python: string;

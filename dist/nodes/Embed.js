@@ -24,6 +24,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const React = __importStar(require("react"));
 const Node_1 = __importDefault(require("./Node"));
+const embeds_1 = __importDefault(require("../rules/embeds"));
 const cache = {};
 class Embed extends Node_1.default {
     get name() {
@@ -36,7 +37,6 @@ class Embed extends Node_1.default {
             atom: true,
             attrs: {
                 href: {},
-                matches: {},
             },
             parseDOM: [
                 {
@@ -50,7 +50,6 @@ class Embed extends Node_1.default {
                                 if (matches) {
                                     return {
                                         href,
-                                        matches,
                                     };
                                 }
                             }
@@ -66,21 +65,28 @@ class Embed extends Node_1.default {
             ],
         };
     }
+    get rulePlugins() {
+        return [embeds_1.default(this.options.embeds)];
+    }
     component({ isEditable, isSelected, theme, node }) {
         const { embeds } = this.editor.props;
-        let Component = cache[node.attrs.href];
+        const hit = cache[node.attrs.href];
+        let Component = hit ? hit.Component : undefined;
+        let matches = hit ? hit.matches : undefined;
         if (!Component) {
             for (const embed of embeds) {
-                const matches = embed.matcher(node.attrs.href);
-                if (matches) {
-                    Component = cache[node.attrs.href] = embed.component;
+                const m = embed.matcher(node.attrs.href);
+                if (m) {
+                    Component = embed.component;
+                    matches = m;
+                    cache[node.attrs.href] = { Component, matches };
                 }
             }
         }
         if (!Component) {
             return null;
         }
-        return (React.createElement(Component, { attrs: node.attrs, isEditable: isEditable, isSelected: isSelected, theme: theme }));
+        return (React.createElement(Component, { attrs: Object.assign(Object.assign({}, node.attrs), { matches }), isEditable: isEditable, isSelected: isSelected, theme: theme }));
     }
     commands({ type }) {
         return attrs => (state, dispatch) => {
@@ -98,7 +104,6 @@ class Embed extends Node_1.default {
             node: "embed",
             getAttrs: token => ({
                 href: token.attrGet("href"),
-                matches: token.attrGet("matches"),
             }),
         };
     }

@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const prosemirror_commands_1 = require("prosemirror-commands");
 const markInputRule_1 = __importDefault(require("../lib/markInputRule"));
 const Mark_1 = __importDefault(require("./Mark"));
+const underlines_1 = __importDefault(require("../rules/underlines"));
 class Underline extends Mark_1.default {
     get name() {
         return "underline";
@@ -21,6 +22,9 @@ class Underline extends Mark_1.default {
             ],
             toDOM: () => ["u", 0],
         };
+    }
+    get rulePlugins() {
+        return [underlines_1.default];
     }
     inputRules({ type }) {
         return [markInputRule_1.default(/(?:__)([^_]+)(?:__)$/, type)];

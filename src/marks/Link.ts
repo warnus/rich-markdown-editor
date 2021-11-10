@@ -2,9 +2,8 @@ import { toggleMark } from "prosemirror-commands";
 import { Plugin } from "prosemirror-state";
 import { InputRule } from "prosemirror-inputrules";
 import Mark from "./Mark";
-import isModKey from "../lib/isModKey";
 
-const LINK_INPUT_REGEX = /\[(.+)]\((\S+)\)/;
+const LINK_INPUT_REGEX = /\[([^[]+)]\((\S+)\)$/;
 
 function isPlainURL(link, parent, index, side) {
   if (link.attrs.title || !/^\w+:/.test(link.attrs.href)) {
@@ -101,7 +100,7 @@ export default class Link extends Mark {
       new Plugin({
         props: {
           handleDOMEvents: {
-            mouseover: (view, event: MouseEvent) => {
+            mouseover: (_view, event: MouseEvent) => {
               if (
                 event.target instanceof HTMLAnchorElement &&
                 !event.target.className.includes("ProseMirror-widget")
@@ -112,16 +111,7 @@ export default class Link extends Mark {
               }
               return false;
             },
-            click: (view, event: MouseEvent) => {
-              // allow opening links in editing mode with the meta/cmd key
-              if (
-                view.props.editable &&
-                view.props.editable(view.state) &&
-                !isModKey(event)
-              ) {
-                return false;
-              }
-
+            click: (_view, event: MouseEvent) => {
               if (event.target instanceof HTMLAnchorElement) {
                 const href =
                   event.target.href ||

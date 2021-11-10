@@ -1,7 +1,7 @@
 import * as React from "react";
 import { EditorView } from "prosemirror-view";
 import { Mark } from "prosemirror-model";
-import theme from "../theme";
+import theme from "../styles/theme";
 import baseDictionary from "../dictionary";
 export declare type SearchResult = {
     title: string;
@@ -48,6 +48,7 @@ declare class LinkEditor extends React.Component<Props, State> {
     handleKeyDown: (event: React.KeyboardEvent) => void;
     handleFocusLink: (selectedIndex: number) => void;
     handleChange: (event: any) => Promise<void>;
+    handlePaste: () => void;
     handleOpenLink: (event: any) => void;
     handleCreateLink: (value: string) => Promise<void> | undefined;
     handleRemoveLink: () => void;

@@ -16,6 +16,9 @@ class Extension {
     get plugins() {
         return [];
     }
+    get rulePlugins() {
+        return [];
+    }
     keys(options) {
         return {};
     }

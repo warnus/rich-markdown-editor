@@ -33,10 +33,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const assert_1 = __importDefault(require("assert"));
 const React = __importStar(require("react"));
 const react_portal_1 = require("react-portal");
 const some_1 = __importDefault(require("lodash/some"));
+const prosemirror_state_1 = require("prosemirror-state");
 const tableCol_1 = __importDefault(require("../menus/tableCol"));
 const tableRow_1 = __importDefault(require("../menus/tableRow"));
 const table_1 = __importDefault(require("../menus/table"));
@@ -45,7 +45,8 @@ const image_1 = __importDefault(require("../menus/image"));
 const divider_1 = __importDefault(require("../menus/divider"));
 const FloatingToolbar_1 = __importDefault(require("./FloatingToolbar"));
 const LinkEditor_1 = __importDefault(require("./LinkEditor"));
-const Menu_1 = __importDefault(require("./Menu"));
+const ToolbarMenu_1 = __importDefault(require("./ToolbarMenu"));
+const filterExcessSeparators_1 = __importDefault(require("../lib/filterExcessSeparators"));
 const isMarkActive_1 = __importDefault(require("../queries/isMarkActive"));
 const getMarkRange_1 = __importDefault(require("../queries/getMarkRange"));
 const isNodeActive_1 = __importDefault(require("../queries/isNodeActive"));
@@ -76,6 +77,23 @@ class SelectionToolbar extends React.Component {
     constructor() {
         super(...arguments);
         this.isActive = false;
+        this.menuRef = React.createRef();
+        this.handleClickOutside = (ev) => {
+            if (ev.target instanceof Node &&
+                this.menuRef.current &&
+                this.menuRef.current.contains(ev.target)) {
+                return;
+            }
+            if (!this.isActive) {
+                return;
+            }
+            const { view } = this.props;
+            if (view.hasFocus()) {
+                return;
+            }
+            const { dispatch } = view;
+            dispatch(view.state.tr.setSelection(new prosemirror_state_1.TextSelection(view.state.doc.resolve(0))));
+        };
         this.handleOnCreateLink = async (title) => {
             const { dictionary, onCreateLink, view, onShowToast } = this.props;
             if (!onCreateLink) {
@@ -83,7 +101,9 @@ class SelectionToolbar extends React.Component {
             }
             const { dispatch, state } = view;
             const { from, to } = state.selection;
-            assert_1.default(from !== to);
+            if (from === to) {
+                return;
+            }
             const href = `creating#${title}…`;
             const markType = state.schema.marks.link;
             dispatch(view.state.tr
@@ -115,6 +135,12 @@ class SelectionToolbar extends React.Component {
             this.props.onOpen();
         }
     }
+    componentDidMount() {
+        window.addEventListener("mouseup", this.handleClickOutside);
+    }
+    componentWillUnmount() {
+        window.removeEventListener("mouseup", this.handleClickOutside);
+    }
     render() {
         const _a = this.props, { dictionary, onCreateLink, isTemplate, rtl } = _a, rest = __rest(_a, ["dictionary", "onCreateLink", "isTemplate", "rtl"]);
         const { view } = rest;
@@ -131,6 +157,7 @@ class SelectionToolbar extends React.Component {
         const link = isMarkActive_1.default(state.schema.marks.link)(state);
         const range = getMarkRange_1.default(selection.$from, state.schema.marks.link);
         const isImageSelection = selection.node && selection.node.type.name === "image";
+        let isTextSelection = false;
         let items = [];
         if (isTableSelection) {
             items = table_1.default(dictionary);
@@ -149,6 +176,7 @@ class SelectionToolbar extends React.Component {
         }
         else {
             items = formatting_1.default(state, isTemplate, dictionary);
+            isTextSelection = true;
         }
         items = items.filter(item => {
             if (item.name === "separator")
@@ -157,11 +185,16 @@ class SelectionToolbar extends React.Component {
                 return false;
             return true;
         });
+        items = filterExcessSeparators_1.default(items);
         if (!items.length) {
             return null;
         }
+        const selectionText = state.doc.cut(state.selection.from, state.selection.to).textContent;
+        if (isTextSelection && !selectionText) {
+            return null;
+        }
         return (React.createElement(react_portal_1.Portal, null,
-            React.createElement(FloatingToolbar_1.default, { view: view, active: isVisible(this.props) }, link && range ? (React.createElement(LinkEditor_1.default, Object.assign({ dictionary: dictionary, mark: range.mark, from: range.from, to: range.to, onCreateLink: onCreateLink ? this.handleOnCreateLink : undefined, onSelectLink: this.handleOnSelectLink }, rest))) : (React.createElement(Menu_1.default, Object.assign({ items: items }, rest))))));
+            React.createElement(FloatingToolbar_1.default, { view: view, active: isVisible(this.props), ref: this.menuRef }, link && range ? (React.createElement(LinkEditor_1.default, Object.assign({ dictionary: dictionary, mark: range.mark, from: range.from, to: range.to, onCreateLink: onCreateLink ? this.handleOnCreateLink : undefined, onSelectLink: this.handleOnSelectLink }, rest))) : (React.createElement(ToolbarMenu_1.default, Object.assign({ items: items }, rest))))));
     }
 }
 exports.default = SelectionToolbar;

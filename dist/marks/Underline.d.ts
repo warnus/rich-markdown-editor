@@ -1,4 +1,5 @@
 import Mark from "./Mark";
+import underlinesRule from "../rules/underlines";
 export default class Underline extends Mark {
     get name(): string;
     get schema(): {
@@ -13,6 +14,7 @@ export default class Underline extends Mark {
         })[];
         toDOM: () => (string | number)[];
     };
+    get rulePlugins(): (typeof underlinesRule)[];
     inputRules({ type }: {
         type: any;
     }): import("prosemirror-inputrules").InputRule<any>[];

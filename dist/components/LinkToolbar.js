@@ -33,7 +33,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const assert_1 = __importDefault(require("assert"));
 const React = __importStar(require("react"));
 const LinkEditor_1 = __importDefault(require("./LinkEditor"));
 const FloatingToolbar_1 = __importDefault(require("./FloatingToolbar"));
@@ -74,7 +73,9 @@ class LinkToolbar extends React.Component {
             }
             const { dispatch, state } = view;
             const { from, to } = state.selection;
-            assert_1.default(from === to);
+            if (from !== to) {
+                return;
+            }
             const href = `creating#${title}…`;
             dispatch(view.state.tr
                 .insertText(title, from, to)
@@ -91,7 +92,9 @@ class LinkToolbar extends React.Component {
             this.props.view.focus();
             const { dispatch, state } = view;
             const { from, to } = state.selection;
-            assert_1.default(from === to);
+            if (from !== to) {
+                return;
+            }
             dispatch(view.state.tr
                 .insertText(title, from, to)
                 .addMark(from, to + title.length, state.schema.marks.link.create({ href })));

@@ -20,6 +20,7 @@ exports.LANGUAGES = {
     java: "Java",
     javascript: "JavaScript",
     json: "JSON",
+    perl: "Perl",
     php: "PHP",
     powershell: "Powershell",
     python: "Python",
@@ -92,7 +93,8 @@ function Prism({ name }) {
                 const nodeName = state.selection.$head.parent.type.name;
                 const previousNodeName = oldState.selection.$head.parent.type.name;
                 const codeBlockChanged = transaction.docChanged && [nodeName, previousNodeName].includes(name);
-                if (!highlighted || codeBlockChanged) {
+                const ySyncEdit = !!transaction.getMeta("y-sync$");
+                if (!highlighted || codeBlockChanged || ySyncEdit) {
                     highlighted = true;
                     return getDecorations({ doc: transaction.doc, name });
                 }

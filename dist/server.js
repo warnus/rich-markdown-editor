@@ -10,6 +10,7 @@ const renderToHtml_1 = __importDefault(require("./lib/renderToHtml"));
 const Doc_1 = __importDefault(require("./nodes/Doc"));
 const Text_1 = __importDefault(require("./nodes/Text"));
 const Blockquote_1 = __importDefault(require("./nodes/Blockquote"));
+const Emoji_1 = __importDefault(require("./nodes/Emoji"));
 const BulletList_1 = __importDefault(require("./nodes/BulletList"));
 const CodeBlock_1 = __importDefault(require("./nodes/CodeBlock"));
 const CodeFence_1 = __importDefault(require("./nodes/CodeFence"));
@@ -43,6 +44,7 @@ const extensions = new ExtensionManager_1.default([
     new HardBreak_1.default(),
     new Paragraph_1.default(),
     new Blockquote_1.default(),
+    new Emoji_1.default(),
     new BulletList_1.default(),
     new CodeBlock_1.default(),
     new CodeFence_1.default(),
@@ -75,7 +77,9 @@ exports.schema = new prosemirror_model_1.Schema({
 });
 exports.parser = extensions.parser({
     schema: exports.schema,
+    plugins: extensions.rulePlugins,
 });
 exports.serializer = extensions.serializer();
-exports.renderToHtml = renderToHtml_1.default;
+const renderToHtml = (markdown) => renderToHtml_1.default(markdown, extensions.rulePlugins);
+exports.renderToHtml = renderToHtml;
 //# sourceMappingURL=server.js.map

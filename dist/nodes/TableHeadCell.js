@@ -67,6 +67,7 @@ class TableHeadCell extends Node_1.default {
                                     grip.className = className;
                                     grip.addEventListener("mousedown", event => {
                                         event.preventDefault();
+                                        event.stopImmediatePropagation();
                                         this.options.onSelectColumn(index, state);
                                     });
                                     return grip;

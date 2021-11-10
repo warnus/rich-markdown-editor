@@ -22,6 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.run = void 0;
 const prosemirror_inputrules_1 = require("prosemirror-inputrules");
 const react_dom_1 = __importDefault(require("react-dom"));
 const React = __importStar(require("react"));
@@ -50,6 +51,7 @@ function run(view, from, to, regex, handler) {
         return false;
     return true;
 }
+exports.run = run;
 class BlockMenuTrigger extends Extension_1.default {
     get name() {
         return "blockmenu";

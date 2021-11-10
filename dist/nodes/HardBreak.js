@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Node_1 = __importDefault(require("./Node"));
 const prosemirror_tables_1 = require("prosemirror-tables");
+const breaks_1 = __importDefault(require("../rules/breaks"));
 class HardBreak extends Node_1.default {
     get name() {
         return "br";
@@ -19,6 +20,9 @@ class HardBreak extends Node_1.default {
                 return ["br"];
             },
         };
+    }
+    get rulePlugins() {
+        return [breaks_1.default];
     }
     commands({ type }) {
         return () => (state, dispatch) => {

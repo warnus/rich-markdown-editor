@@ -25,7 +25,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const React = __importStar(require("react"));
 const react_dom_1 = __importDefault(require("react-dom"));
 const styled_components_1 = require("styled-components");
-const theme_1 = require("../theme");
+const theme_1 = require("../styles/theme");
 class ComponentView {
     constructor(component, { editor, extension, node, view, getPos, decorations }) {
         this.isSelected = false;

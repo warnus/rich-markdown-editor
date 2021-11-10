@@ -23,7 +23,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const React = __importStar(require("react"));
-const theme_1 = require("../theme");
+const theme_1 = require("../styles/theme");
 const __1 = __importDefault(require(".."));
 const docSearchResults = [
     {

@@ -192,10 +192,6 @@ class MarkdownSerializerState {
         this.inTable = true;
         this.out += "\n";
         node.forEach((row, _, i) => {
-            if (headerBuffer) {
-                this.out += `${headerBuffer}|\n`;
-                headerBuffer = undefined;
-            }
             row.forEach((cell, _, j) => {
                 this.out += j === 0 ? "| " : " | ";
                 cell.forEach(para => {
@@ -223,6 +219,10 @@ class MarkdownSerializerState {
                 }
             });
             this.out += " |\n";
+            if (headerBuffer) {
+                this.out += `${headerBuffer}|\n`;
+                headerBuffer = undefined;
+            }
         });
         this.inTable = prevTable;
     }

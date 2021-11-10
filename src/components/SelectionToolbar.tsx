@@ -1,8 +1,8 @@
-import assert from "assert";
 import * as React from "react";
 import { Portal } from "react-portal";
 import some from "lodash/some";
 import { EditorView } from "prosemirror-view";
+import { TextSelection } from "prosemirror-state";
 import getTableColMenuItems from "../menus/tableCol";
 import getTableRowMenuItems from "../menus/tableRow";
 import getTableMenuItems from "../menus/table";
@@ -11,7 +11,8 @@ import getImageMenuItems from "../menus/image";
 import getDividerMenuItems from "../menus/divider";
 import FloatingToolbar from "./FloatingToolbar";
 import LinkEditor, { SearchResult } from "./LinkEditor";
-import Menu from "./Menu";
+import ToolbarMenu from "./ToolbarMenu";
+import filterExcessSeparators from "../lib/filterExcessSeparators";
 import isMarkActive from "../queries/isMarkActive";
 import getMarkRange from "../queries/getMarkRange";
 import isNodeActive from "../queries/isNodeActive";
@@ -59,6 +60,7 @@ function isVisible(props) {
 
 export default class SelectionToolbar extends React.Component<Props> {
   isActive = false;
+  menuRef = React.createRef<HTMLDivElement>();
 
   componentDidUpdate(): void {
     const visible = isVisible(this.props);
@@ -72,6 +74,39 @@ export default class SelectionToolbar extends React.Component<Props> {
     }
   }
 
+  componentDidMount(): void {
+    window.addEventListener("mouseup", this.handleClickOutside);
+  }
+
+  componentWillUnmount(): void {
+    window.removeEventListener("mouseup", this.handleClickOutside);
+  }
+
+  handleClickOutside = (ev: MouseEvent): void => {
+    if (
+      ev.target instanceof Node &&
+      this.menuRef.current &&
+      this.menuRef.current.contains(ev.target)
+    ) {
+      return;
+    }
+
+    if (!this.isActive) {
+      return;
+    }
+
+    const { view } = this.props;
+    if (view.hasFocus()) {
+      return;
+    }
+
+    const { dispatch } = view;
+
+    dispatch(
+      view.state.tr.setSelection(new TextSelection(view.state.doc.resolve(0)))
+    );
+  };
+
   handleOnCreateLink = async (title: string): Promise<void> => {
     const { dictionary, onCreateLink, view, onShowToast } = this.props;
 
@@ -81,7 +116,10 @@ export default class SelectionToolbar extends React.Component<Props> {
 
     const { dispatch, state } = view;
     const { from, to } = state.selection;
-    assert(from !== to);
+    if (from === to) {
+      // selection cannot be collapsed
+      return;
+    }
 
     const href = `creating#${title}…`;
     const markType = state.schema.marks.link;
@@ -141,6 +179,7 @@ export default class SelectionToolbar extends React.Component<Props> {
     const range = getMarkRange(selection.$from, state.schema.marks.link);
     const isImageSelection =
       selection.node && selection.node.type.name === "image";
+    let isTextSelection = false;
 
     let items: MenuItem[] = [];
     if (isTableSelection) {
@@ -155,6 +194,7 @@ export default class SelectionToolbar extends React.Component<Props> {
       items = getDividerMenuItems(state, dictionary);
     } else {
       items = getFormattingMenuItems(state, isTemplate, dictionary);
+      isTextSelection = true;
     }
 
     // Some extensions may be disabled, remove corresponding items
@@ -164,13 +204,27 @@ export default class SelectionToolbar extends React.Component<Props> {
       return true;
     });
 
+    items = filterExcessSeparators(items);
     if (!items.length) {
+      return null;
+    }
+
+    const selectionText = state.doc.cut(
+      state.selection.from,
+      state.selection.to
+    ).textContent;
+
+    if (isTextSelection && !selectionText) {
       return null;
     }
 
     return (
       <Portal>
-        <FloatingToolbar view={view} active={isVisible(this.props)}>
+        <FloatingToolbar
+          view={view}
+          active={isVisible(this.props)}
+          ref={this.menuRef}
+        >
           {link && range ? (
             <LinkEditor
               dictionary={dictionary}
@@ -182,7 +236,7 @@ export default class SelectionToolbar extends React.Component<Props> {
               {...rest}
             />
           ) : (
-            <Menu items={items} {...rest} />
+            <ToolbarMenu items={items} {...rest} />
           )}
         </FloatingToolbar>
       </Portal>

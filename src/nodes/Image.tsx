@@ -1,8 +1,7 @@
 import * as React from "react";
 import { DownloadIcon } from "outline-icons";
-import { Plugin, NodeSelection } from "prosemirror-state";
+import { Plugin, TextSelection, NodeSelection } from "prosemirror-state";
 import { InputRule } from "prosemirror-inputrules";
-import { setTextSelection } from "prosemirror-utils";
 import styled from "styled-components";
 import ImageZoom from "react-medium-image-zoom";
 import getDataTransferFiles from "../lib/getDataTransferFiles";
@@ -18,7 +17,7 @@ import Node from "./Node";
  * ![](image.jpg "class") -> [, "", "image.jpg", "small"]
  * ![Lorem](image.jpg "class") -> [, "Lorem", "image.jpg", "small"]
  */
-const IMAGE_INPUT_REGEX = /!\[(?<alt>.*?)]\((?<filename>.*?)(?=\“|\))\“?(?<layoutclass>[^\”]+)?\”?\)/;
+const IMAGE_INPUT_REGEX = /!\[(?<alt>[^\]\[]*?)]\((?<filename>[^\]\[]*?)(?=\“|\))\“?(?<layoutclass>[^\]\[\”]+)?\”?\)$/;
 
 const uploadPlugin = options =>
   new Plugin({
@@ -194,9 +193,11 @@ export default class Image extends Node {
       event.preventDefault();
 
       const { view } = this.editor;
-      const pos = getPos() + node.nodeSize;
+      const $pos = view.state.doc.resolve(getPos() + node.nodeSize);
+      view.dispatch(
+        view.state.tr.setSelection(new TextSelection($pos)).split($pos.pos)
+      );
       view.focus();
-      view.dispatch(setTextSelection(pos)(view.state.tr));
       return;
     }
 
@@ -383,6 +384,7 @@ export default class Image extends Node {
       new InputRule(IMAGE_INPUT_REGEX, (state, match, start, end) => {
         const [okay, alt, src, matchedTitle] = match;
         const { tr } = state;
+
         if (okay) {
           tr.replaceWith(
             start - 1,

@@ -25,8 +25,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const React = __importStar(require("react"));
 const smooth_scroll_into_view_if_needed_1 = __importDefault(require("smooth-scroll-into-view-if-needed"));
 const styled_components_1 = __importStar(require("styled-components"));
-const theme_1 = __importDefault(require("../theme"));
-function BlockMenuItem({ selected, disabled, onClick, title, shortcut, icon, }) {
+const theme_1 = __importDefault(require("../styles/theme"));
+function BlockMenuItem({ selected, disabled, onClick, title, shortcut, icon, containerId = "block-menu-container", }) {
     const Icon = icon;
     const ref = React.useCallback(node => {
         if (selected && node) {
@@ -34,16 +34,17 @@ function BlockMenuItem({ selected, disabled, onClick, title, shortcut, icon, }) 
                 scrollMode: "if-needed",
                 block: "center",
                 boundary: parent => {
-                    return parent.id !== "block-menu-container";
+                    return parent.id !== containerId;
                 },
             });
         }
-    }, [selected]);
+    }, [selected, containerId]);
     return (React.createElement(MenuItem, { selected: selected, onClick: disabled ? undefined : onClick, ref: ref },
-        React.createElement(Icon, { color: selected ? theme_1.default.blockToolbarIconSelected : theme_1.default.blockToolbarIcon }),
-        "\u00A0\u00A0",
+        Icon && (React.createElement(React.Fragment, null,
+            React.createElement(Icon, { color: selected ? theme_1.default.blockToolbarIconSelected : theme_1.default.blockToolbarIcon }),
+            "\u00A0\u00A0")),
         title,
-        React.createElement(Shortcut, null, shortcut)));
+        shortcut && React.createElement(Shortcut, null, shortcut)));
 }
 const MenuItem = styled_components_1.default.button `
   display: flex;
@@ -60,7 +61,10 @@ const MenuItem = styled_components_1.default.button `
   color: ${props => props.selected
     ? props.theme.blockToolbarTextSelected
     : props.theme.blockToolbarText};
-  background: ${props => props.selected ? props.theme.blockToolbarTrigger : "none"};
+  background: ${props => props.selected
+    ? props.theme.blockToolbarSelectedBackground ||
+        props.theme.blockToolbarTrigger
+    : "none"};
   padding: 0 16px;
   outline: none;
 
@@ -68,7 +72,8 @@ const MenuItem = styled_components_1.default.button `
   &:active {
     color: ${props => props.theme.blockToolbarTextSelected};
     background: ${props => props.selected
-    ? props.theme.blockToolbarTrigger
+    ? props.theme.blockToolbarSelectedBackground ||
+        props.theme.blockToolbarTrigger
     : props.theme.blockToolbarHoverBackground};
   }
 `;

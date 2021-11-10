@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RTL = exports.Dark = exports.Focused = exports.Images = exports.Placeholder = exports.Persisted = exports.ReadOnlyWriteCheckboxes = exports.Checkboxes = exports.MaxLength = exports.ReadOnly = exports.Notices = exports.Code = exports.Marks = exports.Tables = exports.Blockquotes = exports.Lists = exports.Headings = exports.TemplateDoc = exports.Default = void 0;
+exports.RTL = exports.Dark = exports.Focused = exports.Images = exports.Placeholder = exports.Persisted = exports.ReadOnlyWriteCheckboxes = exports.Checkboxes = exports.MaxLength = exports.ReadOnly = exports.Notices = exports.Code = exports.Marks = exports.Tables = exports.Blockquotes = exports.Lists = exports.Headings = exports.TemplateDoc = exports.Emoji = exports.Default = void 0;
 const index_1 = __importDefault(require("./index"));
 const debounce_1 = __importDefault(require("lodash/debounce"));
 const react_1 = __importDefault(require("react"));
@@ -33,6 +33,14 @@ exports.Default.args = {
     defaultValue: `# Welcome
 
 Just an easy to use **Markdown** editor with \`slash commands\``,
+};
+exports.Emoji = Template.bind({});
+exports.Emoji.args = {
+    defaultValue: `# Emoji
+
+\
+:1st_place_medal:
+`,
 };
 exports.TemplateDoc = Template.bind({});
 exports.TemplateDoc.args = {

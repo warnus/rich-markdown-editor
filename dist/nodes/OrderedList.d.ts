@@ -35,6 +35,9 @@ export default class OrderedList extends Node {
     toMarkdown(state: any, node: any): void;
     parseMarkdown(): {
         block: string;
+        getAttrs: (tok: any) => {
+            order: number;
+        };
     };
 }
 //# sourceMappingURL=OrderedList.d.ts.map

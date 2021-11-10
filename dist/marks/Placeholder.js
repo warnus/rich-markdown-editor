@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const prosemirror_state_1 = require("prosemirror-state");
 const getMarkRange_1 = __importDefault(require("../queries/getMarkRange"));
 const Mark_1 = __importDefault(require("./Mark"));
+const mark_1 = __importDefault(require("../rules/mark"));
 class Placeholder extends Mark_1.default {
     get name() {
         return "placeholder";
@@ -15,6 +16,9 @@ class Placeholder extends Mark_1.default {
             parseDOM: [{ tag: "span.template-placeholder" }],
             toDOM: () => ["span", { class: "template-placeholder" }],
         };
+    }
+    get rulePlugins() {
+        return [mark_1.default({ delim: "!!", mark: "placeholder" })];
     }
     get toMarkdown() {
         return {

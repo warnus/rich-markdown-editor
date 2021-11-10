@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const prosemirror_schema_list_1 = require("prosemirror-schema-list");
 const Node_1 = __importDefault(require("./Node"));
+const checkboxes_1 = __importDefault(require("../rules/checkboxes"));
 class CheckboxItem extends Node_1.default {
     constructor() {
         super(...arguments);
@@ -67,6 +68,9 @@ class CheckboxItem extends Node_1.default {
                 ];
             },
         };
+    }
+    get rulePlugins() {
+        return [checkboxes_1.default];
     }
     keys({ type }) {
         return {

@@ -11,6 +11,7 @@ import Tooltip from "./components/Tooltip";
 import Extension from "./lib/Extension";
 import ExtensionManager from "./lib/ExtensionManager";
 import ComponentView from "./lib/ComponentView";
+import { PluginSimple } from "markdown-it";
 export { schema, parser, serializer, renderToHtml } from "./server";
 export { default as Extension } from "./lib/Extension";
 export declare const theme: {
@@ -67,6 +68,7 @@ export declare const theme: {
     blockToolbarIconSelected: string;
     blockToolbarText: string;
     blockToolbarTextSelected: string;
+    blockToolbarSelectedBackground: string;
     blockToolbarHoverBackground: string;
     blockToolbarDivider: string;
     noticeInfoBackground: string;
@@ -94,7 +96,7 @@ export declare type Props = {
     defaultValue: string;
     placeholder: string;
     extensions: Extension[];
-    disableExtensions?: ("strong" | "code_inline" | "highlight" | "em" | "link" | "placeholder" | "strikethrough" | "underline" | "blockquote" | "bullet_list" | "checkbox_item" | "checkbox_list" | "code_block" | "code_fence" | "embed" | "br" | "heading" | "hr" | "image" | "list_item" | "container_notice" | "ordered_list" | "paragraph" | "table" | "td" | "th" | "tr")[];
+    disableExtensions?: ("strong" | "code_inline" | "highlight" | "em" | "link" | "placeholder" | "strikethrough" | "underline" | "blockquote" | "bullet_list" | "checkbox_item" | "checkbox_list" | "code_block" | "code_fence" | "embed" | "br" | "heading" | "hr" | "image" | "list_item" | "container_notice" | "ordered_list" | "paragraph" | "table" | "td" | "th" | "tr" | "emoji")[];
     autoFocus?: boolean;
     readOnly?: boolean;
     readOnlyWriteCheckboxes?: boolean;
@@ -141,6 +143,7 @@ declare type State = {
     blockMenuOpen: boolean;
     linkMenuOpen: boolean;
     blockMenuSearch: string;
+    emojiMenuOpen: boolean;
 };
 declare class RichMarkdownEditor extends React.PureComponent<Props, State> {
     static defaultProps: {
@@ -163,6 +166,7 @@ declare class RichMarkdownEditor extends React.PureComponent<Props, State> {
         blockMenuOpen: boolean;
         linkMenuOpen: boolean;
         blockMenuSearch: string;
+        emojiMenuOpen: boolean;
     };
     isBlurred: boolean;
     extensions: ExtensionManager;
@@ -185,11 +189,13 @@ declare class RichMarkdownEditor extends React.PureComponent<Props, State> {
         [name: string]: MarkSpec;
     };
     commands: Record<string, any>;
+    rulePlugins: PluginSimple[];
     componentDidMount(): void;
     componentDidUpdate(prevProps: Props): void;
     init(): void;
     createExtensions(): ExtensionManager;
     createPlugins(): Plugin<any, any>[];
+    createRulePlugins(): PluginSimple[];
     createKeymaps(): Plugin<any, any>[];
     createInputRules(): InputRule<any>[];
     createNodeViews(): {};
@@ -281,6 +287,7 @@ declare class RichMarkdownEditor extends React.PureComponent<Props, State> {
         blockToolbarIconSelected: string;
         blockToolbarText: string;
         blockToolbarTextSelected: string;
+        blockToolbarSelectedBackground: string;
         blockToolbarHoverBackground: string;
         blockToolbarDivider: string;
         noticeInfoBackground: string;

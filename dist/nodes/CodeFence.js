@@ -32,6 +32,7 @@ const java_1 = __importDefault(require("refractor/lang/java"));
 const javascript_1 = __importDefault(require("refractor/lang/javascript"));
 const json_1 = __importDefault(require("refractor/lang/json"));
 const markup_1 = __importDefault(require("refractor/lang/markup"));
+const perl_1 = __importDefault(require("refractor/lang/perl"));
 const php_1 = __importDefault(require("refractor/lang/php"));
 const python_1 = __importDefault(require("refractor/lang/python"));
 const powershell_1 = __importDefault(require("refractor/lang/powershell"));
@@ -39,10 +40,11 @@ const ruby_1 = __importDefault(require("refractor/lang/ruby"));
 const sql_1 = __importDefault(require("refractor/lang/sql"));
 const typescript_1 = __importDefault(require("refractor/lang/typescript"));
 const yaml_1 = __importDefault(require("refractor/lang/yaml"));
-const prosemirror_commands_1 = require("prosemirror-commands");
+const prosemirror_state_1 = require("prosemirror-state");
 const prosemirror_inputrules_1 = require("prosemirror-inputrules");
 const copy_to_clipboard_1 = __importDefault(require("copy-to-clipboard"));
 const Prism_1 = __importStar(require("../plugins/Prism"));
+const toggleBlockType_1 = __importDefault(require("../commands/toggleBlockType"));
 const isInCode_1 = __importDefault(require("../queries/isInCode"));
 const Node_1 = __importDefault(require("./Node"));
 const types_1 = require("../types");
@@ -58,6 +60,7 @@ const DEFAULT_LANGUAGE = "javascript";
     javascript_1.default,
     json_1.default,
     markup_1.default,
+    perl_1.default,
     php_1.default,
     python_1.default,
     powershell_1.default,
@@ -92,7 +95,9 @@ class CodeFence extends Node_1.default {
             const result = view.posAtCoords({ top, left });
             if (result) {
                 const language = element.value;
-                const transaction = tr.setNodeMarkup(result.inside, undefined, {
+                const transaction = tr
+                    .setSelection(prosemirror_state_1.Selection.near(view.state.doc.resolve(result.inside)))
+                    .setNodeMarkup(result.inside, undefined, {
                     language,
                 });
                 view.dispatch(transaction);
@@ -156,19 +161,25 @@ class CodeFence extends Node_1.default {
             },
         };
     }
-    commands({ type }) {
-        return () => prosemirror_commands_1.setBlockType(type, {
-            language: (localStorage === null || localStorage === void 0 ? void 0 : localStorage.getItem(PERSISTENCE_KEY)) || DEFAULT_LANGUAGE,
-        });
+    commands({ type, schema }) {
+        return attrs => toggleBlockType_1.default(type, schema.nodes.paragraph, Object.assign({ language: (localStorage === null || localStorage === void 0 ? void 0 : localStorage.getItem(PERSISTENCE_KEY)) || DEFAULT_LANGUAGE }, attrs));
     }
-    keys({ type }) {
+    keys({ type, schema }) {
         return {
-            "Shift-Ctrl-\\": prosemirror_commands_1.setBlockType(type),
+            "Shift-Ctrl-\\": toggleBlockType_1.default(type, schema.nodes.paragraph),
             "Shift-Enter": (state, dispatch) => {
+                var _a, _b;
                 if (!isInCode_1.default(state))
                     return false;
-                const { tr, selection } = state;
-                dispatch(tr.insertText("\n", selection.from, selection.to));
+                const { tr, selection, } = state;
+                const text = (_b = (_a = selection === null || selection === void 0 ? void 0 : selection.$anchor) === null || _a === void 0 ? void 0 : _a.nodeBefore) === null || _b === void 0 ? void 0 : _b.text;
+                let newText = "\n";
+                if (text) {
+                    const splitByNewLine = text.split("\n");
+                    const numOfSpaces = splitByNewLine[splitByNewLine.length - 1].search(/\S|$/);
+                    newText += " ".repeat(numOfSpaces);
+                }
+                dispatch(tr.insertText(newText, selection.from, selection.to));
                 return true;
             },
             Tab: (state, dispatch) => {

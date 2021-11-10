@@ -15,7 +15,6 @@ class ExtensionManager {
             });
         }
         this.extensions = extensions;
-        this.embeds = editor ? editor.props.embeds : undefined;
     }
     get nodes() {
         return this.extensions
@@ -31,7 +30,7 @@ class ExtensionManager {
             .reduce((marks, extension) => (Object.assign(Object.assign({}, marks), { [extension.name]: extension.toMarkdown })), {});
         return new serializer_1.MarkdownSerializer(nodes, marks);
     }
-    parser({ schema, rules, }) {
+    parser({ schema, rules, plugins, }) {
         const tokens = this.extensions
             .filter(extension => extension.type === "mark" || extension.type === "node")
             .reduce((nodes, extension) => {
@@ -40,7 +39,7 @@ class ExtensionManager {
                 return nodes;
             return Object.assign(Object.assign({}, nodes), { [extension.markdownToken || extension.name]: md });
         }, {});
-        return new prosemirror_markdown_1.MarkdownParser(schema, rules_1.default({ embeds: this.embeds, rules }), tokens);
+        return new prosemirror_markdown_1.MarkdownParser(schema, rules_1.default({ rules, plugins }), tokens);
     }
     get marks() {
         return this.extensions
@@ -49,8 +48,16 @@ class ExtensionManager {
     }
     get plugins() {
         return this.extensions
-            .filter(extension => extension.plugins)
+            .filter(extension => "plugins" in extension)
             .reduce((allPlugins, { plugins }) => [...allPlugins, ...plugins], []);
+    }
+    get rulePlugins() {
+        return this.extensions
+            .filter(extension => "rulePlugins" in extension)
+            .reduce((allRulePlugins, { rulePlugins }) => [
+            ...allRulePlugins,
+            ...rulePlugins,
+        ], []);
     }
     keymaps({ schema }) {
         const extensionKeymaps = this.extensions

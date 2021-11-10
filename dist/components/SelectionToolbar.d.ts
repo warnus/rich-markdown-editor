@@ -18,7 +18,11 @@ declare type Props = {
 };
 export default class SelectionToolbar extends React.Component<Props> {
     isActive: boolean;
+    menuRef: React.RefObject<HTMLDivElement>;
     componentDidUpdate(): void;
+    componentDidMount(): void;
+    componentWillUnmount(): void;
+    handleClickOutside: (ev: MouseEvent) => void;
     handleOnCreateLink: (title: string) => Promise<void>;
     handleOnSelectLink: ({ href, from, to, }: {
         href: string;

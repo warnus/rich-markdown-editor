@@ -1,4 +1,5 @@
 import Node from "./Node";
+import breakRule from "../rules/breaks";
 export default class HardBreak extends Node {
     get name(): string;
     get schema(): {
@@ -10,6 +11,7 @@ export default class HardBreak extends Node {
         }[];
         toDOM(): string[];
     };
+    get rulePlugins(): (typeof breakRule)[];
     commands({ type }: {
         type: any;
     }): () => (state: any, dispatch: any) => boolean;

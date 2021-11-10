@@ -167,6 +167,7 @@ const Wrapper = styled_components_1.default.div `
     position: absolute;
     bottom: -2px;
     left: calc(50% - ${props => props.offset || 0}px);
+    pointer-events: none;
   }
 
   * {
@@ -176,7 +177,6 @@ const Wrapper = styled_components_1.default.div `
   ${({ active }) => active &&
     `
     transform: translateY(-6px) scale(1);
-    pointer-events: all;
     opacity: 1;
   `};
 

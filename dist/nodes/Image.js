@@ -26,14 +26,13 @@ const React = __importStar(require("react"));
 const outline_icons_1 = require("outline-icons");
 const prosemirror_state_1 = require("prosemirror-state");
 const prosemirror_inputrules_1 = require("prosemirror-inputrules");
-const prosemirror_utils_1 = require("prosemirror-utils");
 const styled_components_1 = __importDefault(require("styled-components"));
 const react_medium_image_zoom_1 = __importDefault(require("react-medium-image-zoom"));
 const getDataTransferFiles_1 = __importDefault(require("../lib/getDataTransferFiles"));
 const uploadPlaceholder_1 = __importDefault(require("../lib/uploadPlaceholder"));
 const insertFiles_1 = __importDefault(require("../commands/insertFiles"));
 const Node_1 = __importDefault(require("./Node"));
-const IMAGE_INPUT_REGEX = /!\[(?<alt>.*?)]\((?<filename>.*?)(?=\“|\))\“?(?<layoutclass>[^\”]+)?\”?\)/;
+const IMAGE_INPUT_REGEX = /!\[(?<alt>[^\]\[]*?)]\((?<filename>[^\]\[]*?)(?=\“|\))\“?(?<layoutclass>[^\]\[\”]+)?\”?\)$/;
 const uploadPlugin = options => new prosemirror_state_1.Plugin({
     props: {
         handleDOMEvents: {
@@ -115,9 +114,9 @@ class Image extends Node_1.default {
             if (event.key === "Enter") {
                 event.preventDefault();
                 const { view } = this.editor;
-                const pos = getPos() + node.nodeSize;
+                const $pos = view.state.doc.resolve(getPos() + node.nodeSize);
+                view.dispatch(view.state.tr.setSelection(new prosemirror_state_1.TextSelection($pos)).split($pos.pos));
                 view.focus();
-                view.dispatch(prosemirror_utils_1.setTextSelection(pos)(view.state.tr));
                 return;
             }
             if (event.key === "Backspace" && event.target.innerText === "") {

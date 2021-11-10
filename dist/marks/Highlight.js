@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const prosemirror_commands_1 = require("prosemirror-commands");
 const markInputRule_1 = __importDefault(require("../lib/markInputRule"));
 const Mark_1 = __importDefault(require("./Mark"));
+const mark_1 = __importDefault(require("../rules/mark"));
 class Highlight extends Mark_1.default {
     get name() {
         return "highlight";
@@ -23,6 +24,9 @@ class Highlight extends Mark_1.default {
         return {
             "Mod-Ctrl-h": prosemirror_commands_1.toggleMark(type),
         };
+    }
+    get rulePlugins() {
+        return [mark_1.default({ delim: "==", mark: "highlight" })];
     }
     get toMarkdown() {
         return {

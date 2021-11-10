@@ -2,7 +2,7 @@ import * as React from "react";
 import { EditorView, Decoration } from "prosemirror-view";
 import Extension from "../lib/Extension";
 import Node from "../nodes/Node";
-import { light as lightTheme } from "../theme";
+import { light as lightTheme } from "../styles/theme";
 import Editor from "../";
 declare type Component = (options: {
     node: Node;

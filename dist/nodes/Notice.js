@@ -28,6 +28,7 @@ const outline_icons_1 = require("outline-icons");
 const React = __importStar(require("react"));
 const react_dom_1 = __importDefault(require("react-dom"));
 const Node_1 = __importDefault(require("./Node"));
+const notices_1 = __importDefault(require("../rules/notices"));
 class Notice extends Node_1.default {
     constructor() {
         super(...arguments);
@@ -54,6 +55,9 @@ class Notice extends Node_1.default {
     }
     get name() {
         return "container_notice";
+    }
+    get rulePlugins() {
+        return [notices_1.default];
     }
     get schema() {
         return {

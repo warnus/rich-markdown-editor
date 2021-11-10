@@ -10,6 +10,7 @@ export default class Placeholder extends Mark {
             class: string;
         })[];
     };
+    get rulePlugins(): ((md: any) => void)[];
     get toMarkdown(): {
         open: string;
         close: string;

@@ -23,6 +23,7 @@ export default class Heading extends Node {
         draggable: boolean;
         parseDOM: any;
         toDOM: (node: any) => (string | (string | HTMLButtonElement | {
+            contentEditable: boolean;
             class: string;
         })[] | (string | number | {
             class: string;
@@ -41,8 +42,9 @@ export default class Heading extends Node {
     }): (attrs: Record<string, any>) => (state: any, dispatch: any) => boolean;
     handleFoldContent: (event: any) => void;
     handleCopyLink: (event: any) => void;
-    keys({ type }: {
-        type: NodeType;
+    keys({ type, schema }: {
+        type: any;
+        schema: any;
     }): any;
     get plugins(): any[];
     inputRules({ type }: {

@@ -32,12 +32,6 @@ function formattingMenuItems(state, isTemplate, dictionary) {
             active: isMarkActive_1.default(schema.marks.strong),
         },
         {
-            name: "em",
-            tooltip: dictionary.em,
-            icon: outline_icons_1.ItalicIcon,
-            active: isMarkActive_1.default(schema.marks.em),
-        },
-        {
             name: "strikethrough",
             tooltip: dictionary.strikethrough,
             icon: outline_icons_1.StrikethroughIcon,
@@ -83,6 +77,32 @@ function formattingMenuItems(state, isTemplate, dictionary) {
             active: isNodeActive_1.default(schema.nodes.blockquote),
             attrs: { level: 2 },
             visible: allowBlocks,
+        },
+        {
+            name: "separator",
+            visible: allowBlocks || isList,
+        },
+        {
+            name: "checkbox_list",
+            tooltip: dictionary.checkboxList,
+            icon: outline_icons_1.TodoListIcon,
+            keywords: "checklist checkbox task",
+            active: isNodeActive_1.default(schema.nodes.checkbox_list),
+            visible: allowBlocks || isList,
+        },
+        {
+            name: "bullet_list",
+            tooltip: dictionary.bulletList,
+            icon: outline_icons_1.BulletedListIcon,
+            active: isNodeActive_1.default(schema.nodes.bullet_list),
+            visible: allowBlocks || isList,
+        },
+        {
+            name: "ordered_list",
+            tooltip: dictionary.orderedList,
+            icon: outline_icons_1.OrderedListIcon,
+            active: isNodeActive_1.default(schema.nodes.ordered_list),
+            visible: allowBlocks || isList,
         },
         {
             name: "separator",

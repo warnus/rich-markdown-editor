@@ -7,6 +7,7 @@ const prosemirror_state_1 = require("prosemirror-state");
 const prosemirror_view_1 = require("prosemirror-view");
 const Extension_1 = __importDefault(require("../lib/Extension"));
 const prosemirror_utils_1 = require("prosemirror-utils");
+const findCollapsedNodes_1 = __importDefault(require("../queries/findCollapsedNodes"));
 const headingToSlug_1 = require("../lib/headingToSlug");
 class Folding extends Extension_1.default {
     get name() {
@@ -46,30 +47,9 @@ class Folding extends Extension_1.default {
                 props: {
                     decorations: state => {
                         const { doc } = state;
-                        const decorations = [];
-                        const blocks = prosemirror_utils_1.findBlockNodes(doc);
-                        let withinCollapsedHeading;
-                        for (const block of blocks) {
-                            if (block.node.type.name === "heading") {
-                                if (!withinCollapsedHeading ||
-                                    block.node.attrs.level <= withinCollapsedHeading) {
-                                    if (block.node.attrs.collapsed) {
-                                        if (!withinCollapsedHeading) {
-                                            withinCollapsedHeading = block.node.attrs.level;
-                                        }
-                                    }
-                                    else {
-                                        withinCollapsedHeading = undefined;
-                                    }
-                                    continue;
-                                }
-                            }
-                            if (withinCollapsedHeading) {
-                                decorations.push(prosemirror_view_1.Decoration.node(block.pos, block.pos + block.node.nodeSize, {
-                                    class: "folded-content",
-                                }));
-                            }
-                        }
+                        const decorations = findCollapsedNodes_1.default(doc).map(block => prosemirror_view_1.Decoration.node(block.pos, block.pos + block.node.nodeSize, {
+                            class: "folded-content",
+                        }));
                         return prosemirror_view_1.DecorationSet.create(doc, decorations);
                     },
                 },

@@ -1,7 +1,9 @@
 import Node from "./Node";
+import noticesRule from "../rules/notices";
 export default class Notice extends Node {
     get styleOptions(): [string, any][];
     get name(): string;
+    get rulePlugins(): (typeof noticesRule)[];
     get schema(): {
         attrs: {
             style: {

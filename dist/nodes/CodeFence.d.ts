@@ -36,13 +36,15 @@ export default class CodeFence extends Node {
             spellCheck: boolean;
         })[])[])[];
     };
-    commands({ type }: {
+    commands({ type, schema }: {
         type: any;
-    }): () => (state: import("prosemirror-state").EditorState<any>, dispatch?: ((tr: import("prosemirror-state").Transaction<any>) => void) | undefined) => boolean;
-    keys({ type }: {
+        schema: any;
+    }): (attrs: any) => (state: any, dispatch: any) => boolean;
+    keys({ type, schema }: {
         type: any;
+        schema: any;
     }): {
-        "Shift-Ctrl-\\": (state: import("prosemirror-state").EditorState<any>, dispatch?: ((tr: import("prosemirror-state").Transaction<any>) => void) | undefined) => boolean;
+        "Shift-Ctrl-\\": (state: any, dispatch: any) => boolean;
         "Shift-Enter": (state: any, dispatch: any) => boolean;
         Tab: (state: any, dispatch: any) => boolean;
     };
