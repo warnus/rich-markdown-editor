@@ -65,6 +65,7 @@ type State = {
 class CommandMenu<T = MenuItem> extends React.Component<Props<T>, State> {
   menuRef = React.createRef<HTMLDivElement>();
   inputRef = React.createRef<HTMLInputElement>();
+  fileInputRef = React.createRef<HTMLInputElement>();
 
   state: State = {
     left: -1000,
@@ -261,8 +262,8 @@ class CommandMenu<T = MenuItem> extends React.Component<Props<T>, State> {
   };
 
   triggerFilePick = () => {
-    if (this.inputRef.current) {
-      this.inputRef.current.click();
+    if (this.fileInputRef.current) {
+      this.fileInputRef.current.click();
     }
   };
 
@@ -304,7 +305,6 @@ class CommandMenu<T = MenuItem> extends React.Component<Props<T>, State> {
 
   handleFilePicked = event => {
     const files = getDataTransferFiles(event);
-    console.log(files);
 
     const {
       view,
@@ -573,7 +573,7 @@ class CommandMenu<T = MenuItem> extends React.Component<Props<T>, State> {
             <VisuallyHidden>
               <input
                 type="file"
-                ref={this.inputRef}
+                ref={this.fileInputRef}
                 onChange={this.handleFilePicked}
                 accept="*"
               />

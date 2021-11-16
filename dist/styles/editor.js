@@ -76,6 +76,20 @@ exports.StyledEditor = styled_components_1.default("div") `
     clear: initial;
   }
 
+  .file {
+    a {
+      pointer-events: ${props => (props.readOnly ? "initial" : "none")};
+    }
+  }
+  .file.placeholder {
+    position: relative;
+    background: ${props => props.theme.background};
+    a {
+      opacity: 0.5;
+    }
+  }
+
+
   .ProseMirror-hideselection *::selection {
     background: transparent;
   }

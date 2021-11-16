@@ -19,7 +19,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const uploadPlaceholder_1 = __importStar(require("../lib/uploadPlaceholder"));
+const uploadFilePlaceholder_1 = __importStar(require("../lib/uploadFilePlaceholder"));
 const types_1 = require("../types");
 const insertAllFiles = function (view, event, pos, files, options) {
     if (files.length === 0)
@@ -37,23 +37,23 @@ const insertAllFiles = function (view, event, pos, files, options) {
     for (const file of files) {
         const id = {};
         const { tr } = view.state;
-        tr.setMeta(uploadPlaceholder_1.default, {
+        tr.setMeta(uploadFilePlaceholder_1.default, {
             add: { id, file, pos },
         });
         view.dispatch(tr);
         uploadFile(file)
             .then(src => {
-            const pos = uploadPlaceholder_1.findPlaceholder(view.state, id);
+            const pos = uploadFilePlaceholder_1.findPlaceholder(view.state, id);
             if (pos === null)
                 return;
             const transaction = view.state.tr
                 .replaceWith(pos, pos, schema.nodes.file.create({ src }))
-                .setMeta(uploadPlaceholder_1.default, { remove: { id } });
+                .setMeta(uploadFilePlaceholder_1.default, { remove: { id } });
             view.dispatch(transaction);
         })
             .catch(error => {
             console.error(error);
-            const transaction = view.state.tr.setMeta(uploadPlaceholder_1.default, {
+            const transaction = view.state.tr.setMeta(uploadFilePlaceholder_1.default, {
                 remove: { id },
             });
             view.dispatch(transaction);

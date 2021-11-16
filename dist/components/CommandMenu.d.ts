@@ -39,6 +39,7 @@ declare type State = {
 declare class CommandMenu<T = MenuItem> extends React.Component<Props<T>, State> {
     menuRef: React.RefObject<HTMLDivElement>;
     inputRef: React.RefObject<HTMLInputElement>;
+    fileInputRef: React.RefObject<HTMLInputElement>;
     state: State;
     componentDidMount(): void;
     shouldComponentUpdate(nextProps: any, nextState: any): boolean;
