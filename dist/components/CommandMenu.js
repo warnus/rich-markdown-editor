@@ -45,6 +45,7 @@ const VisuallyHidden_1 = __importDefault(require("./VisuallyHidden"));
 const getDataTransferFiles_1 = __importDefault(require("../lib/getDataTransferFiles"));
 const filterExcessSeparators_1 = __importDefault(require("../lib/filterExcessSeparators"));
 const insertFiles_1 = __importDefault(require("../commands/insertFiles"));
+const insertAllFiles_1 = __importDefault(require("../commands/insertAllFiles"));
 const SSR = typeof window === "undefined";
 const defaultPosition = {
     left: -1000,
@@ -121,6 +122,8 @@ class CommandMenu extends React.Component {
             switch (item.name) {
                 case "image":
                     return this.triggerImagePick();
+                case "file":
+                    return this.triggerFilePick();
                 case "embed":
                     return this.triggerLinkInput(item);
                 case "link": {
@@ -186,6 +189,11 @@ class CommandMenu extends React.Component {
                 this.inputRef.current.click();
             }
         };
+        this.triggerFilePick = () => {
+            if (this.inputRef.current) {
+                this.inputRef.current.click();
+            }
+        };
         this.triggerLinkInput = item => {
             this.setState({ insertItem: item });
         };
@@ -206,6 +214,24 @@ class CommandMenu extends React.Component {
             }
             if (this.inputRef.current) {
                 this.inputRef.current.value = "";
+            }
+            this.props.onClose();
+        };
+        this.handleFilePicked = event => {
+            const files = getDataTransferFiles_1.default(event);
+            console.log(files);
+            const { view, uploadFile, onFileUploadStart, onFileUploadStop, onShowToast, } = this.props;
+            const { state, dispatch } = view;
+            const parent = prosemirror_utils_1.findParentNode(node => !!node)(state.selection);
+            if (parent) {
+                dispatch(state.tr.insertText("", parent.pos, parent.pos + parent.node.textContent.length + 1));
+                insertAllFiles_1.default(view, event, parent.pos, files, {
+                    uploadFile,
+                    onFileUploadStart,
+                    onFileUploadStop,
+                    onShowToast,
+                    dictionary: this.props.dictionary,
+                });
             }
             this.props.onClose();
         };
@@ -318,7 +344,7 @@ class CommandMenu extends React.Component {
         }
     }
     get filtered() {
-        const { embeds = [], search = "", uploadImage, commands, filterable = true, } = this.props;
+        const { embeds = [], search = "", uploadImage, uploadFile, commands, filterable = true, } = this.props;
         let items = this.props.items;
         const embedItems = [];
         for (const embed of embeds) {
@@ -342,6 +368,8 @@ class CommandMenu extends React.Component {
             }
             if (!uploadImage && item.name === "image")
                 return false;
+            if (!uploadFile && item.name === "file")
+                return false;
             if (!search)
                 return !item.defaultHidden;
             const n = search.toLowerCase();
@@ -354,7 +382,7 @@ class CommandMenu extends React.Component {
         return filterExcessSeparators_1.default(filtered);
     }
     render() {
-        const { dictionary, isActive, uploadImage } = this.props;
+        const { dictionary, isActive, uploadImage, uploadFile } = this.props;
         const items = this.filtered;
         const _a = this.state, { insertItem } = _a, positioning = __rest(_a, ["insertItem"]);
         return (React.createElement(react_portal_1.Portal, null,
@@ -380,7 +408,9 @@ class CommandMenu extends React.Component {
                     items.length === 0 && (React.createElement(ListItem, null,
                         React.createElement(Empty, null, dictionary.noResults))))),
                 uploadImage && (React.createElement(VisuallyHidden_1.default, null,
-                    React.createElement("input", { type: "file", ref: this.inputRef, onChange: this.handleImagePicked, accept: "image/*" }))))));
+                    React.createElement("input", { type: "file", ref: this.inputRef, onChange: this.handleImagePicked, accept: "image/*" }))),
+                uploadFile && (React.createElement(VisuallyHidden_1.default, null,
+                    React.createElement("input", { type: "file", ref: this.inputRef, onChange: this.handleFilePicked, accept: "*" }))))));
     }
 }
 const LinkInputWrapper = styled_components_1.default.div `

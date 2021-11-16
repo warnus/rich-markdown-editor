@@ -10,8 +10,11 @@ export declare type Props<T extends MenuItem = MenuItem> = {
     view: EditorView;
     search: string;
     uploadImage?: (file: File) => Promise<string>;
+    uploadFile?: (file: File) => Promise<string>;
     onImageUploadStart?: () => void;
     onImageUploadStop?: () => void;
+    onFileUploadStart?: () => void;
+    onFileUploadStop?: () => void;
     onShowToast?: (message: string, id: string) => void;
     onLinkToolbarOpen?: () => void;
     onClose: () => void;
@@ -47,8 +50,10 @@ declare class CommandMenu<T = MenuItem> extends React.Component<Props<T>, State>
     handleLinkInputKeydown: (event: React.KeyboardEvent<HTMLInputElement>) => void;
     handleLinkInputPaste: (event: React.ClipboardEvent<HTMLInputElement>) => void;
     triggerImagePick: () => void;
+    triggerFilePick: () => void;
     triggerLinkInput: (item: any) => void;
     handleImagePicked: (event: any) => void;
+    handleFilePicked: (event: any) => void;
     clearSearch: () => void;
     insertBlock(item: any): void;
     get caretPosition(): {
