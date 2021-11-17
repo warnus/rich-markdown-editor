@@ -102,12 +102,12 @@ export default class File extends Node {
           tag: "div[class=file]",
           getAttrs: (dom: HTMLElement) => {
             const a = dom.getElementsByTagName("a")[0];
-            const caption = dom.getElementsByTagName("p")[0];
+            // const caption = dom.getElementsByTagName("p")[0];
 
             return {
               src: a.getAttribute("href"),
               // alt: caption.innerText,
-              alt: "TEST CAPCAP",
+              // alt: "TEST CAPCAP",
             };
           },
         },
@@ -119,7 +119,7 @@ export default class File extends Node {
             class: "file",
           },
           ["a", { ...node.attrs, contentEditable: false }],
-          ["p", { class: "caption" }, 0],
+          // ["p", { class: "caption" }, 0],
         ];
       },
     };
