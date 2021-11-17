@@ -159,8 +159,8 @@ export default class File extends Node {
     console.log(props)
     return (
       <div className="file" contentEditable={false}>
-        {/* <a href={src}>My File 2</a> */}
-        {(props.isEditable || alt) && (
+        <a href={src}>My File 2</a>
+        {/* {(props.isEditable || alt) && (
           <Caption
             onKeyDown={this.handleKeyDown(props)}
             onBlur={this.handleBlur(props)}
@@ -170,7 +170,7 @@ export default class File extends Node {
           >
             {alt} test caption 2
           </Caption>
-        )}
+        )} */}
       </div>
     );
   };

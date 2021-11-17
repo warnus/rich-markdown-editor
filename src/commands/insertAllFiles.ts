@@ -30,7 +30,8 @@ const insertAllFiles = function(view, event, pos, files, options) {
 
   // we'll use this to track of how many files have succeeded or failed
   let complete = 0;
-
+  const { state } = view;
+  const { from, to } = state.selection;
   // the user might have dropped multiple files at once, we need to loop
   for (const file of files) {
     // Use an object to act as the ID for this upload, clever.
@@ -61,7 +62,18 @@ const insertAllFiles = function(view, event, pos, files, options) {
           .replaceWith(pos, pos, schema.nodes.file.create({ src }))
           .setMeta(uploadFilePlaceholderPlugin, { remove: { id } });
 
-        view.dispatch(transaction);
+        // view.dispatch(transaction);
+        const title = file.name;
+        const href = `creating#${src}…`;
+        view.dispatch(
+          view.state.tr
+            .insertText(title, from, to)
+            .addMark(
+              from,
+              to + title.length,
+              state.schema.marks.link.create({ href })
+            )
+        );
       })
       .catch(error => {
         console.error(error);
