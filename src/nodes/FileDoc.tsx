@@ -154,18 +154,18 @@ export default class File extends Node {
     view.dispatch(transaction);
   };
 
-  component = options => {
-    const { alt, src } = options.node.attrs;
-
+  component = props => {
+    const { alt, src } = props.node.attrs;
+    console.log(props)
     return (
       <div className="file" contentEditable={false}>
         <a href={src}>My File</a>
-        {(options.isEditable || alt) && (
+        {(props.isEditable || alt) && (
           <Caption
-            onKeyDown={this.handleKeyDown(options)}
-            onBlur={this.handleBlur(options)}
+            onKeyDown={this.handleKeyDown(props)}
+            onBlur={this.handleBlur(props)}
             tabIndex={-1}
-            contentEditable={options.isEditable}
+            contentEditable={props.isEditable}
             suppressContentEditableWarning
           >
             {alt}
