@@ -159,7 +159,7 @@ export default class File extends Node {
     console.log(props)
     return (
       <div className="file" contentEditable={false}>
-        <a href={src}>My File 2</a>
+        {/* <a href={src}>My File 2</a> */}
         {(props.isEditable || alt) && (
           <Caption
             onKeyDown={this.handleKeyDown(props)}
@@ -168,7 +168,7 @@ export default class File extends Node {
             contentEditable={props.isEditable}
             suppressContentEditableWarning
           >
-            {alt} test caption
+            {alt} test caption 2
           </Caption>
         )}
       </div>
@@ -236,7 +236,7 @@ export default class File extends Node {
 }
 
 const Caption = styled.p`
-  border: 0;
+  border: solid;
   display: block;
   font-size: 13px;
   font-style: italic;
