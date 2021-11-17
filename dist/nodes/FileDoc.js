@@ -137,6 +137,7 @@ class File extends Node_1.default {
                         return {
                             src: a.getAttribute("href"),
                             alt: caption.innerText,
+                            title: "TEST FILE"
                         };
                     },
                 },

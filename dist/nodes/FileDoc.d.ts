@@ -21,6 +21,7 @@ export default class File extends Node {
             getAttrs: (dom: HTMLElement) => {
                 src: string | null;
                 alt: string;
+                title: string;
             };
         }[];
         toDOM: (node: any) => (string | any[] | {

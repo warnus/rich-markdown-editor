@@ -107,6 +107,7 @@ export default class File extends Node {
             return {
               src: a.getAttribute("href"),
               alt: caption.innerText,
+              title: "TEST FILE"
             };
           },
         },
