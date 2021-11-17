@@ -59,7 +59,7 @@ const insertAllFiles = function(view, event, pos, files, options) {
         // otherwise, insert it at the placeholder's position, and remove
         // the placeholder itself
         const transaction = view.state.tr
-          .replaceWith(pos, pos, schema.nodes.file.create({ src }))
+          // .replaceWith(pos, pos, schema.nodes.file.create({ src }))
           .setMeta(uploadFilePlaceholderPlugin, { remove: { id } });
 
         view.dispatch(transaction);
