@@ -3,7 +3,7 @@ import uploadFilePlaceholderPlugin, {
 } from "../lib/uploadFilePlaceholder";
 import { ToastType } from "../types";
 
-const insertFiles = function(view, event, pos, files, options) {
+const insertAllFiles = function(view, event, pos, files, options) {
   if (files.length === 0) return;
 
   const {
@@ -89,4 +89,4 @@ const insertFiles = function(view, event, pos, files, options) {
   }
 };
 
-export default insertFiles;
+export default insertAllFiles;

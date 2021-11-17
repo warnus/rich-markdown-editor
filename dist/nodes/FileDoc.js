@@ -109,7 +109,7 @@ class File extends Node_1.default {
             const { alt, src } = props.node.attrs;
             console.log(props);
             return (React.createElement("div", { className: "file", contentEditable: false },
-                React.createElement("a", { href: src }, "My File"),
+                React.createElement("a", { href: src }, "My File 2"),
                 (props.isEditable || alt) && (React.createElement(Caption, { onKeyDown: this.handleKeyDown(props), onBlur: this.handleBlur(props), tabIndex: -1, contentEditable: props.isEditable, suppressContentEditableWarning: true }, alt))));
         };
     }
