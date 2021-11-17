@@ -183,7 +183,7 @@ class CommandMenu<T = MenuItem> extends React.Component<Props<T>, State> {
       case "image":
         return this.triggerImagePick();
       case "file":
-          return this.triggerFilePick();
+        return this.triggerFilePick();
       case "embed":
         return this.triggerLinkInput(item);
       case "link": {
@@ -569,7 +569,7 @@ class CommandMenu<T = MenuItem> extends React.Component<Props<T>, State> {
               />
             </VisuallyHidden>
           )}
-          {(
+          {uploadFile && (
             <VisuallyHidden>
               <input
                 type="file"
