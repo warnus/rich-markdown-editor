@@ -409,7 +409,7 @@ class CommandMenu extends React.Component {
                         React.createElement(Empty, null, dictionary.noResults))))),
                 uploadImage && (React.createElement(VisuallyHidden_1.default, null,
                     React.createElement("input", { type: "file", ref: this.inputRef, onChange: this.handleImagePicked, accept: "image/*" }))),
-                (React.createElement(VisuallyHidden_1.default, null,
+                uploadFile && (React.createElement(VisuallyHidden_1.default, null,
                     React.createElement("input", { type: "file", ref: this.fileInputRef, onChange: this.handleFilePicked, accept: "*" }))))));
     }
 }

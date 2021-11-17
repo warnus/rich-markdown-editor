@@ -21,7 +21,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const uploadFilePlaceholder_1 = __importStar(require("../lib/uploadFilePlaceholder"));
 const types_1 = require("../types");
-const insertAllFiles = function (view, event, pos, files, options) {
+const insertFiles = function (view, event, pos, files, options) {
     if (files.length === 0)
         return;
     const { dictionary, uploadFile, onFileUploadStart, onFileUploadStop, onShowToast, } = options;
@@ -70,5 +70,5 @@ const insertAllFiles = function (view, event, pos, files, options) {
         });
     }
 };
-exports.default = insertAllFiles;
+exports.default = insertFiles;
 //# sourceMappingURL=insertAllFiles.js.map
