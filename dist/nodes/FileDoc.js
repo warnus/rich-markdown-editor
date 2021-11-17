@@ -109,7 +109,7 @@ class File extends Node_1.default {
             const { alt, src } = props.node.attrs;
             console.log(props);
             return (React.createElement("div", { className: "file", contentEditable: false },
-                React.createElement("a", { href: src }, "My File 2")));
+                React.createElement("a", { href: src }, "My File 3")));
         };
     }
     get name() {
@@ -133,10 +133,8 @@ class File extends Node_1.default {
                     tag: "div[class=file]",
                     getAttrs: (dom) => {
                         const a = dom.getElementsByTagName("a")[0];
-                        const caption = dom.getElementsByTagName("p")[0];
                         return {
                             src: a.getAttribute("href"),
-                            alt: "TEST CAPCAP",
                         };
                     },
                 },
@@ -148,7 +146,6 @@ class File extends Node_1.default {
                         class: "file",
                     },
                     ["a", Object.assign(Object.assign({}, node.attrs), { contentEditable: false })],
-                    ["p", { class: "caption" }, 0],
                 ];
             },
         };

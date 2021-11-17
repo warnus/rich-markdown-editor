@@ -159,7 +159,7 @@ export default class File extends Node {
     console.log(props)
     return (
       <div className="file" contentEditable={false}>
-        <a href={src}>My File 2</a>
+        <a href={src}>My File 3</a>
         {/* {(props.isEditable || alt) && (
           <Caption
             onKeyDown={this.handleKeyDown(props)}
