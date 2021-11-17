@@ -95,6 +95,12 @@ function blockMenuItems(dictionary) {
             keywords: "picture photo",
         },
         {
+            name: "file",
+            title: "File",
+            icon: outline_icons_1.ImageIcon,
+            keywords: "doc pdf",
+        },
+        {
             name: "link",
             title: dictionary.link,
             icon: outline_icons_1.LinkIcon,
