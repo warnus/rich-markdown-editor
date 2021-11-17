@@ -15,7 +15,7 @@ const uploadFilePlaceholder = new prosemirror_state_1.Plugin({
                 const element = document.createElement("div");
                 element.className = "file placeholder";
                 const a = document.createElement("a");
-                const fileName = document.createTextNode("File Name");
+                const fileName = document.createTextNode(action.add.file);
                 a.href = URL.createObjectURL(action.add.file);
                 a.appendChild(fileName);
                 element.appendChild(a);
