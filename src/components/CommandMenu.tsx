@@ -569,7 +569,7 @@ class CommandMenu<T = MenuItem> extends React.Component<Props<T>, State> {
               />
             </VisuallyHidden>
           )}
-          {uploadFile && (
+          {(
             <VisuallyHidden>
               <input
                 type="file"
