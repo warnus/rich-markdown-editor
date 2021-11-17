@@ -51,11 +51,7 @@ const insertAllFiles = function (view, event, pos, files, options) {
             const transaction = view.state.tr
                 .replaceWith(pos, pos, schema.nodes.file.create({ src }))
                 .setMeta(uploadFilePlaceholder_1.default, { remove: { id } });
-            const title = file.name;
-            const href = `creating#${src}…`;
-            view.dispatch(view.state.tr
-                .insertText(title, from, to)
-                .addMark(from, to + title.length, state.schema.marks.link.create({ href })));
+            view.dispatch(transaction);
         })
             .catch(error => {
             console.error(error);

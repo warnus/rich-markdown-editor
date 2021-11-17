@@ -19,8 +19,9 @@ const uploadFilePlaceholder = new Plugin({
         element.className = "file placeholder";
 
         const a = document.createElement("a");
+        const fileName = document.createTextNode("File Name");
         a.href = URL.createObjectURL(action.add.file);
-
+        a.appendChild(fileName);
         element.appendChild(a);
 
         const deco = Decoration.widget(action.add.pos, element, {

@@ -82,7 +82,7 @@ export const StyledEditor = styled("div")<{
   }
   .file.placeholder {
     position: relative;
-    border: 2px dotted;
+    border: 1px dotted;
     background: ${props => props.theme.background};
     a {
       opacity: 0.5;
