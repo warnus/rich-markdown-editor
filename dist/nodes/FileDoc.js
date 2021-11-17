@@ -110,7 +110,9 @@ class File extends Node_1.default {
             console.log(props);
             return (React.createElement("div", { className: "file", contentEditable: false },
                 React.createElement("a", { href: src }, "My File 2"),
-                (props.isEditable || alt) && (React.createElement(Caption, { onKeyDown: this.handleKeyDown(props), onBlur: this.handleBlur(props), tabIndex: -1, contentEditable: props.isEditable, suppressContentEditableWarning: true }, alt))));
+                (props.isEditable || alt) && (React.createElement(Caption, { onKeyDown: this.handleKeyDown(props), onBlur: this.handleBlur(props), tabIndex: -1, contentEditable: props.isEditable, suppressContentEditableWarning: true },
+                    alt,
+                    " test caption"))));
         };
     }
     get name() {
@@ -137,8 +139,7 @@ class File extends Node_1.default {
                         const caption = dom.getElementsByTagName("p")[0];
                         return {
                             src: a.getAttribute("href"),
-                            alt: caption.innerText,
-                            title: "TEST FILE"
+                            alt: "TEST CAPCAP",
                         };
                     },
                 },

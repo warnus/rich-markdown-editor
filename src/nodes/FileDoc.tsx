@@ -106,8 +106,8 @@ export default class File extends Node {
 
             return {
               src: a.getAttribute("href"),
-              alt: caption.innerText,
-              title: "TEST FILE"
+              // alt: caption.innerText,
+              alt: "TEST CAPCAP",
             };
           },
         },
@@ -168,7 +168,7 @@ export default class File extends Node {
             contentEditable={props.isEditable}
             suppressContentEditableWarning
           >
-            {alt}
+            {alt} test caption
           </Caption>
         )}
       </div>
