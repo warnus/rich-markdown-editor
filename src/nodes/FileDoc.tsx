@@ -178,11 +178,12 @@ export default class File extends Node {
 
   toMarkdown(state, node) {
     state.write(
-      "![" +
-        state.esc((node.attrs.alt || "").replace("\n", "") || "") +
-        "](" +
-        state.esc(node.attrs.src) +
-        ")"
+      "<div><button>" + state.esc((node.attrs.alt || "").replace("\n", "") || "") + "</button></div>"
+      // "![" +
+      //   state.esc((node.attrs.alt || "").replace("\n", "") || "") +
+      //   "](" +
+      //   state.esc(node.attrs.src) +
+      //   ")"
     );
   }
 
