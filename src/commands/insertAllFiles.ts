@@ -61,9 +61,9 @@ const insertAllFiles = function(view, event, pos, files, options) {
         const title = file.name;
         const href = `file:${src}`;
         console.log(href)
-        const transaction = view.state.tr
-          .replaceWith(pos, pos, schema.nodes.file.create({ href, alt: file.name }))
-          .setMeta(uploadFilePlaceholderPlugin, { remove: { id } })
+        // const transaction = view.state.tr
+        //   .replaceWith(pos, pos, schema.nodes.file.create({ href, alt: file.name }))
+        //   .setMeta(uploadFilePlaceholderPlugin, { remove: { id } })
           // .insertText(title, from, to)
           //   .addMark(
           //     from,
@@ -72,18 +72,19 @@ const insertAllFiles = function(view, event, pos, files, options) {
           //   )
           ;
 
-        view.dispatch(transaction);
+        // view.dispatch(transaction);
         // const title = file.name;
         // const href = `creating#${src}…`;
-        // view.dispatch(
-        //   view.state.tr
-        //     .insertText(title, from, to)
-        //     .addMark(
-        //       from,
-        //       to + title.length,
-        //       state.schema.marks.link.create({ href })
-        //     )
-        // );
+        view.dispatch(
+          view.state.tr
+            .insertText(title, from, to)
+            .setMeta(uploadFilePlaceholderPlugin, { remove: { id } })
+            .addMark(
+              from,
+              to + title.length,
+              state.schema.marks.link.create({ href })
+            )
+        );
       })
       .catch(error => {
         console.error(error);
