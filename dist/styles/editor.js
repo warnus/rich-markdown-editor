@@ -102,7 +102,7 @@ exports.StyledEditor = styled_components_1.default("div") `
   animation: load7 1.8s infinite ease-in-out;
 }
 .loader {
-  color: #ffffff;
+  color: #00008B;
   font-size: 10px;
   margin: 80px auto;
   position: relative;
