@@ -61,7 +61,7 @@ const insertAllFiles = function(view, event, pos, files, options) {
         const title = file.name;
         const href = src;
         const transaction = view.state.tr
-          .replaceWith(pos, pos, schema.nodes.list_item.create({ src, alt: file.name }))
+          .replaceWith(pos, pos, schema.nodes.file.create({ src, alt: file.name }))
           // .setMeta(uploadFilePlaceholderPlugin, { remove: { id } })
           // .insertText(title, from, to)
           //   .addMark(
