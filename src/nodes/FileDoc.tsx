@@ -177,7 +177,6 @@ export default class File extends Node {
   };
 
   toMarkdown(state, node) {
-    state.renderContent(node);
     state.write(
       "[" + state.esc((node.attrs.alt || "").replace("\n", "") || "") + "]" +
       "(" + state.esc(node.attrs.src) + ")"

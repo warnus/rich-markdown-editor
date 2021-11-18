@@ -49,7 +49,7 @@ const insertAllFiles = function (view, event, pos, files, options) {
             if (pos === null)
                 return;
             const title = file.name;
-            const href = `file:${src}`;
+            const href = `/file/${src}`;
             console.log(href);
             view.dispatch(view.state.tr
                 .insertText(title, from, to)
