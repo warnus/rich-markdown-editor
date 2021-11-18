@@ -155,7 +155,6 @@ class File extends Node_1.default {
         };
     }
     toMarkdown(state, node) {
-        ;
     }
     parseMarkdown() {
         return {
