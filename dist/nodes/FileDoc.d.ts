@@ -20,6 +20,7 @@ export default class File extends Node {
             tag: string;
             getAttrs: (dom: HTMLElement) => {
                 src: string | null;
+                alt: string;
             };
         }[];
         toDOM: (node: any) => (string | any[] | {

@@ -81,10 +81,12 @@ const uploadPlugin = options =>
 
 export default class File extends Node {
   get name() {
+    console.log("file node test")
     return "file";
   }
 
   get schema() {
+    console.log("schema test")
     return {
       inline: true,
       attrs: {
@@ -102,11 +104,12 @@ export default class File extends Node {
           tag: "div[class=file]",
           getAttrs: (dom: HTMLElement) => {
             const a = dom.getElementsByTagName("a")[0];
-            // const caption = dom.getElementsByTagName("p")[0];
+            console.log(alt)
+            const caption = dom.getElementsByTagName("p")[0];
 
             return {
               src: a.getAttribute("href"),
-              // alt: caption.innerText,
+              alt: caption.innerText,
               // alt: "TEST CAPCAP",
             };
           },
@@ -119,7 +122,7 @@ export default class File extends Node {
             class: "file",
           },
           ["a", { ...node.attrs, contentEditable: false }],
-          // ["p", { class: "caption" }, 0],
+          ["p", { class: "caption" }, 0],
         ];
       },
     };
@@ -160,7 +163,6 @@ export default class File extends Node {
     return (
       <div className="file" contentEditable={false}>
         <a href={src}>My File 3</a>
-        {/* {(props.isEditable || alt) && (
           <Caption
             onKeyDown={this.handleKeyDown(props)}
             onBlur={this.handleBlur(props)}
@@ -170,7 +172,6 @@ export default class File extends Node {
           >
             {alt} test caption 2
           </Caption>
-        )} */}
       </div>
     );
   };

@@ -109,13 +109,18 @@ class File extends Node_1.default {
             const { alt, src } = props.node.attrs;
             console.log(props);
             return (React.createElement("div", { className: "file", contentEditable: false },
-                React.createElement("a", { href: src }, "My File 3")));
+                React.createElement("a", { href: src }, "My File 3"),
+                React.createElement(Caption, { onKeyDown: this.handleKeyDown(props), onBlur: this.handleBlur(props), tabIndex: -1, contentEditable: props.isEditable, suppressContentEditableWarning: true },
+                    alt,
+                    " test caption 2")));
         };
     }
     get name() {
+        console.log("file node test");
         return "file";
     }
     get schema() {
+        console.log("schema test");
         return {
             inline: true,
             attrs: {
@@ -133,8 +138,11 @@ class File extends Node_1.default {
                     tag: "div[class=file]",
                     getAttrs: (dom) => {
                         const a = dom.getElementsByTagName("a")[0];
+                        console.log(alt);
+                        const caption = dom.getElementsByTagName("p")[0];
                         return {
                             src: a.getAttribute("href"),
+                            alt: caption.innerText,
                         };
                     },
                 },
@@ -146,6 +154,7 @@ class File extends Node_1.default {
                         class: "file",
                     },
                     ["a", Object.assign(Object.assign({}, node.attrs), { contentEditable: false })],
+                    ["p", { class: "caption" }, 0],
                 ];
             },
         };
