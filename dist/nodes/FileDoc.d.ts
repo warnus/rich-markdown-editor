@@ -36,6 +36,10 @@ export default class File extends Node {
     toMarkdown(state: any, node: any): void;
     parseMarkdown(): {
         node: string;
+        getAttrs: (token: any) => {
+            src: any;
+            alt: any;
+        };
     };
     commands({ type }: {
         type: any;

@@ -160,6 +160,10 @@ class File extends Node_1.default {
     parseMarkdown() {
         return {
             node: "file",
+            getAttrs: token => ({
+                src: token.attrGet("src"),
+                alt: (token.children[0] && token.children[0].content) || null,
+            }),
         };
     }
     commands({ type }) {

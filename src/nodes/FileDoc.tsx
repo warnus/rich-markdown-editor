@@ -189,10 +189,10 @@ export default class File extends Node {
   parseMarkdown() {
     return {
       node: "file",
-      // getAttrs: token => ({
-      //   src: token.attrGet("src"),
-      //   alt: (token.children[0] && token.children[0].content) || null,
-      // }),
+      getAttrs: token => ({
+        src: token.attrGet("src"),
+        alt: (token.children[0] && token.children[0].content) || null,
+      }),
     };
   }
 
