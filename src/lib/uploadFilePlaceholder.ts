@@ -20,7 +20,7 @@ const uploadFilePlaceholder = new Plugin({
 
         const a = document.createElement("a");
         const fileName = document.createTextNode(action.add.file.name);
-
+        a.className = "loader";
         console.log(action.add.file);
         a.href = URL.createObjectURL(action.add.file);
         a.appendChild(fileName);

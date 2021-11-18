@@ -162,16 +162,16 @@ export default class File extends Node {
     console.log(props)
     return (
       <div className="file" contentEditable={false}>
-        <a href={src}>My File 3</a>
-          <Caption
+        {alt}
+          {/* <Caption
             onKeyDown={this.handleKeyDown(props)}
             onBlur={this.handleBlur(props)}
             tabIndex={-1}
             contentEditable={props.isEditable}
             suppressContentEditableWarning
           >
-            {alt} test caption 2
-          </Caption>
+            {alt}
+          </Caption> */}
       </div>
     );
   };
