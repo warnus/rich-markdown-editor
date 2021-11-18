@@ -18,12 +18,9 @@ export default class File extends Node {
         draggable: boolean;
         parseDOM: {
             tag: string;
-            getAttrs: (dom: HTMLElement) => {
-                src: string | null;
-                alt: string;
-            };
+            getAttrs: (dom: HTMLElement) => {};
         }[];
-        toDOM: (node: any) => (string | any[] | {
+        toDOM: (node: any) => (string | {
             class: string;
         })[];
     };
@@ -39,10 +36,6 @@ export default class File extends Node {
     toMarkdown(state: any, node: any): void;
     parseMarkdown(): {
         node: string;
-        getAttrs: (token: any) => {
-            src: any;
-            alt: any;
-        };
     };
     commands({ type }: {
         type: any;

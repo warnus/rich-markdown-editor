@@ -140,10 +140,7 @@ class File extends Node_1.default {
                         const a = dom.getElementsByTagName("a")[0];
                         console.log(alt);
                         const caption = dom.getElementsByTagName("p")[0];
-                        return {
-                            src: a.getAttribute("href"),
-                            alt: caption.innerText,
-                        };
+                        return {};
                     },
                 },
             ],
@@ -153,26 +150,16 @@ class File extends Node_1.default {
                     {
                         class: "file",
                     },
-                    ["a", Object.assign(Object.assign({}, node.attrs), { contentEditable: false })],
-                    ["p", { class: "caption" }, 0],
                 ];
             },
         };
     }
     toMarkdown(state, node) {
-        state.write("![" +
-            state.esc((node.attrs.alt || "").replace("\n", "") || "") +
-            "](" +
-            state.esc(node.attrs.src) +
-            ")");
+        ;
     }
     parseMarkdown() {
         return {
             node: "file",
-            getAttrs: token => ({
-                src: token.attrGet("src"),
-                alt: (token.children[0] && token.children[0].content) || null,
-            }),
         };
     }
     commands({ type }) {

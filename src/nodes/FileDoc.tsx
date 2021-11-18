@@ -108,8 +108,8 @@ export default class File extends Node {
             const caption = dom.getElementsByTagName("p")[0];
 
             return {
-              src: a.getAttribute("href"),
-              alt: caption.innerText,
+              // src: a.getAttribute("href"),
+              // alt: caption.innerText,
               // alt: "TEST CAPCAP",
             };
           },
@@ -121,8 +121,8 @@ export default class File extends Node {
           {
             class: "file",
           },
-          ["a", { ...node.attrs, contentEditable: false }],
-          ["p", { class: "caption" }, 0],
+          // ["a", { ...node.attrs, contentEditable: false }],
+          // ["p", { class: "caption" }, 0],
         ];
       },
     };
@@ -177,22 +177,22 @@ export default class File extends Node {
   };
 
   toMarkdown(state, node) {
-    state.write(
-      "![" +
-        state.esc((node.attrs.alt || "").replace("\n", "") || "") +
-        "](" +
-        state.esc(node.attrs.src) +
-        ")"
+    // state.write(
+    //   "![" +
+    //     state.esc((node.attrs.alt || "").replace("\n", "") || "") +
+    //     "](" +
+    //     state.esc(node.attrs.src) +
+    //     ")"
     );
   }
 
   parseMarkdown() {
     return {
       node: "file",
-      getAttrs: token => ({
-        src: token.attrGet("src"),
-        alt: (token.children[0] && token.children[0].content) || null,
-      }),
+      // getAttrs: token => ({
+      //   src: token.attrGet("src"),
+      //   alt: (token.children[0] && token.children[0].content) || null,
+      // }),
     };
   }
 
