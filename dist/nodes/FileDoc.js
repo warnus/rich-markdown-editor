@@ -155,7 +155,8 @@ class File extends Node_1.default {
         };
     }
     toMarkdown(state, node) {
-        state.write("<div><button>" + state.esc((node.attrs.alt || "").replace("\n", "") || "") + "</button></div>");
+        state.write("[" + state.esc((node.attrs.alt || "").replace("\n", "") || "") + "]" +
+            "(" + state.esc(node.attrs.src) + ")");
     }
     parseMarkdown() {
         return {
