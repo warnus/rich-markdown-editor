@@ -104,7 +104,7 @@ export default class File extends Node {
           tag: "div[class=file]",
           getAttrs: (dom: HTMLElement) => {
             const a = dom.getElementsByTagName("a")[0];
-            console.log(alt)
+            // console.log(alt)
             const caption = dom.getElementsByTagName("p")[0];
 
             return {

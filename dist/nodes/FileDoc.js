@@ -138,7 +138,6 @@ class File extends Node_1.default {
                     tag: "div[class=file]",
                     getAttrs: (dom) => {
                         const a = dom.getElementsByTagName("a")[0];
-                        console.log(alt);
                         const caption = dom.getElementsByTagName("p")[0];
                         return {};
                     },
