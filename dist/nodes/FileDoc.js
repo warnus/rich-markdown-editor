@@ -113,7 +113,7 @@ class File extends Node_1.default {
         };
     }
     get name() {
-        return "file";
+        return "filelws";
     }
     get schema() {
         return {
