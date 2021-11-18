@@ -81,7 +81,7 @@ const uploadPlugin = options =>
 
 export default class File extends Node {
   get name() {
-    return "filelws";
+    return "file";
   }
 
   get schema() {

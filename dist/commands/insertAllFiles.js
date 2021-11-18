@@ -51,7 +51,7 @@ const insertAllFiles = function (view, event, pos, files, options) {
             const title = file.name;
             const href = src;
             const transaction = view.state.tr
-                .replaceWith(pos, pos, schema.nodes.filelws.create({ src }));
+                .replaceWith(pos, pos, schema.nodes.file.create({ src }));
             view.dispatch(transaction);
         })
             .catch(error => {
