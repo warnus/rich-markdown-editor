@@ -13,14 +13,7 @@ const uploadFilePlaceholder = new prosemirror_state_1.Plugin({
             const action = tr.getMeta(this);
             if (action && action.add) {
                 const element = document.createElement("div");
-                element.className = "file placeholder";
-                const a = document.createElement("a");
-                const fileName = document.createTextNode(action.add.file.name);
-                a.className = "loader";
-                console.log(action.add.file);
-                a.href = URL.createObjectURL(action.add.file);
-                a.appendChild(fileName);
-                element.appendChild(a);
+                element.className = "loader";
                 const deco = prosemirror_view_1.Decoration.widget(action.add.pos, element, {
                     id: action.add.id,
                 });

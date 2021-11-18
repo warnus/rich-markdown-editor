@@ -16,15 +16,15 @@ const uploadFilePlaceholder = new Plugin({
 
       if (action && action.add) {
         const element = document.createElement("div");
-        element.className = "file placeholder";
+        element.className = "loader";
 
-        const a = document.createElement("a");
-        const fileName = document.createTextNode(action.add.file.name);
-        a.className = "loader";
-        console.log(action.add.file);
-        a.href = URL.createObjectURL(action.add.file);
-        a.appendChild(fileName);
-        element.appendChild(a);
+        // const a = document.createElement("a");
+        // const fileName = document.createTextNode(action.add.file.name);
+        // a.className = "loader";
+        // console.log(action.add.file);
+        // a.href = URL.createObjectURL(action.add.file);
+        // a.appendChild(fileName);
+        // element.appendChild(a);
 
         const deco = Decoration.widget(action.add.pos, element, {
           id: action.add.id,
