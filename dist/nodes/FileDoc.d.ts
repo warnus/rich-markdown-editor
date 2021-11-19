@@ -20,7 +20,7 @@ export default class File extends Node {
             tag: string;
             getAttrs: (dom: HTMLElement) => {};
         }[];
-        toDOM: (node: any) => (string | {
+        toDOM: (node: any) => (string | any[] | {
             class: string;
         })[];
     };
@@ -37,8 +37,7 @@ export default class File extends Node {
     parseMarkdown(): {
         node: string;
         getAttrs: (token: any) => {
-            src: any;
-            alt: any;
+            href: any;
         };
     };
     commands({ type }: {

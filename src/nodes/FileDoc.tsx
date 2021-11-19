@@ -121,8 +121,8 @@ export default class File extends Node {
           {
             class: "file",
           },
-          // ["a", { ...node.attrs, contentEditable: false }],
-          // ["p", { class: "caption" }, 0],
+          ["a", { ...node.attrs, contentEditable: false }],
+          ["p", { class: "caption" }, 0],
         ];
       },
     };
@@ -192,8 +192,9 @@ export default class File extends Node {
     return {
       node: "file",
       getAttrs: token => ({
-        src: token.attrGet("src"),
-        alt: (token.children[0] && token.children[0].content) || null,
+        href: token.attrGet("href"),
+        // src: token.attrGet("src"),
+        // alt: (token.children[0] && token.children[0].content) || null,
       }),
     };
   }

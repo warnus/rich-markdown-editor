@@ -146,6 +146,8 @@ class File extends Node_1.default {
                     {
                         class: "file",
                     },
+                    ["a", Object.assign(Object.assign({}, node.attrs), { contentEditable: false })],
+                    ["p", { class: "caption" }, 0],
                 ];
             },
         };
@@ -158,8 +160,7 @@ class File extends Node_1.default {
         return {
             node: "file",
             getAttrs: token => ({
-                src: token.attrGet("src"),
-                alt: (token.children[0] && token.children[0].content) || null,
+                href: token.attrGet("href"),
             }),
         };
     }
