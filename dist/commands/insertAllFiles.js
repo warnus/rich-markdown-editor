@@ -48,9 +48,7 @@ const insertAllFiles = function (view, event, pos, files, options) {
             const pos = uploadFilePlaceholder_1.findPlaceholder(view.state, id);
             if (pos === null)
                 return;
-            const title = file.name;
             const href = src;
-            console.log(href);
             const transaction = view.state.tr
                 .replaceWith(pos, pos, schema.nodes.file.create({ href, alt: file.name }))
                 .setMeta(uploadFilePlaceholder_1.default, { remove: { id } });
