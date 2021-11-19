@@ -127,9 +127,9 @@ class File extends Node_1.default {
                     default: null,
                 },
             },
-            content: "text*",
+            content: "blockk+",
             marks: "",
-            group: "inline",
+            group: "block",
             draggable: true,
             parseDOM: [
                 {
@@ -154,8 +154,7 @@ class File extends Node_1.default {
         };
     }
     toMarkdown(state, node) {
-        state.write("[" + state.esc((node.attrs.alt || "").replace("\n", "") || "") + "]" +
-            "(" + state.esc(node.attrs.src) + ")");
+        state.renderContent(node);
     }
     parseMarkdown() {
         return {

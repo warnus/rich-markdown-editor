@@ -95,9 +95,9 @@ export default class File extends Node {
           default: null,
         },
       },
-      content: "text*",
+      content: "blockk+",
       marks: "",
-      group: "inline",
+      group: "block",
       draggable: true,
       parseDOM: [
         {
@@ -178,15 +178,16 @@ export default class File extends Node {
   };
 
   toMarkdown(state, node) {
-    state.write(
-      "[" + state.esc((node.attrs.alt || "").replace("\n", "") || "") + "]" +
-      "(" + state.esc(node.attrs.src) + ")"
+    state.renderContent(node);
+    // state.write(
+    //   "[" + state.esc((node.attrs.alt || "").replace("\n", "") || "") + "]" +
+    //   "(" + state.esc(node.attrs.src) + ")"
       // "![" +
       //   state.esc((node.attrs.alt || "").replace("\n", "") || "") +
       //   "](" +
       //   state.esc(node.attrs.src) +
       //   ")"
-    );
+    // );
   }
 
   parseMarkdown() {
