@@ -163,6 +163,7 @@ export default class File extends Node {
     return (
       <div className="file" contentEditable={false}>
         <a href={src}>{alt}</a>
+        <div>test</div>
           {/* <Caption
             onKeyDown={this.handleKeyDown(props)}
             onBlur={this.handleBlur(props)}

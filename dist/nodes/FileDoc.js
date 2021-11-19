@@ -109,7 +109,8 @@ class File extends Node_1.default {
             const { alt, src } = props.node.attrs;
             console.log(props);
             return (React.createElement("div", { className: "file", contentEditable: false },
-                React.createElement("a", { href: src }, alt)));
+                React.createElement("a", { href: src }, alt),
+                React.createElement("div", null, "test")));
         };
     }
     get name() {
