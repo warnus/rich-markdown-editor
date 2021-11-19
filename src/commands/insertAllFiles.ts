@@ -66,7 +66,7 @@ const insertAllFiles = function(view, event, pos, files, options) {
           .setMeta(uploadFilePlaceholderPlugin, { remove: { id } })
           ;
 
-        // view.dispatch(transaction);
+        view.dispatch(transaction);
         // const title = file.name;
         // const href = `creating#${src}…`;
         // view.dispatch(
