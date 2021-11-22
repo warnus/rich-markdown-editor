@@ -170,7 +170,7 @@ class File extends Node_1.default {
         return attrs => toggleWrap_1.default(type, attrs);
     }
     inputRules({ type }) {
-        return [prosemirror_inputrules_1.wrappingInputRule(/^!!!$/, type)];
+        return [prosemirror_inputrules_1.wrappingInputRule(/^@@@$/, type)];
     }
     toMarkdown(state, node) {
         state.write("\n@@@" + (node.attrs.style || "info") + "\n");

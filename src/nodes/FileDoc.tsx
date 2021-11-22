@@ -198,7 +198,7 @@ export default class File extends Node {
   };
 
   inputRules({ type }) {
-    return [wrappingInputRule(/^!!!$/, type)];
+    return [wrappingInputRule(/^@@@$/, type)];
   }
 
   toMarkdown(state, node) {
