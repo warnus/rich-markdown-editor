@@ -160,7 +160,7 @@ class File extends Node_1.default {
                 const icon = document.createElement("div");
                 icon.className = "icon";
                 const a = document.createElement("a");
-                a.href = URL.createObjectURL(node.attrs.src);
+                a.href = node.attrs.src;
                 a.target = '_blank';
                 const fileName = document.createTextNode(node.attrs.alt);
                 a.appendChild(fileName);
