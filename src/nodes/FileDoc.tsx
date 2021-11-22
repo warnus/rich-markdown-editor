@@ -11,7 +11,7 @@ import { WarningIcon, InfoIcon, StarredIcon, LinkIcon } from "outline-icons";
 import ReactDOM from "react-dom";
 import toggleWrap from "../commands/toggleWrap";
 import { wrappingInputRule } from "prosemirror-inputrules";
-
+import fileRule from "../rules/file";
 /**
  * Matches following attributes in Markdown-typed file: [, alt, src, title]
  *
@@ -87,6 +87,10 @@ export default class File extends Node {
   get name() {
     console.log("file node test")
     return "file";
+  }
+
+  get rulePlugins() {
+    return [fileRule];
   }
 
   get styleOptions() {

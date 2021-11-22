@@ -1,7 +1,9 @@
 import { Plugin } from "prosemirror-state";
 import Node from "./Node";
+import fileRule from "../rules/file";
 export default class File extends Node {
     get name(): string;
+    get rulePlugins(): (typeof fileRule)[];
     get styleOptions(): [string, any][];
     get schema(): {
         attrs: {

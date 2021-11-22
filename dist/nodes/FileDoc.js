@@ -33,6 +33,7 @@ const outline_icons_1 = require("outline-icons");
 const react_dom_1 = __importDefault(require("react-dom"));
 const toggleWrap_1 = __importDefault(require("../commands/toggleWrap"));
 const prosemirror_inputrules_1 = require("prosemirror-inputrules");
+const file_1 = __importDefault(require("../rules/file"));
 const FILE_INPUT_REGEX = /!\[(.+|:?)]\((\S+)(?:(?:\s+)["'](\S+)["'])?\)/;
 const uploadPlugin = options => new prosemirror_state_1.Plugin({
     props: {
@@ -100,6 +101,9 @@ class File extends Node_1.default {
     get name() {
         console.log("file node test");
         return "file";
+    }
+    get rulePlugins() {
+        return [file_1.default];
     }
     get styleOptions() {
         return Object.entries({
