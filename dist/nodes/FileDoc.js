@@ -99,7 +99,7 @@ class File extends Node_1.default {
         };
     }
     get name() {
-        return "file";
+        return "container_file";
     }
     get rulePlugins() {
         return [file_1.default];
@@ -173,7 +173,7 @@ class File extends Node_1.default {
     }
     parseMarkdown() {
         return {
-            block: "file",
+            block: "container_file",
         };
     }
     get plugins() {

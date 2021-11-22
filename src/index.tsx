@@ -111,7 +111,7 @@ export type Props = {
     | "heading"
     | "hr"
     | "image"
-    | "file"
+    | "container_file"
     | "list_item"
     | "container_notice"
     | "ordered_list"

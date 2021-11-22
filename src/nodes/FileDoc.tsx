@@ -85,7 +85,7 @@ const uploadPlugin = options =>
 
 export default class File extends Node {
   get name() {
-    return "file";
+    return "container_file";
   }
 
   get rulePlugins() {
@@ -195,7 +195,7 @@ export default class File extends Node {
 
   parseMarkdown() {
     return {
-      block: "file",
+      block: "container_file",
       // getAttrs: tok => ({ style: tok.info }),
     };
   }
