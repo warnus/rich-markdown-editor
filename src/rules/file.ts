@@ -9,7 +9,7 @@ export default function file(md): void {
 
       if (tokens[idx].nesting === 1) {
         // opening tag
-        return `<div class="file file-${md.utils.escapeHtml(info)}">\n`;
+        return `<div class="file file-block">\n`;
       } else {
         // closing tag
         return "</div>\n";

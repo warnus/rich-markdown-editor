@@ -11,7 +11,7 @@ function file(md) {
         render: function (tokens, idx) {
             const { info } = tokens[idx];
             if (tokens[idx].nesting === 1) {
-                return `<div class="file file-${md.utils.escapeHtml(info)}">\n`;
+                return `<div class="file file-block">\n`;
             }
             else {
                 return "</div>\n";
