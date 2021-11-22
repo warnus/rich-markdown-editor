@@ -114,7 +114,7 @@ export default class File extends Node {
       draggable: true,
       parseDOM: [
         {
-          tag: "div.notice-block",
+          tag: "div.file-block",
           preserveWhitespace: "full",
           contentElement: "div:last-child",
           getAttrs: (dom: HTMLDivElement) => ({
@@ -165,7 +165,7 @@ export default class File extends Node {
 
         return [
           "div",
-          { class: `notice-block ${node.attrs.style}` },
+          { class: `file-block ${node.attrs.style}` },
           icon, a,
           ["div", { contentEditable: false }, select],
           ["div", { class: "content" }, 0],
@@ -208,7 +208,7 @@ export default class File extends Node {
 
   parseMarkdown() {
     return {
-      block: "container_notice",
+      block: "file",
       getAttrs: tok => ({ style: tok.info }),
     };
   }

@@ -90,6 +90,37 @@ exports.StyledEditor = styled_components_1.default("div") `
     }
   }
 
+  .file-block {
+    display: flex;
+    align-items: center;
+    background: ${props => props.theme.noticeInfoBackground};
+    color: ${props => props.theme.noticeInfoText};
+    border-radius: 4px;
+    padding: 8px 16px;
+    margin: 8px 0;
+
+    a {
+      color: ${props => props.theme.noticeInfoText};
+    }
+
+    a:not(.heading-name) {
+      text-decoration: underline;
+    }
+  }
+
+  .file-block .content {
+    flex-grow: 1;
+  }
+
+  .file-block .icon {
+    width: 24px;
+    height: 24px;
+    align-self: flex-start;
+    margin-${props => (props.rtl ? "left" : "right")}: 4px;
+    position: relative;
+    top: 1px;
+  }
+
   .loader,
 .loader:before,
 .loader:after {

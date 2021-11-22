@@ -125,7 +125,7 @@ class File extends Node_1.default {
             draggable: true,
             parseDOM: [
                 {
-                    tag: "div.notice-block",
+                    tag: "div.file-block",
                     preserveWhitespace: "full",
                     contentElement: "div:last-child",
                     getAttrs: (dom) => ({
@@ -154,7 +154,7 @@ class File extends Node_1.default {
                 react_dom_1.default.render(component, icon);
                 return [
                     "div",
-                    { class: `notice-block ${node.attrs.style}` },
+                    { class: `file-block ${node.attrs.style}` },
                     icon, a,
                     ["div", { contentEditable: false }, select],
                     ["div", { class: "content" }, 0],
@@ -178,7 +178,7 @@ class File extends Node_1.default {
     }
     parseMarkdown() {
         return {
-            block: "container_notice",
+            block: "file",
             getAttrs: tok => ({ style: tok.info }),
         };
     }
