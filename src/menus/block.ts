@@ -118,8 +118,9 @@ export default function blockMenuItems(
     {
       name: "container_file",
       title: "File",
-      icon: ImageIcon,
+      icon: LinkIcon,
       keywords: "doc pdf",
+      attrs: { style: "info" },
     },
     {
       name: "link",

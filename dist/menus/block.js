@@ -97,8 +97,9 @@ function blockMenuItems(dictionary) {
         {
             name: "container_file",
             title: "File",
-            icon: outline_icons_1.ImageIcon,
+            icon: outline_icons_1.LinkIcon,
             keywords: "doc pdf",
+            attrs: { style: "info" },
         },
         {
             name: "link",
