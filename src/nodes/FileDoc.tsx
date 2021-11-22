@@ -181,16 +181,16 @@ export default class File extends Node {
   };
 
   inputRules({ type }) {
-    return [wrappingInputRule(/^:::$/, type)];
+    return [wrappingInputRule(/^@@@$/, type)];
   }
 
   toMarkdown(state, node) {
     // state.write("\n:::" + (node.attrs.style || "info") + "\n");
-    // state.write("\n:::" + "file" + "\n");
+    state.write("\n@@@" + "file" + "\n");
     state.renderContent(node);
-    // state.ensureNewLine();
-    // state.write(":::");
-    // state.closeBlock(node);
+    state.ensureNewLine();
+    state.write("@@@");
+    state.closeBlock(node);
   }
 
   parseMarkdown() {
