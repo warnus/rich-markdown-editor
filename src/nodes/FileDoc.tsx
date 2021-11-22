@@ -203,7 +203,7 @@ export default class File extends Node {
 
   toMarkdown(state, node) {
     // state.write("\n:::" + (node.attrs.style || "info") + "\n");
-    state.write("\n!!!" + "container_file" + "\n");
+    state.write("\n!!!" + (node.attrs.style || "info")+ "\n");
     state.renderContent(node);
     console.log(node);
     state.ensureNewLine();
