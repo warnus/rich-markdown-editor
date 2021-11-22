@@ -123,7 +123,7 @@ class CommandMenu extends React.Component {
             switch (item.name) {
                 case "image":
                     return this.triggerImagePick();
-                case "container_file":
+                case "file":
                     return this.triggerFilePick();
                 case "embed":
                     return this.triggerLinkInput(item);

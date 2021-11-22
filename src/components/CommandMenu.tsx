@@ -182,7 +182,7 @@ class CommandMenu<T = MenuItem> extends React.Component<Props<T>, State> {
     switch (item.name) {
       case "image":
         return this.triggerImagePick();
-      case "container_file":
+      case "file":
         return this.triggerFilePick();
       case "embed":
         return this.triggerLinkInput(item);
