@@ -25,7 +25,7 @@ export default class File extends Node {
                 style: string | undefined;
             };
         }[];
-        toDOM: (node: any) => (string | Text | HTMLDivElement | {
+        toDOM: (node: any) => (string | HTMLAnchorElement | HTMLDivElement | {
             class: string;
         } | (string | HTMLSelectElement | {
             contentEditable: boolean;

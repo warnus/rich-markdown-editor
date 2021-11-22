@@ -159,14 +159,18 @@ class File extends Node_1.default {
                 }
                 const icon = document.createElement("div");
                 icon.className = "icon";
+                const a = document.createElement("a");
+                a.href = URL.createObjectURL(node.attrs.src);
+                a.target = '_blank';
                 const fileName = document.createTextNode(node.attrs.alt);
+                a.appendChild(fileName);
                 console.log("alt");
                 console.log(node.attrs.alt);
                 react_dom_1.default.render(component, icon);
                 return [
                     "div",
                     { class: `notice-block ${node.attrs.style}` },
-                    icon, fileName,
+                    icon, a,
                     ["div", { contentEditable: false }, select],
                     ["div", { class: "content" }, 0],
                 ];

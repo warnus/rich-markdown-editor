@@ -151,16 +151,20 @@ export default class File extends Node {
 
         const icon = document.createElement("div");
         icon.className = "icon";
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(node.attrs.src);
+        a.target = '_blank';
         const fileName = document.createTextNode(node.attrs.alt);
+        a.appendChild(fileName);
+        
         console.log("alt")
         console.log(node.attrs.alt)
-        // icon.appendChild(fileName);
         ReactDOM.render(component, icon);
 
         return [
           "div",
           { class: `notice-block ${node.attrs.style}` },
-          icon, fileName,
+          icon, a,
           ["div", { contentEditable: false }, select],
           ["div", { class: "content" }, 0],
         ];
