@@ -134,7 +134,7 @@ export default class File extends Node {
           const option = document.createElement("option");
           option.value = key;
           // option.innerText = label;
-          option.innerText = node.attr.alt;
+          option.innerText = node.attrs.alt;
           option.selected = node.attrs.style === key;
           select.appendChild(option);
         });

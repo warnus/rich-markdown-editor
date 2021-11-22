@@ -143,7 +143,7 @@ class File extends Node_1.default {
                 this.styleOptions.forEach(([key, label]) => {
                     const option = document.createElement("option");
                     option.value = key;
-                    option.innerText = node.attr.alt;
+                    option.innerText = node.attrs.alt;
                     option.selected = node.attrs.style === key;
                     select.appendChild(option);
                 });
