@@ -24,13 +24,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const React = __importStar(require("react"));
 const prosemirror_state_1 = require("prosemirror-state");
-const prosemirror_inputrules_1 = require("prosemirror-inputrules");
-const prosemirror_utils_1 = require("prosemirror-utils");
 const styled_components_1 = __importDefault(require("styled-components"));
 const getDataTransferFiles_1 = __importDefault(require("../lib/getDataTransferFiles"));
-const uploadFilePlaceholder_1 = __importDefault(require("../lib/uploadFilePlaceholder"));
 const insertAllFiles_1 = __importDefault(require("../commands/insertAllFiles"));
 const Node_1 = __importDefault(require("./Node"));
+const outline_icons_1 = require("outline-icons");
+const react_dom_1 = __importDefault(require("react-dom"));
+const toggleWrap_1 = __importDefault(require("../commands/toggleWrap"));
+const prosemirror_inputrules_1 = require("prosemirror-inputrules");
 const FILE_INPUT_REGEX = /!\[(.+|:?)]\((\S+)(?:(?:\s+)["'](\S+)["'])?\)/;
 const uploadPlugin = options => new prosemirror_state_1.Plugin({
     props: {
@@ -81,118 +82,107 @@ const uploadPlugin = options => new prosemirror_state_1.Plugin({
 class File extends Node_1.default {
     constructor() {
         super(...arguments);
-        this.handleKeyDown = ({ node, getPos }) => event => {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                const { view } = this.editor;
-                const pos = getPos() + node.nodeSize;
-                view.focus();
-                view.dispatch(prosemirror_utils_1.setTextSelection(pos)(view.state.tr));
-                return;
-            }
-        };
-        this.handleBlur = ({ node, getPos }) => event => {
-            const alt = event.target.innerText;
-            const src = node.attrs.src;
-            if (alt === node.attrs.alt)
-                return;
+        this.handleStyleChange = event => {
             const { view } = this.editor;
             const { tr } = view.state;
-            const pos = getPos();
-            const transaction = tr.setNodeMarkup(pos, undefined, {
-                src,
-                alt,
-            });
-            view.dispatch(transaction);
-        };
-        this.component = props => {
-            const { alt, src } = props.node.attrs;
-            console.log(props);
-            return (React.createElement("div", { className: "file", contentEditable: false },
-                React.createElement("a", { href: src }, alt),
-                React.createElement("div", null, "test")));
+            const element = event.target;
+            const { top, left } = element.getBoundingClientRect();
+            const result = view.posAtCoords({ top, left });
+            if (result) {
+                const transaction = tr.setNodeMarkup(result.inside, undefined, {
+                    style: element.value,
+                });
+                view.dispatch(transaction);
+            }
         };
     }
     get name() {
         console.log("file node test");
         return "file";
     }
+    get styleOptions() {
+        return Object.entries({
+            info: this.options.dictionary.info,
+            warning: this.options.dictionary.warning,
+            tip: this.options.dictionary.tip,
+        });
+    }
     get schema() {
-        console.log("schema test");
         return {
-            inline: true,
             attrs: {
-                src: {},
-                alt: {
-                    default: null,
+                style: {
+                    default: "info",
                 },
             },
-            content: "blockk+",
-            marks: "",
+            content: "block+",
             group: "block",
+            defining: true,
             draggable: true,
             parseDOM: [
                 {
-                    tag: "div[class=file]",
-                    getAttrs: (dom) => {
-                        const a = dom.getElementsByTagName("a")[0];
-                        const caption = dom.getElementsByTagName("p")[0];
-                        return {};
-                    },
+                    tag: "div.notice-block",
+                    preserveWhitespace: "full",
+                    contentElement: "div:last-child",
+                    getAttrs: (dom) => ({
+                        style: dom.className.includes("tip")
+                            ? "tip"
+                            : dom.className.includes("warning")
+                                ? "warning"
+                                : undefined,
+                    }),
                 },
             ],
             toDOM: node => {
+                const select = document.createElement("select");
+                select.addEventListener("change", this.handleStyleChange);
+                this.styleOptions.forEach(([key, label]) => {
+                    const option = document.createElement("option");
+                    option.value = key;
+                    option.innerText = label;
+                    option.selected = node.attrs.style === key;
+                    select.appendChild(option);
+                });
+                let component;
+                if (node.attrs.style === "tip") {
+                    component = React.createElement(outline_icons_1.StarredIcon, { color: "currentColor" });
+                }
+                else if (node.attrs.style === "warning") {
+                    component = React.createElement(outline_icons_1.WarningIcon, { color: "currentColor" });
+                }
+                else {
+                    component = React.createElement(outline_icons_1.InfoIcon, { color: "currentColor" });
+                }
+                const icon = document.createElement("div");
+                icon.className = "icon";
+                react_dom_1.default.render(component, icon);
                 return [
                     "div",
-                    {
-                        class: "file",
-                    },
-                    ["a", Object.assign(Object.assign({}, node.attrs), { contentEditable: false })],
-                    ["p", { class: "caption" }, 0],
+                    { class: `notice-block ${node.attrs.style}` },
+                    icon,
+                    ["div", { contentEditable: false }, select],
+                    ["div", { class: "content" }, 0],
                 ];
             },
         };
     }
+    commands({ type }) {
+        return attrs => toggleWrap_1.default(type, attrs);
+    }
+    inputRules({ type }) {
+        return [prosemirror_inputrules_1.wrappingInputRule(/^:::$/, type)];
+    }
     toMarkdown(state, node) {
+        state.write("\n:::" + (node.attrs.style || "info") + "\n");
         state.renderContent(node);
+        state.ensureNewLine();
+        state.write(":::");
+        state.closeBlock(node);
     }
     parseMarkdown() {
         return {
-            node: "file",
-            getAttrs: token => ({
-                href: token.attrGet("href"),
-            }),
+            block: "container_notice",
+            getAttrs: tok => ({ style: tok.info }),
         };
-    }
-    commands({ type }) {
-        return attrs => (state, dispatch) => {
-            const { selection } = state;
-            const position = selection.$cursor
-                ? selection.$cursor.pos
-                : selection.$to.pos;
-            const node = type.create(attrs);
-            const transaction = state.tr.insert(position, node);
-            dispatch(transaction);
-            return true;
-        };
-    }
-    inputRules({ type }) {
-        return [
-            new prosemirror_inputrules_1.InputRule(FILE_INPUT_REGEX, (state, match, start, end) => {
-                const [okay, alt, src] = match;
-                const { tr } = state;
-                if (okay) {
-                    tr.replaceWith(start - 1, end, type.create({
-                        src,
-                        alt,
-                    }));
-                }
-                return tr;
-            }),
-        ];
-    }
-    get plugins() {
-        return [uploadFilePlaceholder_1.default, uploadPlugin(this.options)];
     }
 }
 exports.default = File;

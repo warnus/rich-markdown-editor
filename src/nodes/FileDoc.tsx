@@ -1,12 +1,16 @@
 import * as React from "react";
 import { Plugin } from "prosemirror-state";
-import { InputRule } from "prosemirror-inputrules";
-import { setTextSelection } from "prosemirror-utils";
+// import { InputRule } from "prosemirror-inputrules";
+// import { setTextSelection } from "prosemirror-utils";
 import styled from "styled-components";
 import getDataTransferFiles from "../lib/getDataTransferFiles";
-import uploadFilePlaceholderPlugin from "../lib/uploadFilePlaceholder";
+// import uploadFilePlaceholderPlugin from "../lib/uploadFilePlaceholder";
 import insertAllFiles from "../commands/insertAllFiles";
 import Node from "./Node";
+import { WarningIcon, InfoIcon, StarredIcon } from "outline-icons";
+import ReactDOM from "react-dom";
+import toggleWrap from "../commands/toggleWrap";
+import { wrappingInputRule } from "prosemirror-inputrules";
 
 /**
  * Matches following attributes in Markdown-typed file: [, alt, src, title]
@@ -85,159 +89,112 @@ export default class File extends Node {
     return "file";
   }
 
+  get styleOptions() {
+    return Object.entries({
+      info: this.options.dictionary.info,
+      warning: this.options.dictionary.warning,
+      tip: this.options.dictionary.tip,
+    });
+  }
+
   get schema() {
-    console.log("schema test")
     return {
-      inline: true,
       attrs: {
-        src: {},
-        alt: {
-          default: null,
+        style: {
+          default: "info",
         },
       },
-      content: "blockk+",
-      marks: "",
+      content: "block+",
       group: "block",
+      defining: true,
       draggable: true,
       parseDOM: [
         {
-          tag: "div[class=file]",
-          getAttrs: (dom: HTMLElement) => {
-            const a = dom.getElementsByTagName("a")[0];
-            // console.log(alt)
-            const caption = dom.getElementsByTagName("p")[0];
-
-            return {
-              // src: a.getAttribute("href"),
-              // alt: caption.innerText,
-              // alt: "TEST CAPCAP",
-            };
-          },
+          tag: "div.notice-block",
+          preserveWhitespace: "full",
+          contentElement: "div:last-child",
+          getAttrs: (dom: HTMLDivElement) => ({
+            style: dom.className.includes("tip")
+              ? "tip"
+              : dom.className.includes("warning")
+              ? "warning"
+              : undefined,
+          }),
         },
       ],
       toDOM: node => {
+        const select = document.createElement("select");
+        select.addEventListener("change", this.handleStyleChange);
+
+        this.styleOptions.forEach(([key, label]) => {
+          const option = document.createElement("option");
+          option.value = key;
+          option.innerText = label;
+          option.selected = node.attrs.style === key;
+          select.appendChild(option);
+        });
+
+        let component;
+
+        if (node.attrs.style === "tip") {
+          component = <StarredIcon color="currentColor" />;
+        } else if (node.attrs.style === "warning") {
+          component = <WarningIcon color="currentColor" />;
+        } else {
+          component = <InfoIcon color="currentColor" />;
+        }
+
+        const icon = document.createElement("div");
+        icon.className = "icon";
+        ReactDOM.render(component, icon);
+
         return [
           "div",
-          {
-            class: "file",
-          },
-          ["a", { ...node.attrs, contentEditable: false }],
-          ["p", { class: "caption" }, 0],
+          { class: `notice-block ${node.attrs.style}` },
+          icon,
+          ["div", { contentEditable: false }, select],
+          ["div", { class: "content" }, 0],
         ];
       },
     };
   }
 
-  handleKeyDown = ({ node, getPos }) => event => {
-    if (event.key === "Enter") {
-      event.preventDefault();
+  commands({ type }) {
+    return attrs => toggleWrap(type, attrs);
+  }
 
-      const { view } = this.editor;
-      const pos = getPos() + node.nodeSize;
-      view.focus();
-      view.dispatch(setTextSelection(pos)(view.state.tr));
-      return;
+  handleStyleChange = event => {
+    const { view } = this.editor;
+    const { tr } = view.state;
+    const element = event.target;
+    const { top, left } = element.getBoundingClientRect();
+    const result = view.posAtCoords({ top, left });
+
+    if (result) {
+      const transaction = tr.setNodeMarkup(result.inside, undefined, {
+        style: element.value,
+      });
+      view.dispatch(transaction);
     }
   };
 
-  handleBlur = ({ node, getPos }) => event => {
-    const alt = event.target.innerText;
-    const src = node.attrs.src;
-    if (alt === node.attrs.alt) return;
-
-    const { view } = this.editor;
-    const { tr } = view.state;
-
-    // update meta on object
-    const pos = getPos();
-    const transaction = tr.setNodeMarkup(pos, undefined, {
-      src,
-      alt,
-    });
-    view.dispatch(transaction);
-  };
-
-  component = props => {
-    const { alt, src } = props.node.attrs;
-    console.log(props)
-    return (
-      <div className="file" contentEditable={false}>
-        <a href={src}>{alt}</a>
-        <div>test</div>
-          {/* <Caption
-            onKeyDown={this.handleKeyDown(props)}
-            onBlur={this.handleBlur(props)}
-            tabIndex={-1}
-            contentEditable={props.isEditable}
-            suppressContentEditableWarning
-          >
-            {alt}
-          </Caption> */}
-      </div>
-    );
-  };
+  inputRules({ type }) {
+    return [wrappingInputRule(/^:::$/, type)];
+  }
 
   toMarkdown(state, node) {
+    state.write("\n:::" + (node.attrs.style || "info") + "\n");
     state.renderContent(node);
-    // state.write(
-    //   "[" + state.esc((node.attrs.alt || "").replace("\n", "") || "") + "]" +
-    //   "(" + state.esc(node.attrs.src) + ")"
-      // "![" +
-      //   state.esc((node.attrs.alt || "").replace("\n", "") || "") +
-      //   "](" +
-      //   state.esc(node.attrs.src) +
-      //   ")"
-    // );
+    state.ensureNewLine();
+    state.write(":::");
+    state.closeBlock(node);
   }
 
   parseMarkdown() {
     return {
-      node: "file",
-      getAttrs: token => ({
-        href: token.attrGet("href"),
-        // src: token.attrGet("src"),
-        // alt: (token.children[0] && token.children[0].content) || null,
-      }),
+      block: "container_notice",
+      getAttrs: tok => ({ style: tok.info }),
     };
-  }
-
-  commands({ type }) {
-    return attrs => (state, dispatch) => {
-      const { selection } = state;
-      const position = selection.$cursor
-        ? selection.$cursor.pos
-        : selection.$to.pos;
-      const node = type.create(attrs);
-      const transaction = state.tr.insert(position, node);
-      dispatch(transaction);
-      return true;
-    };
-  }
-
-  inputRules({ type }) {
-    return [
-      new InputRule(FILE_INPUT_REGEX, (state, match, start, end) => {
-        const [okay, alt, src] = match;
-        const { tr } = state;
-
-        if (okay) {
-          tr.replaceWith(
-            start - 1,
-            end,
-            type.create({
-              src,
-              alt,
-            })
-          );
-        }
-
-        return tr;
-      }),
-    ];
-  }
-
-  get plugins() {
-    return [uploadFilePlaceholderPlugin, uploadPlugin(this.options)];
   }
 }
 
