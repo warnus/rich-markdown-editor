@@ -99,7 +99,6 @@ class File extends Node_1.default {
         };
     }
     get name() {
-        console.log("file node test");
         return "file";
     }
     get rulePlugins() {
@@ -166,17 +165,11 @@ class File extends Node_1.default {
         return [prosemirror_inputrules_1.wrappingInputRule(/^:::$/, type)];
     }
     toMarkdown(state, node) {
-        state.write("\n:::" + "file" + "\n");
         state.renderContent(node);
-        console.log(node);
-        state.ensureNewLine();
-        state.write(":::");
-        state.closeBlock(node);
     }
     parseMarkdown() {
         return {
             block: "file",
-            getAttrs: tok => ({ style: tok.info }),
         };
     }
     get plugins() {

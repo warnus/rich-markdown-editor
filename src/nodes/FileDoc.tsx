@@ -85,7 +85,6 @@ const uploadPlugin = options =>
 
 export default class File extends Node {
   get name() {
-    console.log("file node test")
     return "file";
   }
 
@@ -187,18 +186,17 @@ export default class File extends Node {
 
   toMarkdown(state, node) {
     // state.write("\n:::" + (node.attrs.style || "info") + "\n");
-    state.write("\n:::" + "file" + "\n");
+    // state.write("\n:::" + "file" + "\n");
     state.renderContent(node);
-    console.log(node);
-    state.ensureNewLine();
-    state.write(":::");
-    state.closeBlock(node);
+    // state.ensureNewLine();
+    // state.write(":::");
+    // state.closeBlock(node);
   }
 
   parseMarkdown() {
     return {
       block: "file",
-      getAttrs: tok => ({ style: tok.info }),
+      // getAttrs: tok => ({ style: tok.info }),
     };
   }
 
