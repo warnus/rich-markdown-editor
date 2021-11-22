@@ -438,6 +438,15 @@ export const StyledEditor = styled("div")<{
     }
   }
 
+  .notice-block.file {
+    background: ${props => props.theme.noticeTipBackground};
+    color: ${props => props.theme.noticeTipText};
+
+    a {
+      color: ${props => props.theme.noticeTipText};
+    }
+  }
+
   blockquote {
     margin: 0;
     padding-left: 1.5em;
