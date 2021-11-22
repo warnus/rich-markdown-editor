@@ -2,7 +2,7 @@ import customFence from "markdown-it-container";
 
 export default function file(md): void {
   return customFence(md, "file", {
-    marker: "!",
+    marker: "@",
     validate: () => true,
     render: function(tokens, idx) {
       const { info } = tokens[idx];

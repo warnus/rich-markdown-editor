@@ -203,11 +203,11 @@ export default class File extends Node {
 
   toMarkdown(state, node) {
     // state.write("\n:::" + (node.attrs.style || "info") + "\n");
-    state.write("\n!!!" + (node.attrs.style || "info")+ "\n");
+    state.write("\n@@@" + (node.attrs.style || "info")+ "\n");
     state.renderContent(node);
     console.log(node);
     state.ensureNewLine();
-    state.write("!!!");
+    state.write("@@@");
     state.closeBlock(node);
   }
 

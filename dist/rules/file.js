@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const markdown_it_container_1 = __importDefault(require("markdown-it-container"));
 function file(md) {
     return markdown_it_container_1.default(md, "file", {
-        marker: "!",
+        marker: "@",
         validate: () => true,
         render: function (tokens, idx) {
             const { info } = tokens[idx];
