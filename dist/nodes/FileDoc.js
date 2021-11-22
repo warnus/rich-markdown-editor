@@ -166,14 +166,14 @@ class File extends Node_1.default {
         return attrs => toggleWrap_1.default(type, attrs);
     }
     inputRules({ type }) {
-        return [prosemirror_inputrules_1.wrappingInputRule(/^:::$/, type)];
+        return [prosemirror_inputrules_1.wrappingInputRule(/^!!!$/, type)];
     }
     toMarkdown(state, node) {
-        state.write("\n:::" + "file" + "\n");
+        state.write("\n!!!" + "file" + "\n");
         state.renderContent(node);
         console.log(node);
         state.ensureNewLine();
-        state.write(":::");
+        state.write("!!!");
         state.closeBlock(node);
     }
     parseMarkdown() {
