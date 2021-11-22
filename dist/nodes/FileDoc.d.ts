@@ -1,3 +1,4 @@
+import { Plugin } from "prosemirror-state";
 import Node from "./Node";
 export default class File extends Node {
     get name(): string;
@@ -42,5 +43,6 @@ export default class File extends Node {
             style: any;
         };
     };
+    get plugins(): Plugin<any, any>[];
 }
 //# sourceMappingURL=FileDoc.d.ts.map

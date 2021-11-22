@@ -26,6 +26,7 @@ const React = __importStar(require("react"));
 const prosemirror_state_1 = require("prosemirror-state");
 const styled_components_1 = __importDefault(require("styled-components"));
 const getDataTransferFiles_1 = __importDefault(require("../lib/getDataTransferFiles"));
+const uploadFilePlaceholder_1 = __importDefault(require("../lib/uploadFilePlaceholder"));
 const insertAllFiles_1 = __importDefault(require("../commands/insertAllFiles"));
 const Node_1 = __importDefault(require("./Node"));
 const outline_icons_1 = require("outline-icons");
@@ -183,6 +184,9 @@ class File extends Node_1.default {
             block: "container_notice",
             getAttrs: tok => ({ style: tok.info }),
         };
+    }
+    get plugins() {
+        return [uploadFilePlaceholder_1.default, uploadPlugin(this.options)];
     }
 }
 exports.default = File;

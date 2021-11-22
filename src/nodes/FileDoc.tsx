@@ -4,7 +4,7 @@ import { Plugin } from "prosemirror-state";
 // import { setTextSelection } from "prosemirror-utils";
 import styled from "styled-components";
 import getDataTransferFiles from "../lib/getDataTransferFiles";
-// import uploadFilePlaceholderPlugin from "../lib/uploadFilePlaceholder";
+import uploadFilePlaceholderPlugin from "../lib/uploadFilePlaceholder";
 import insertAllFiles from "../commands/insertAllFiles";
 import Node from "./Node";
 import { WarningIcon, InfoIcon, StarredIcon } from "outline-icons";
@@ -195,6 +195,10 @@ export default class File extends Node {
       block: "container_notice",
       getAttrs: tok => ({ style: tok.info }),
     };
+  }
+
+  get plugins() {
+    return [uploadFilePlaceholderPlugin, uploadPlugin(this.options)];
   }
 }
 
