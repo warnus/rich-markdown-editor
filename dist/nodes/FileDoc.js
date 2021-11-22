@@ -169,7 +169,7 @@ class File extends Node_1.default {
         return [prosemirror_inputrules_1.wrappingInputRule(/^:::$/, type)];
     }
     toMarkdown(state, node) {
-        state.write("\n:::" + (node.attrs.style || "info") + "\n");
+        state.write("\n:::" + "file" + "\n");
         state.renderContent(node);
         console.log(node);
         state.ensureNewLine();
