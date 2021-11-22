@@ -165,11 +165,7 @@ class File extends Node_1.default {
         return [prosemirror_inputrules_1.wrappingInputRule(/^@@@$/, type)];
     }
     toMarkdown(state, node) {
-        state.write("\n@@@" + "file" + "\n");
         state.renderContent(node);
-        state.ensureNewLine();
-        state.write("@@@");
-        state.closeBlock(node);
     }
     parseMarkdown() {
         return {
