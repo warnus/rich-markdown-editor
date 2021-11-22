@@ -100,7 +100,7 @@ class File extends Node_1.default {
     }
     get name() {
         console.log("file node test");
-        return "file";
+        return "container_file";
     }
     get rulePlugins() {
         return [file_1.default];
@@ -182,7 +182,7 @@ class File extends Node_1.default {
     }
     parseMarkdown() {
         return {
-            block: "file",
+            block: "container_file",
             getAttrs: tok => ({ style: tok.info }),
         };
     }
