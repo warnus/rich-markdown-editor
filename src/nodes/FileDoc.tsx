@@ -151,6 +151,8 @@ export default class File extends Node {
 
         const icon = document.createElement("div");
         icon.className = "icon";
+        const fileName = document.createTextNode(node.attrs.alt);
+        icon.appendChild(fileName);
         ReactDOM.render(component, icon);
 
         return [

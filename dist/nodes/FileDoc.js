@@ -159,6 +159,8 @@ class File extends Node_1.default {
                 }
                 const icon = document.createElement("div");
                 icon.className = "icon";
+                const fileName = document.createTextNode(node.attrs.alt);
+                icon.appendChild(fileName);
                 react_dom_1.default.render(component, icon);
                 return [
                     "div",
