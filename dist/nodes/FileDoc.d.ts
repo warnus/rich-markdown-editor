@@ -5,6 +5,10 @@ export default class File extends Node {
     get styleOptions(): [string, any][];
     get schema(): {
         attrs: {
+            src: {};
+            alt: {
+                default: null;
+            };
             style: {
                 default: string;
             };

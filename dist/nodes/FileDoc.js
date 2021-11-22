@@ -111,6 +111,10 @@ class File extends Node_1.default {
     get schema() {
         return {
             attrs: {
+                src: {},
+                alt: {
+                    default: null,
+                },
                 style: {
                     default: "info",
                 },
@@ -139,7 +143,7 @@ class File extends Node_1.default {
                 this.styleOptions.forEach(([key, label]) => {
                     const option = document.createElement("option");
                     option.value = key;
-                    option.innerText = label;
+                    option.innerText = node.attr.alt;
                     option.selected = node.attrs.style === key;
                     select.appendChild(option);
                 });
