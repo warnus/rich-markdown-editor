@@ -171,6 +171,7 @@ class File extends Node_1.default {
     toMarkdown(state, node) {
         state.write("\n:::" + (node.attrs.style || "info") + "\n");
         state.renderContent(node);
+        console.log(node);
         state.ensureNewLine();
         state.write(":::");
         state.closeBlock(node);
