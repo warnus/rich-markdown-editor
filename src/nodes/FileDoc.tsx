@@ -86,7 +86,7 @@ const uploadPlugin = options =>
 export default class File extends Node {
   get name() {
     console.log("file node test")
-    return "container_file";
+    return "file";
   }
 
   get rulePlugins() {
@@ -121,37 +121,21 @@ export default class File extends Node {
           tag: "div.file-block",
           preserveWhitespace: "full",
           contentElement: "div:last-child",
-          getAttrs: (dom: HTMLDivElement) => ({
-            style: dom.className.includes("tip")
-              ? "tip"
-              : dom.className.includes("warning")
-              ? "warning"
-              : undefined,
-          }),
+          // getAttrs: (dom: HTMLDivElement) => ({
+          //   style: dom.className.includes("tip")
+          //     ? "tip"
+          //     : dom.className.includes("warning")
+          //     ? "warning"
+          //     : undefined,
+          // }),
         },
       ],
       toDOM: node => {
         const select = document.createElement("select");
         select.addEventListener("change", this.handleStyleChange);
 
-        // this.styleOptions.forEach(([key, label]) => {
-        //   const option = document.createElement("option");
-        //   option.value = key;
-        //   option.innerText = label;
-        //   option.innerText = node.attrs.alt;
-        //   option.selected = node.attrs.style === key;
-        //   select.appendChild(option);
-        // });
-
         let component;
 
-        // if (node.attrs.style === "tip") {
-        //   component = <StarredIcon color="currentColor" />;
-        // } else if (node.attrs.style === "warning") {
-        //   component = <WarningIcon color="currentColor" />;
-        // } else {
-        //   component = <InfoIcon color="currentColor" />;
-        // }
         component = <LinkIcon color="currentColor" />;
 
         const icon = document.createElement("div");
@@ -213,7 +197,7 @@ export default class File extends Node {
 
   parseMarkdown() {
     return {
-      block: "container_file",
+      block: "file",
       getAttrs: tok => ({ style: tok.info }),
     };
   }

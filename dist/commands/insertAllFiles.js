@@ -49,7 +49,7 @@ const insertAllFiles = function (view, event, pos, files, options) {
             if (pos === null)
                 return;
             const transaction = view.state.tr
-                .replaceWith(pos, pos, schema.nodes.container_file.create({ src, alt: file.name }))
+                .replaceWith(pos, pos, schema.nodes.file.create({ src, alt: file.name }))
                 .setMeta(uploadFilePlaceholder_1.default, { remove: { id } });
             view.dispatch(transaction);
         })

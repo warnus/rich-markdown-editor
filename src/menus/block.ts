@@ -116,11 +116,10 @@ export default function blockMenuItems(
       keywords: "picture photo",
     },
     {
-      name: "container_file",
+      name: "file",
       title: "File",
       icon: LinkIcon,
       keywords: "doc pdf",
-      attrs: { style: "info" },
     },
     {
       name: "link",

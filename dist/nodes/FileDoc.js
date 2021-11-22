@@ -100,7 +100,7 @@ class File extends Node_1.default {
     }
     get name() {
         console.log("file node test");
-        return "container_file";
+        return "file";
     }
     get rulePlugins() {
         return [file_1.default];
@@ -132,13 +132,6 @@ class File extends Node_1.default {
                     tag: "div.file-block",
                     preserveWhitespace: "full",
                     contentElement: "div:last-child",
-                    getAttrs: (dom) => ({
-                        style: dom.className.includes("tip")
-                            ? "tip"
-                            : dom.className.includes("warning")
-                                ? "warning"
-                                : undefined,
-                    }),
                 },
             ],
             toDOM: node => {
@@ -182,7 +175,7 @@ class File extends Node_1.default {
     }
     parseMarkdown() {
         return {
-            block: "container_file",
+            block: "file",
             getAttrs: tok => ({ style: tok.info }),
         };
     }

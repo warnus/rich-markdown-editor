@@ -95,11 +95,10 @@ function blockMenuItems(dictionary) {
             keywords: "picture photo",
         },
         {
-            name: "container_file",
+            name: "file",
             title: "File",
             icon: outline_icons_1.LinkIcon,
             keywords: "doc pdf",
-            attrs: { style: "info" },
         },
         {
             name: "link",
