@@ -140,23 +140,8 @@ class File extends Node_1.default {
             toDOM: node => {
                 const select = document.createElement("select");
                 select.addEventListener("change", this.handleStyleChange);
-                this.styleOptions.forEach(([key, label]) => {
-                    const option = document.createElement("option");
-                    option.value = key;
-                    option.innerText = node.attrs.alt;
-                    option.selected = node.attrs.style === key;
-                    select.appendChild(option);
-                });
                 let component;
-                if (node.attrs.style === "tip") {
-                    component = React.createElement(outline_icons_1.StarredIcon, { color: "currentColor" });
-                }
-                else if (node.attrs.style === "warning") {
-                    component = React.createElement(outline_icons_1.WarningIcon, { color: "currentColor" });
-                }
-                else {
-                    component = React.createElement(outline_icons_1.InfoIcon, { color: "currentColor" });
-                }
+                component = React.createElement(outline_icons_1.LinkIcon, { color: "currentColor" });
                 const icon = document.createElement("div");
                 icon.className = "icon";
                 const a = document.createElement("a");

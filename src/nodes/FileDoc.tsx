@@ -7,7 +7,7 @@ import getDataTransferFiles from "../lib/getDataTransferFiles";
 import uploadFilePlaceholderPlugin from "../lib/uploadFilePlaceholder";
 import insertAllFiles from "../commands/insertAllFiles";
 import Node from "./Node";
-import { WarningIcon, InfoIcon, StarredIcon } from "outline-icons";
+import { WarningIcon, InfoIcon, StarredIcon, LinkIcon } from "outline-icons";
 import ReactDOM from "react-dom";
 import toggleWrap from "../commands/toggleWrap";
 import { wrappingInputRule } from "prosemirror-inputrules";
@@ -130,24 +130,25 @@ export default class File extends Node {
         const select = document.createElement("select");
         select.addEventListener("change", this.handleStyleChange);
 
-        this.styleOptions.forEach(([key, label]) => {
-          const option = document.createElement("option");
-          option.value = key;
-          // option.innerText = label;
-          option.innerText = node.attrs.alt;
-          option.selected = node.attrs.style === key;
-          select.appendChild(option);
-        });
+        // this.styleOptions.forEach(([key, label]) => {
+        //   const option = document.createElement("option");
+        //   option.value = key;
+        //   option.innerText = label;
+        //   option.innerText = node.attrs.alt;
+        //   option.selected = node.attrs.style === key;
+        //   select.appendChild(option);
+        // });
 
         let component;
 
-        if (node.attrs.style === "tip") {
-          component = <StarredIcon color="currentColor" />;
-        } else if (node.attrs.style === "warning") {
-          component = <WarningIcon color="currentColor" />;
-        } else {
-          component = <InfoIcon color="currentColor" />;
-        }
+        // if (node.attrs.style === "tip") {
+        //   component = <StarredIcon color="currentColor" />;
+        // } else if (node.attrs.style === "warning") {
+        //   component = <WarningIcon color="currentColor" />;
+        // } else {
+        //   component = <InfoIcon color="currentColor" />;
+        // }
+        component = <LinkIcon color="currentColor" />;
 
         const icon = document.createElement("div");
         icon.className = "icon";
