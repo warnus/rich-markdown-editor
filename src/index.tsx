@@ -48,6 +48,7 @@ import HorizontalRule from "./nodes/HorizontalRule";
 import Image from "./nodes/Image";
 import ListItem from "./nodes/ListItem";
 import Notice from "./nodes/Notice";
+import File from "./nodes/File";
 import OrderedList from "./nodes/OrderedList";
 import Paragraph from "./nodes/Paragraph";
 import Table from "./nodes/Table";
@@ -333,6 +334,9 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
           new Embed({ embeds: this.props.embeds }),
           new ListItem(),
           new Notice({
+            dictionary,
+          }),
+          new File({
             dictionary,
           }),
           new Heading({
