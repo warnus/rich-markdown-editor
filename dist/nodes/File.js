@@ -54,7 +54,7 @@ class File extends Node_1.default {
         });
     }
     get name() {
-        return "container_notice";
+        return "container_file";
     }
     get rulePlugins() {
         return [files_1.default];
@@ -132,7 +132,7 @@ class File extends Node_1.default {
     }
     parseMarkdown() {
         return {
-            block: "container_notice",
+            block: "container_file",
             getAttrs: tok => ({ style: tok.info }),
         };
     }

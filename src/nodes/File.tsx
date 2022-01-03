@@ -16,7 +16,7 @@ export default class File extends Node {
   }
 
   get name() {
-    return "container_notice";
+    return "container_file";
   }
 
   get rulePlugins() {
@@ -118,7 +118,7 @@ export default class File extends Node {
 
   parseMarkdown() {
     return {
-      block: "container_notice",
+      block: "container_file",
       getAttrs: tok => ({ style: tok.info }),
     };
   }
