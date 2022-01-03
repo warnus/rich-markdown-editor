@@ -12,6 +12,7 @@ import {
   TodoListIcon,
   ImageIcon,
   StarredIcon,
+  DocumentIcon,
   WarningIcon,
   InfoIcon,
   LinkIcon,

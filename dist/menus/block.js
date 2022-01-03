@@ -128,7 +128,7 @@ function blockMenuItems(dictionary) {
         {
             name: "container_notice",
             title: dictionary.file,
-            icon: DocumentIcon,
+            icon: outline_icons_1.DocumentIcon,
             keywords: "container_notice card suggestion",
             attrs: { style: "tip" },
         },
