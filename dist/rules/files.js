@@ -12,7 +12,7 @@ function file(md) {
         render: function (tokens, idx) {
             const { info } = tokens[idx];
             if (tokens[idx].nesting === 1) {
-                return `<div class="notice notice-${md.utils.escapeHtml(info)}">\n${tokens}`;
+                return `<div class="notice notice-${md.utils.escapeHtml(info)}">\n`;
             }
             else {
                 return "</div>\n";

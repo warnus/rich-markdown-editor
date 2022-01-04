@@ -131,10 +131,12 @@ class File extends Node_1.default {
                     preserveWhitespace: "full",
                     contentElement: "div:last-child",
                     getAttrs: (dom) => ({
-                        style: "tip",
-                        src: "src",
-                        alt: "title"
-                    })
+                        style: dom.className.includes("tip")
+                            ? "tip"
+                            : dom.className.includes("warning")
+                                ? "warning"
+                                : undefined,
+                    }),
                 },
             ],
             toDOM: node => {

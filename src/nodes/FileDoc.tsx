@@ -119,20 +119,12 @@ export default class File extends Node {
           preserveWhitespace: "full",
           contentElement: "div:last-child",
           getAttrs: (dom: HTMLDivElement) => ({
-            // const a = dom.getElementsByTagName("a")[0];
-            style: "tip",
-            src: "src",
-            alt: "title"
-            // return {
-            //   style: dom.className.includes("tip")
-            //   ? "tip"
-            //   : dom.className.includes("warning")
-            //   ? "warning"
-            //   : undefined,
-            //   // src: "src",
-            //   // alt: "title"
-            // }
-          })
+            style: dom.className.includes("tip")
+              ? "tip"
+              : dom.className.includes("warning")
+              ? "warning"
+              : undefined,
+          }),
         },
       ],
       toDOM: node => {
