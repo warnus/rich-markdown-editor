@@ -148,10 +148,10 @@ export default function blockMenuItems(
       attrs: { style: "tip" },
     },
     {
-      name: "container_notice",
+      name: "container_file",
       title: dictionary.file,
       icon: DocumentIcon,
-      keywords: "container_notice card suggestion",
+      keywords: "doc pdf file",
       attrs: { style: "tip" },
     },
   ];

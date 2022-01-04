@@ -45,6 +45,7 @@ const VisuallyHidden_1 = __importDefault(require("./VisuallyHidden"));
 const getDataTransferFiles_1 = __importDefault(require("../lib/getDataTransferFiles"));
 const filterExcessSeparators_1 = __importDefault(require("../lib/filterExcessSeparators"));
 const insertFiles_1 = __importDefault(require("../commands/insertFiles"));
+const insertAllFiles_1 = __importDefault(require("../commands/insertAllFiles"));
 const SSR = typeof window === "undefined";
 const defaultPosition = {
     left: -1000,
@@ -57,6 +58,7 @@ class CommandMenu extends React.Component {
         super(...arguments);
         this.menuRef = React.createRef();
         this.inputRef = React.createRef();
+        this.fileInputRef = React.createRef();
         this.state = {
             left: -1000,
             top: 0,
@@ -121,6 +123,8 @@ class CommandMenu extends React.Component {
             switch (item.name) {
                 case "image":
                     return this.triggerImagePick();
+                case "container_file":
+                    return this.triggerFilePick();
                 case "embed":
                     return this.triggerLinkInput(item);
                 case "link": {
@@ -186,6 +190,11 @@ class CommandMenu extends React.Component {
                 this.inputRef.current.click();
             }
         };
+        this.triggerFilePick = () => {
+            if (this.fileInputRef.current) {
+                this.fileInputRef.current.click();
+            }
+        };
         this.triggerLinkInput = item => {
             this.setState({ insertItem: item });
         };
@@ -209,6 +218,23 @@ class CommandMenu extends React.Component {
             }
             if (this.inputRef.current) {
                 this.inputRef.current.value = "";
+            }
+            this.props.onClose();
+        };
+        this.handleFilePicked = event => {
+            const files = getDataTransferFiles_1.default(event);
+            const { view, uploadFile, onFileUploadStart, onFileUploadStop, onShowToast, } = this.props;
+            const { state, dispatch } = view;
+            const parent = prosemirror_utils_1.findParentNode(node => !!node)(state.selection);
+            if (parent) {
+                dispatch(state.tr.insertText("", parent.pos, parent.pos + parent.node.textContent.length + 1));
+                insertAllFiles_1.default(view, event, parent.pos, files, {
+                    uploadFile,
+                    onFileUploadStart,
+                    onFileUploadStop,
+                    onShowToast,
+                    dictionary: this.props.dictionary,
+                });
             }
             this.props.onClose();
         };
@@ -321,7 +347,7 @@ class CommandMenu extends React.Component {
         }
     }
     get filtered() {
-        const { embeds = [], search = "", uploadImage, commands, filterable = true, } = this.props;
+        const { embeds = [], search = "", uploadImage, uploadFile, commands, filterable = true, } = this.props;
         let items = this.props.items;
         const embedItems = [];
         for (const embed of embeds) {
@@ -344,6 +370,8 @@ class CommandMenu extends React.Component {
                 return false;
             }
             if (!uploadImage && item.name === "image")
+                return false;
+            if (!uploadFile && item.name === "file")
                 return false;
             if (!search)
                 return !item.defaultHidden;

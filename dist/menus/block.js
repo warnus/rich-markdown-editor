@@ -126,10 +126,10 @@ function blockMenuItems(dictionary) {
             attrs: { style: "tip" },
         },
         {
-            name: "container_notice",
+            name: "container_file",
             title: dictionary.file,
             icon: outline_icons_1.DocumentIcon,
-            keywords: "container_notice card suggestion",
+            keywords: "doc pdf file",
             attrs: { style: "tip" },
         },
     ];

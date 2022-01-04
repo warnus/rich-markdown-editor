@@ -11,7 +11,6 @@ import Tooltip from "./components/Tooltip";
 import Extension from "./lib/Extension";
 import ExtensionManager from "./lib/ExtensionManager";
 import ComponentView from "./lib/ComponentView";
-import File from "./nodes/File";
 import { PluginSimple } from "markdown-it";
 export { schema, parser, serializer, renderToHtml } from "./server";
 export { default as Extension } from "./lib/Extension";
@@ -113,6 +112,7 @@ export declare type Props = {
         [name: string]: (view: EditorView, event: Event) => boolean;
     };
     uploadImage?: (file: File) => Promise<string>;
+    uploadFile?: (file: File) => Promise<string>;
     onBlur?: () => void;
     onFocus?: () => void;
     onSave?: ({ done: boolean }: {
@@ -122,6 +122,8 @@ export declare type Props = {
     onChange?: (value: () => string) => void;
     onImageUploadStart?: () => void;
     onImageUploadStop?: () => void;
+    onFileUploadStart?: () => void;
+    onFileUploadStop?: () => void;
     onCreateLink?: (title: string) => Promise<string>;
     onSearchLink?: (term: string) => Promise<SearchResult[]>;
     onClickLink: (href: string, event: MouseEvent) => void;
