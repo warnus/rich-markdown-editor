@@ -6,7 +6,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import Node from "./Node";
 import filesRule from "../rules/files";
-// import { InputRule } from "prosemirror-inputrules";
+import { InputRule } from "prosemirror-inputrules";
 import uploadFilePlaceholderPlugin from "../lib/uploadFilePlaceholder";
 import getDataTransferFiles from "../lib/getDataTransferFiles";
 import insertAllFiles from "../commands/insertAllFiles";
