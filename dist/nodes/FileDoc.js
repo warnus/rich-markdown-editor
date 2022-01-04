@@ -28,6 +28,7 @@ const outline_icons_1 = require("outline-icons");
 const React = __importStar(require("react"));
 const react_dom_1 = __importDefault(require("react-dom"));
 const Node_1 = __importDefault(require("./Node"));
+const prosemirror_inputrules_1 = require("prosemirror-inputrules");
 const uploadFilePlaceholder_1 = __importDefault(require("../lib/uploadFilePlaceholder"));
 const getDataTransferFiles_1 = __importDefault(require("../lib/getDataTransferFiles"));
 const insertAllFiles_1 = __importDefault(require("../commands/insertAllFiles"));
@@ -171,7 +172,7 @@ class File extends Node_1.default {
     }
     inputRules({ type }) {
         return [
-            new InputRule(FILE_INPUT_REGEX, (state, match, start, end) => {
+            new prosemirror_inputrules_1.InputRule(FILE_INPUT_REGEX, (state, match, start, end) => {
                 const [okay, alt, src] = match;
                 const { tr } = state;
                 if (okay) {
