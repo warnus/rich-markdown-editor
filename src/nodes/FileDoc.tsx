@@ -108,15 +108,18 @@ export default class File extends Node {
           tag: "div.notice-block",
           preserveWhitespace: "full",
           contentElement: "div:last-child",
-          getAttrs: (dom: HTMLDivElement) => ({
-            style: dom.className.includes("tip")
+          getAttrs: (dom: HTMLDivElement) => {
+            const a = dom.getElementsByTagName("a")[0];
+            return {
+              style: dom.className.includes("tip")
               ? "tip"
               : dom.className.includes("warning")
               ? "warning"
               : undefined,
-            src: "src",
-            alt: "title"
-          }),
+              src: a?.getAttribute("href"),
+              alt: "title"
+            }
+          }
         },
       ],
       toDOM: node => {

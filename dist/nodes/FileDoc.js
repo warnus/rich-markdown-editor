@@ -129,15 +129,18 @@ class File extends Node_1.default {
                     tag: "div.notice-block",
                     preserveWhitespace: "full",
                     contentElement: "div:last-child",
-                    getAttrs: (dom) => ({
-                        style: dom.className.includes("tip")
-                            ? "tip"
-                            : dom.className.includes("warning")
-                                ? "warning"
-                                : undefined,
-                        src: "src",
-                        alt: "title"
-                    }),
+                    getAttrs: (dom) => {
+                        const a = dom.getElementsByTagName("a")[0];
+                        return {
+                            style: dom.className.includes("tip")
+                                ? "tip"
+                                : dom.className.includes("warning")
+                                    ? "warning"
+                                    : undefined,
+                            src: a === null || a === void 0 ? void 0 : a.getAttribute("href"),
+                            alt: "title"
+                        };
+                    }
                 },
             ],
             toDOM: node => {

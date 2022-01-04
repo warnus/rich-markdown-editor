@@ -25,7 +25,7 @@ export default class File extends Node {
             contentElement: string;
             getAttrs: (dom: HTMLDivElement) => {
                 style: string | undefined;
-                src: string;
+                src: string | null;
                 alt: string;
             };
         }[];
