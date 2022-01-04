@@ -137,7 +137,8 @@ class File extends Node_1.default {
                                 : dom.className.includes("warning")
                                     ? "warning"
                                     : undefined,
-                            src: "src", ",: alt, "title": 
+                            src: "src",
+                            alt: "title"
                         };
                     }
                 },
