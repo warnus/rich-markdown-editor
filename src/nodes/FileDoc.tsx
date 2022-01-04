@@ -124,6 +124,7 @@ export default class File extends Node {
               : dom.className.includes("warning")
               ? "warning"
               : undefined,
+            alt: dom.className.includes("a")
           }),
         },
       ],
