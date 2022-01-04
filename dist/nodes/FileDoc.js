@@ -188,7 +188,8 @@ class File extends Node_1.default {
     }
     toMarkdown(state, node) {
         state.write("\n@@@" + (node.attrs.style || "info") + "\n");
-        state.renderContent(node);
+        state.esc(node.attrs.src);
+        state.esc(node.attrs.alt);
         state.ensureNewLine();
         state.write("@@@");
         state.closeBlock(node);
