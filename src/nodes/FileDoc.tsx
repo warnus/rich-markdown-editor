@@ -5,7 +5,7 @@ import { WarningIcon, InfoIcon, StarredIcon, LinkIcon } from "outline-icons";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import Node from "./Node";
-import filesRule from "../rules/files";
+// import filesRule from "../rules/files";
 import uploadFilePlaceholderPlugin from "../lib/uploadFilePlaceholder";
 import getDataTransferFiles from "../lib/getDataTransferFiles";
 import insertAllFiles from "../commands/insertAllFiles";
@@ -93,9 +93,9 @@ export default class File extends Node {
     return "container_file";
   }
 
-  get rulePlugins() {
-    return [filesRule];
-  }
+  // get rulePlugins() {
+  //   return [filesRule];
+  // }
 
   get schema() {
     return {

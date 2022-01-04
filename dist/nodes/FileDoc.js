@@ -28,7 +28,6 @@ const outline_icons_1 = require("outline-icons");
 const React = __importStar(require("react"));
 const react_dom_1 = __importDefault(require("react-dom"));
 const Node_1 = __importDefault(require("./Node"));
-const files_1 = __importDefault(require("../rules/files"));
 const uploadFilePlaceholder_1 = __importDefault(require("../lib/uploadFilePlaceholder"));
 const getDataTransferFiles_1 = __importDefault(require("../lib/getDataTransferFiles"));
 const insertAllFiles_1 = __importDefault(require("../commands/insertAllFiles"));
@@ -105,9 +104,6 @@ class File extends Node_1.default {
     }
     get name() {
         return "container_file";
-    }
-    get rulePlugins() {
-        return [files_1.default];
     }
     get schema() {
         return {
