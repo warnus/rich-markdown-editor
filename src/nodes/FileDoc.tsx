@@ -5,8 +5,8 @@ import { WarningIcon, InfoIcon, StarredIcon, LinkIcon } from "outline-icons";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import Node from "./Node";
-// import filesRule from "../rules/files";
-import { InputRule } from "prosemirror-inputrules";
+import filesRule from "../rules/files";
+// import { InputRule } from "prosemirror-inputrules";
 import uploadFilePlaceholderPlugin from "../lib/uploadFilePlaceholder";
 import getDataTransferFiles from "../lib/getDataTransferFiles";
 import insertAllFiles from "../commands/insertAllFiles";
@@ -188,37 +188,37 @@ export default class File extends Node {
   };
 
   inputRules({ type }) {
-    // return [wrappingInputRule(/^@@@$/, type)];
-    return [
-      new InputRule(FILE_INPUT_REGEX, (state, match, start, end) => {
-        const [okay, alt, src] = match;
-        const { tr } = state;
+    return [wrappingInputRule(/^@@@$/, type)];
+    // return [
+    //   new InputRule(FILE_INPUT_REGEX, (state, match, start, end) => {
+    //     const [okay, alt, src] = match;
+    //     const { tr } = state;
 
-        if (okay) {
-          tr.replaceWith(
-            start - 1,
-            end,
-            type.create({
-              src,
-              alt,
-              ...getLayoutAndTitle(matchedTitle),
-            })
-          );
-        }
+    //     if (okay) {
+    //       tr.replaceWith(
+    //         start - 1,
+    //         end,
+    //         type.create({
+    //           src,
+    //           alt,
+    //           ...getLayoutAndTitle(matchedTitle),
+    //         })
+    //       );
+    //     }
 
-        return tr;
-      }),
-    ];
+    //     return tr;
+    //   }),
+    // ];
   }
 
   toMarkdown(state, node) {
-    // state.write("\n@@@" + (node.attrs.style || "info") + "\n");
-    state.write("@" +  
-      state.esc(node.attrs.alt) + "@" + "(" +
+    state.write("\n@@@" + (node.attrs.style || "info") + "\n");
+    state.write("[" +  
+      state.esc(node.attrs.alt) + "]" + "(" +
       state.esc(node.attrs.src) + ")"
     )
     state.ensureNewLine();
-    // state.write("@@@");
+    state.write("@@@");
     state.closeBlock(node);
   }
 

@@ -1,6 +1,5 @@
 import { Plugin } from "prosemirror-state";
 import Node from "./Node";
-import { InputRule } from "prosemirror-inputrules";
 export default class File extends Node {
     get styleOptions(): [string, any][];
     get name(): string;
@@ -40,7 +39,7 @@ export default class File extends Node {
     handleStyleChange: (event: any) => void;
     inputRules({ type }: {
         type: any;
-    }): InputRule<any>[];
+    }): import("prosemirror-inputrules").InputRule<any>[];
     toMarkdown(state: any, node: any): void;
     parseMarkdown(): {
         block: string;

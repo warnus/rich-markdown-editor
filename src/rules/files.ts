@@ -6,6 +6,8 @@ export default function file(md): void {
     validate: () => true,
     render: function(tokens, idx) {
       const { info } = tokens[idx];
+      console.log("tokens")
+      console.log(tokens)
 
       if (tokens[idx].nesting === 1) {
         // opening tag

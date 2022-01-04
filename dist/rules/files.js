@@ -10,6 +10,8 @@ function file(md) {
         validate: () => true,
         render: function (tokens, idx) {
             const { info } = tokens[idx];
+            console.log("tokens");
+            console.log(tokens);
             if (tokens[idx].nesting === 1) {
                 return `<div class="notice notice-${md.utils.escapeHtml(info)}">\n`;
             }
