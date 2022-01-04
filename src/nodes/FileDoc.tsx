@@ -18,7 +18,7 @@ import insertAllFiles from "../commands/insertAllFiles";
  * ![](image.jpg "class") -> [, "", "image.jpg", "small"]
  * ![Lorem](image.jpg "class") -> [, "Lorem", "image.jpg", "small"]
  */
-const FILE_INPUT_REGEX = /\@(?<alt>[^\]\[]*?)@\((?<filename>[^\]\[]*?)(?=\“|\))\);
+const FILE_INPUT_REGEX = /@(?<alt>[^\]\[]*?)@\((?<filename>[^\]\[]*?)(?=\“|\))/;
 const uploadPlugin = options =>
   new Plugin({
     props: {

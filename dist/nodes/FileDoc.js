@@ -32,7 +32,7 @@ const files_1 = __importDefault(require("../rules/files"));
 const uploadFilePlaceholder_1 = __importDefault(require("../lib/uploadFilePlaceholder"));
 const getDataTransferFiles_1 = __importDefault(require("../lib/getDataTransferFiles"));
 const insertAllFiles_1 = __importDefault(require("../commands/insertAllFiles"));
-const FILE_INPUT_REGEX = /\@(?<alt>[^\]\[]*?)@\((?<filename>[^\]\[]*?)(?=\“|\))\);;
+const FILE_INPUT_REGEX = /@(?<alt>[^\]\[]*?)@\((?<filename>[^\]\[]*?)(?=\“|\))/;
 const uploadPlugin = options => new prosemirror_state_1.Plugin({
     props: {
         handleDOMEvents: {
