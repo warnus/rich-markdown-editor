@@ -23,12 +23,62 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const prosemirror_inputrules_1 = require("prosemirror-inputrules");
+const prosemirror_state_1 = require("prosemirror-state");
 const toggleWrap_1 = __importDefault(require("../commands/toggleWrap"));
 const outline_icons_1 = require("outline-icons");
 const React = __importStar(require("react"));
 const react_dom_1 = __importDefault(require("react-dom"));
 const Node_1 = __importDefault(require("./Node"));
 const files_1 = __importDefault(require("../rules/files"));
+const uploadFilePlaceholder_1 = __importDefault(require("../lib/uploadFilePlaceholder"));
+const getDataTransferFiles_1 = __importDefault(require("../lib/getDataTransferFiles"));
+const insertAllFiles_1 = __importDefault(require("../commands/insertAllFiles"));
+const uploadPlugin = options => new prosemirror_state_1.Plugin({
+    props: {
+        handleDOMEvents: {
+            paste(view, event) {
+                if ((view.props.editable && !view.props.editable(view.state)) ||
+                    !options.uploadFile) {
+                    return false;
+                }
+                if (!event.clipboardData)
+                    return false;
+                const files = Array.prototype.slice
+                    .call(event.clipboardData.items)
+                    .map(dt => dt.getAsFile())
+                    .filter(file => file);
+                if (files.length === 0)
+                    return false;
+                const { tr } = view.state;
+                if (!tr.selection.empty) {
+                    tr.deleteSelection();
+                }
+                const pos = tr.selection.from;
+                insertAllFiles_1.default(view, event, pos, files, options);
+                return true;
+            },
+            drop(view, event) {
+                if ((view.props.editable && !view.props.editable(view.state)) ||
+                    !options.uploadImage) {
+                    return false;
+                }
+                const files = getDataTransferFiles_1.default(event);
+                if (files.length === 0) {
+                    return false;
+                }
+                const result = view.posAtCoords({
+                    left: event.clientX,
+                    top: event.clientY,
+                });
+                if (result) {
+                    insertAllFiles_1.default(view, event, result.pos, files, options);
+                    return true;
+                }
+                return false;
+            },
+        },
+    },
+});
 class File extends Node_1.default {
     constructor() {
         super(...arguments);
@@ -135,6 +185,9 @@ class File extends Node_1.default {
             block: "container_file",
             getAttrs: tok => ({ style: tok.info }),
         };
+    }
+    get plugins() {
+        return [uploadFilePlaceholder_1.default, uploadPlugin(this.options)];
     }
 }
 exports.default = File;

@@ -1,10 +1,75 @@
 import { wrappingInputRule } from "prosemirror-inputrules";
+import { Plugin } from "prosemirror-state";
 import toggleWrap from "../commands/toggleWrap";
 import { WarningIcon, InfoIcon, StarredIcon } from "outline-icons";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import Node from "./Node";
-import noticesRule from "../rules/files";
+import filesRule from "../rules/files";
+import uploadFilePlaceholderPlugin from "../lib/uploadFilePlaceholder";
+import getDataTransferFiles from "../lib/getDataTransferFiles";
+import insertAllFiles from "../commands/insertAllFiles";
+
+const uploadPlugin = options =>
+  new Plugin({
+    props: {
+      handleDOMEvents: {
+        paste(view, event: ClipboardEvent): boolean {
+          if (
+            (view.props.editable && !view.props.editable(view.state)) ||
+            !options.uploadFile
+          ) {
+            return false;
+          }
+
+          if (!event.clipboardData) return false;
+
+          // check if we actually pasted any files
+          const files = Array.prototype.slice
+            .call(event.clipboardData.items)
+            .map(dt => dt.getAsFile())
+            .filter(file => file);
+
+          if (files.length === 0) return false;
+
+          const { tr } = view.state;
+          if (!tr.selection.empty) {
+            tr.deleteSelection();
+          }
+          const pos = tr.selection.from;
+
+          insertAllFiles(view, event, pos, files, options);
+          return true;
+        },
+        drop(view, event: DragEvent): boolean {
+          if (
+            (view.props.editable && !view.props.editable(view.state)) ||
+            !options.uploadImage
+          ) {
+            return false;
+          }
+
+          const files = getDataTransferFiles(event);
+          if (files.length === 0) {
+            return false;
+          }
+
+          // grab the position in the document for the cursor
+          const result = view.posAtCoords({
+            left: event.clientX,
+            top: event.clientY,
+          });
+
+          if (result) {
+            insertAllFiles(view, event, result.pos, files, options);
+            return true;
+          }
+
+          return false;
+        },
+      },
+    },
+  });
 
 export default class File extends Node {
   get styleOptions() {
@@ -20,7 +85,7 @@ export default class File extends Node {
   }
 
   get rulePlugins() {
-    return [noticesRule];
+    return [filesRule];
   }
 
   get schema() {
@@ -121,5 +186,9 @@ export default class File extends Node {
       block: "container_file",
       getAttrs: tok => ({ style: tok.info }),
     };
+  }
+
+  get plugins() {
+    return [uploadFilePlaceholderPlugin, uploadPlugin(this.options)];
   }
 }

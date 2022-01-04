@@ -1,9 +1,10 @@
+import { Plugin } from "prosemirror-state";
 import Node from "./Node";
-import noticesRule from "../rules/files";
+import filesRule from "../rules/files";
 export default class File extends Node {
     get styleOptions(): [string, any][];
     get name(): string;
-    get rulePlugins(): (typeof noticesRule)[];
+    get rulePlugins(): (typeof filesRule)[];
     get schema(): {
         attrs: {
             style: {
@@ -44,5 +45,6 @@ export default class File extends Node {
             style: any;
         };
     };
+    get plugins(): Plugin<any, any>[];
 }
 //# sourceMappingURL=FileDoc.d.ts.map
