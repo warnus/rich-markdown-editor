@@ -137,8 +137,7 @@ class File extends Node_1.default {
                                 : dom.className.includes("warning")
                                     ? "warning"
                                     : undefined,
-                            src: a === null || a === void 0 ? void 0 : a.getAttribute("href"),
-                            alt: "title"
+                            src: "src", ",: alt, "title": 
                         };
                     }
                 },
