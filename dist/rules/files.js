@@ -11,10 +11,8 @@ function file(md) {
         validate: () => true,
         render: function (tokens, idx) {
             const { info } = tokens[idx];
-            tokens[idx].attrSet("src", "src_test");
-            tokens[idx].attrSet("alt", "title");
             if (tokens[idx].nesting === 1) {
-                return `<div class="notice notice-${md.utils.escapeHtml(info)}">\n`;
+                return `<div class="notice notice-${md.utils.escapeHtml(info)}">\n${tokens}`;
             }
             else {
                 return "</div>\n";
