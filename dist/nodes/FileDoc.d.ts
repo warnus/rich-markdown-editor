@@ -45,7 +45,11 @@ export default class File extends Node {
     toMarkdown(state: any, node: any): void;
     parseMarkdown(): {
         block: string;
-        getAttrs: (token: any) => any;
+        getAttrs: (token: any) => {
+            src: any;
+            alt: any;
+            style: any;
+        };
     };
     get plugins(): Plugin<any, any>[];
 }

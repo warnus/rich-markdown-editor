@@ -198,8 +198,7 @@ export default class File extends Node {
       getAttrs: token => {
         return {
           src: token.attrGet("src"),
-          alt: (token.children[0] && token.children[0].content) || null,
-          ...getLayoutAndTitle(token.attrGet("title")),
+          alt: token.attrGet("alt"),
           style: token.info
         };
       },

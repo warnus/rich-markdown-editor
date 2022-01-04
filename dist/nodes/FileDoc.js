@@ -192,7 +192,11 @@ class File extends Node_1.default {
         return {
             block: "container_file",
             getAttrs: token => {
-                return Object.assign(Object.assign({ src: token.attrGet("src"), alt: (token.children[0] && token.children[0].content) || null }, getLayoutAndTitle(token.attrGet("title"))), { style: token.info });
+                return {
+                    src: token.attrGet("src"),
+                    alt: token.attrGet("alt"),
+                    style: token.info
+                };
             },
         };
     }
