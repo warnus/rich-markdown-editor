@@ -137,8 +137,6 @@ class File extends Node_1.default {
                                 : dom.className.includes("warning")
                                     ? "warning"
                                     : undefined,
-                            src: "src",
-                            alt: "title"
                         };
                     }
                 },
@@ -158,15 +156,7 @@ class File extends Node_1.default {
                     select.appendChild(option);
                 });
                 let component;
-                if (node.attrs.style === "tip") {
-                    component = React.createElement(outline_icons_1.StarredIcon, { color: "currentColor" });
-                }
-                else if (node.attrs.style === "warning") {
-                    component = React.createElement(outline_icons_1.WarningIcon, { color: "currentColor" });
-                }
-                else {
-                    component = React.createElement(outline_icons_1.InfoIcon, { color: "currentColor" });
-                }
+                component = React.createElement(outline_icons_1.LinkIcon, { color: "currentColor" });
                 const icon = document.createElement("div");
                 icon.className = "icon";
                 react_dom_1.default.render(component, icon);

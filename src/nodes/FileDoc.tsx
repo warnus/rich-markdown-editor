@@ -1,7 +1,7 @@
 import { wrappingInputRule } from "prosemirror-inputrules";
 import { Plugin } from "prosemirror-state";
 import toggleWrap from "../commands/toggleWrap";
-import { WarningIcon, InfoIcon, StarredIcon } from "outline-icons";
+import { WarningIcon, InfoIcon, StarredIcon, LinkIcon } from "outline-icons";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import Node from "./Node";
@@ -116,8 +116,8 @@ export default class File extends Node {
               : dom.className.includes("warning")
               ? "warning"
               : undefined,
-              src: "src",
-              alt: "title"
+              // src: "src",
+              // alt: "title"
             }
           }
         },
@@ -141,13 +141,15 @@ export default class File extends Node {
 
         let component;
 
-        if (node.attrs.style === "tip") {
-          component = <StarredIcon color="currentColor" />;
-        } else if (node.attrs.style === "warning") {
-          component = <WarningIcon color="currentColor" />;
-        } else {
-          component = <InfoIcon color="currentColor" />;
-        }
+        // if (node.attrs.style === "tip") {
+        //   component = <StarredIcon color="currentColor" />;
+        // } else if (node.attrs.style === "warning") {
+        //   component = <WarningIcon color="currentColor" />;
+        // } else {
+        //   component = <InfoIcon color="currentColor" />;
+        // }
+
+        component = <LinkIcon color="currentColor" />;
 
         const icon = document.createElement("div");
         icon.className = "icon";
@@ -193,10 +195,6 @@ export default class File extends Node {
       state.esc(node.attrs.alt) + "]" + "(" +
       state.esc(node.attrs.src) + ")"
     )
-    // state.renderContent(node);
-    // state.write(node.attrs.alt)
-    
-    
     state.ensureNewLine();
     state.write("@@@");
     state.closeBlock(node);
