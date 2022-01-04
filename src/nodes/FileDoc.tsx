@@ -19,7 +19,7 @@ import insertAllFiles from "../commands/insertAllFiles";
  * ![](image.jpg "class") -> [, "", "image.jpg", "small"]
  * ![Lorem](image.jpg "class") -> [, "Lorem", "image.jpg", "small"]
  */
-const FILE_INPUT_REGEX = /@(?<alt>[^\]\[]*?)@\((?<filename>[^\]\[]*?)(?=\“|\))/;
+const FILE_INPUT_REGEX = /@@@\[(?<alt>[^]*?)\]\((?<filename>[^]*?)\)@@@/;
 const uploadPlugin = options =>
   new Plugin({
     props: {
@@ -184,27 +184,27 @@ export default class File extends Node {
   };
 
   inputRules({ type }) {
-    return [wrappingInputRule(/^@@@$/, type)];
-    // return [
-    //   new InputRule(FILE_INPUT_REGEX, (state, match, start, end) => {
-    //     const [okay, alt, src] = match;
-    //     const { tr } = state;
+    // return [wrappingInputRule(/^@@@$/, type)];
+    return [
+      new InputRule(FILE_INPUT_REGEX, (state, match, start, end) => {
+        const [okay, alt, src] = match;
+        const { tr } = state;
+        console.log(start)
+        if (okay) {
+          tr.replaceWith(
+            start - 1,
+            end,
+            type.create({
+              src,
+              alt,
+              ...getLayoutAndTitle(matchedTitle),
+            })
+          );
+        }
 
-    //     if (okay) {
-    //       tr.replaceWith(
-    //         start - 1,
-    //         end,
-    //         type.create({
-    //           src,
-    //           alt,
-    //           ...getLayoutAndTitle(matchedTitle),
-    //         })
-    //       );
-    //     }
-
-    //     return tr;
-    //   }),
-    // ];
+        return tr;
+      }),
+    ];
   }
 
   toMarkdown(state, node) {

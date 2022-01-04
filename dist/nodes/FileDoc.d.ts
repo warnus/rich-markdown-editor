@@ -42,7 +42,7 @@ export default class File extends Node {
     handleStyleChange: (event: any) => void;
     inputRules({ type }: {
         type: any;
-    }): import("prosemirror-inputrules").InputRule<any>[];
+    }): any[];
     toMarkdown(state: any, node: any): void;
     parseMarkdown(): {
         block: string;
