@@ -189,7 +189,7 @@ class File extends Node_1.default {
         ];
     }
     toMarkdown(state, node) {
-        state.write("\n@@@" + (node.attrs.style || "info") + "\n");
+        state.write("\n@@@");
         state.write("[" +
             state.esc(node.attrs.alt) + "]" + "(" +
             state.esc(node.attrs.src) + ")");
