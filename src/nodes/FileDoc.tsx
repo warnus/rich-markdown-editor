@@ -145,7 +145,7 @@ export default class File extends Node {
 
         const icon = document.createElement("div");
         icon.className = "icon";
-        ReactDOM.render(component, icon);
+        ReactDOM.render(component, icon, a);
 
         return [
           "div",
@@ -197,6 +197,7 @@ export default class File extends Node {
       block: "container_file",
       // getAttrs: tok => ({ style: tok.info }),
       getAttrs: token => {
+        console.log(token)
         return {
           src: token.attrGet("src"),
           alt: token.attrGet("alt"),
