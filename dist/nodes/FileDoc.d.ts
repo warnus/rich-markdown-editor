@@ -7,6 +7,10 @@ export default class File extends Node {
     get rulePlugins(): (typeof filesRule)[];
     get schema(): {
         attrs: {
+            src: {};
+            alt: {
+                default: null;
+            };
             style: {
                 default: string;
             };
@@ -23,7 +27,7 @@ export default class File extends Node {
                 style: string | undefined;
             };
         }[];
-        toDOM: (node: any) => (string | HTMLDivElement | {
+        toDOM: (node: any) => (string | HTMLAnchorElement | HTMLDivElement | {
             class: string;
         } | (string | HTMLSelectElement | {
             contentEditable: boolean;

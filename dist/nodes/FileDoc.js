@@ -112,6 +112,10 @@ class File extends Node_1.default {
     get schema() {
         return {
             attrs: {
+                src: {},
+                alt: {
+                    default: null,
+                },
                 style: {
                     default: "info",
                 },
@@ -137,6 +141,10 @@ class File extends Node_1.default {
             toDOM: node => {
                 const select = document.createElement("select");
                 select.addEventListener("change", this.handleStyleChange);
+                const a = document.createElement("a");
+                a.href = node.attrs.src;
+                const fileName = document.createTextNode(node.attrs.alt);
+                a.appendChild(fileName);
                 this.styleOptions.forEach(([key, label]) => {
                     const option = document.createElement("option");
                     option.value = key;
@@ -160,7 +168,7 @@ class File extends Node_1.default {
                 return [
                     "div",
                     { class: `notice-block ${node.attrs.style}` },
-                    icon,
+                    icon, a,
                     ["div", { contentEditable: false }, select],
                     ["div", { class: "content" }, 0],
                 ];
