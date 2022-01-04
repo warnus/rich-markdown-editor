@@ -183,6 +183,7 @@ class File extends Node_1.default {
     }
     toMarkdown(state, node) {
         state.write("\n@@@" + (node.attrs.style || "info") + "\n");
+        state.renderContent(node);
         state.ensureNewLine();
         state.write("@@@");
         state.closeBlock(node);
@@ -190,7 +191,9 @@ class File extends Node_1.default {
     parseMarkdown() {
         return {
             block: "container_file",
-            getAttrs: tok => ({ style: tok.info }),
+            getAttrs: token => {
+                return Object.assign(Object.assign({ src: token.attrGet("src"), alt: (token.children[0] && token.children[0].content) || null }, getLayoutAndTitle(token.attrGet("title"))), { style: token.info });
+            },
         };
     }
     get plugins() {
