@@ -506,7 +506,7 @@ class CommandMenu<T = MenuItem> extends React.Component<Props<T>, State> {
   }
 
   render() {
-    const { dictionary, isActive, uploadImage } = this.props;
+    const { dictionary, isActive, uploadImage, uploadFile } = this.props;
     const items = this.filtered;
     const { insertItem, ...positioning } = this.state;
 
@@ -571,6 +571,16 @@ class CommandMenu<T = MenuItem> extends React.Component<Props<T>, State> {
                 ref={this.inputRef}
                 onChange={this.handleImagePicked}
                 accept="image/*"
+              />
+            </VisuallyHidden>
+          )}
+          {uploadFile && (
+            <VisuallyHidden>
+              <input
+                type="file"
+                ref={this.fileInputRef}
+                onChange={this.handleFilePicked}
+                accept="*"
               />
             </VisuallyHidden>
           )}
