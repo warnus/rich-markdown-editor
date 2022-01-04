@@ -114,7 +114,7 @@ class File extends Node_1.default {
             attrs: {
                 src: {},
                 alt: {
-                    default: null,
+                    default: "",
                 },
                 style: {
                     default: "info",

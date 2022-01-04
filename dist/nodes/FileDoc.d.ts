@@ -9,7 +9,7 @@ export default class File extends Node {
         attrs: {
             src: {};
             alt: {
-                default: null;
+                default: string;
             };
             style: {
                 default: string;

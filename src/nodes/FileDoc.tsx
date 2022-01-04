@@ -93,7 +93,7 @@ export default class File extends Node {
       attrs: {
         src: {},
         alt: {
-          default: null,
+          default: "",
         },
         style: {
           default: "info",
@@ -140,14 +140,6 @@ export default class File extends Node {
         });
 
         let component;
-
-        // if (node.attrs.style === "tip") {
-        //   component = <StarredIcon color="currentColor" />;
-        // } else if (node.attrs.style === "warning") {
-        //   component = <WarningIcon color="currentColor" />;
-        // } else {
-        //   component = <InfoIcon color="currentColor" />;
-        // }
 
         component = <LinkIcon color="currentColor" />;
 
