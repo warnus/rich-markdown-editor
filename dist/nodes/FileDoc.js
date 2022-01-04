@@ -159,7 +159,7 @@ class File extends Node_1.default {
                 component = React.createElement(outline_icons_1.LinkIcon, { color: "currentColor" });
                 const icon = document.createElement("div");
                 icon.className = "icon";
-                react_dom_1.default.render(component, icon, a);
+                react_dom_1.default.render(component, icon);
                 return [
                     "div",
                     { class: `notice-block ${node.attrs.style}` },

@@ -145,7 +145,7 @@ export default class File extends Node {
 
         const icon = document.createElement("div");
         icon.className = "icon";
-        ReactDOM.render(component, icon, a);
+        ReactDOM.render(component, icon);
 
         return [
           "div",
