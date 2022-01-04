@@ -197,7 +197,6 @@ export default class File extends Node {
             type.create({
               src,
               alt,
-              ...getLayoutAndTitle(matchedTitle),
             })
           );
         }
