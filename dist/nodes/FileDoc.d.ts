@@ -24,7 +24,9 @@ export default class File extends Node {
             preserveWhitespace: string;
             contentElement: string;
             getAttrs: (dom: HTMLDivElement) => {
-                style: string | undefined;
+                style: string;
+                src: string;
+                alt: string;
             };
         }[];
         toDOM: (node: any) => (string | HTMLAnchorElement | HTMLDivElement | {

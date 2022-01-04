@@ -130,16 +130,11 @@ class File extends Node_1.default {
                     tag: "div.notice-block",
                     preserveWhitespace: "full",
                     contentElement: "div:last-child",
-                    getAttrs: (dom) => {
-                        const a = dom.getElementsByTagName("a")[0];
-                        return {
-                            style: dom.className.includes("tip")
-                                ? "tip"
-                                : dom.className.includes("warning")
-                                    ? "warning"
-                                    : undefined,
-                        };
-                    }
+                    getAttrs: (dom) => ({
+                        style: "tip",
+                        src: "src",
+                        alt: "title"
+                    })
                 },
             ],
             toDOM: node => {
