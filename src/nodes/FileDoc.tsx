@@ -206,8 +206,8 @@ export default class File extends Node {
       // getAttrs: tok => ({ style: tok.info }),
       getAttrs: token => {
         return {
-          // src: token.attrGet("src"),
-          // alt: token.attrGet("alt"),
+          src: token.attrGet("src"),
+          alt: token.attrGet("alt"),
           style: token.info
         };
       },

@@ -190,6 +190,8 @@ class File extends Node_1.default {
             block: "container_file",
             getAttrs: token => {
                 return {
+                    src: token.attrGet("src"),
+                    alt: token.attrGet("alt"),
                     style: token.info
                 };
             },
