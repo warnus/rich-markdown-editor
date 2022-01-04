@@ -212,7 +212,7 @@ export default class File extends Node {
       state.esc(node.attrs.alt) + "]" + "(" +
       state.esc(node.attrs.src) + ")"
     )
-    state.ensureNewLine();
+    // state.ensureNewLine();
     state.write("@@@");
     state.closeBlock(node);
   }
