@@ -10,6 +10,15 @@ import uploadFilePlaceholderPlugin from "../lib/uploadFilePlaceholder";
 import getDataTransferFiles from "../lib/getDataTransferFiles";
 import insertAllFiles from "../commands/insertAllFiles";
 
+/**
+ * Matches following attributes in Markdown-typed image: [, title, src]
+ *
+ * Example:
+ * @Lorem@(file.doc) -> [, "Lorem", "image.jpg"]
+ * ![](image.jpg "class") -> [, "", "image.jpg", "small"]
+ * ![Lorem](image.jpg "class") -> [, "Lorem", "image.jpg", "small"]
+ */
+const FILE_INPUT_REGEX = /\@(?<alt>[^\]\[]*?)@\((?<filename>[^\]\[]*?)(?=\“|\))\);
 const uploadPlugin = options =>
   new Plugin({
     props: {
@@ -178,17 +187,37 @@ export default class File extends Node {
   };
 
   inputRules({ type }) {
-    return [wrappingInputRule(/^@@@$/, type)];
+    // return [wrappingInputRule(/^@@@$/, type)];
+    return [
+      new InputRule(FILE_INPUT_REGEX, (state, match, start, end) => {
+        const [okay, alt, src] = match;
+        const { tr } = state;
+
+        if (okay) {
+          tr.replaceWith(
+            start - 1,
+            end,
+            type.create({
+              src,
+              alt,
+              ...getLayoutAndTitle(matchedTitle),
+            })
+          );
+        }
+
+        return tr;
+      }),
+    ];
   }
 
   toMarkdown(state, node) {
-    state.write("\n@@@" + (node.attrs.style || "info") + "\n");
-    state.write("[" +  
-      state.esc(node.attrs.alt) + "]" + "(" +
+    // state.write("\n@@@" + (node.attrs.style || "info") + "\n");
+    state.write("@" +  
+      state.esc(node.attrs.alt) + "@" + "(" +
       state.esc(node.attrs.src) + ")"
     )
     state.ensureNewLine();
-    state.write("@@@");
+    // state.write("@@@");
     state.closeBlock(node);
   }
 
