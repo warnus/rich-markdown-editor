@@ -422,7 +422,7 @@ export default class Image extends Node {
             end,
             type.create({
               src,
-              alt,
+              "testalt",
               ...getLayoutAndTitle(matchedTitle),
             })
           );
