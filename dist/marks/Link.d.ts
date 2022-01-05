@@ -40,7 +40,6 @@ export default class Link extends Mark {
         mark: string;
         getAttrs: (tok: any) => {
             href: any;
-            title: any;
         };
     };
 }

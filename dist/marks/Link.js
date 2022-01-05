@@ -138,7 +138,6 @@ class Link extends Mark_1.default {
             mark: "link",
             getAttrs: tok => ({
                 href: tok.attrGet("href"),
-                title: tok.attrGet("title") || null,
             }),
         };
     }

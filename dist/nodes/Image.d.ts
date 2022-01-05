@@ -25,10 +25,9 @@ export default class Image extends Node {
         draggable: boolean;
         parseDOM: {
             tag: string;
-            getAttrs: (dom: HTMLImageElement) => {
+            getAttrs: (dom: HTMLDivElement) => {
                 src: string | null;
                 alt: string | null;
-                title: string | null;
             };
         }[];
         toDOM: (node: any) => (string | any[] | {
@@ -54,18 +53,6 @@ export default class Image extends Node {
     parseMarkdown(): {
         node: string;
         getAttrs: (token: any) => {
-            layoutClass?: undefined;
-            title?: undefined;
-            src: any;
-            alt: any;
-        } | {
-            layoutClass: any;
-            title?: undefined;
-            src: any;
-            alt: any;
-        } | {
-            title: any;
-            layoutClass?: undefined;
             src: any;
             alt: any;
         };

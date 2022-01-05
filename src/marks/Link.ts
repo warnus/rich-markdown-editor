@@ -164,7 +164,7 @@ export default class Link extends Mark {
       mark: "link",
       getAttrs: tok => ({
         href: tok.attrGet("href"),
-        title: tok.attrGet("title") || null,
+        // title: tok.attrGet("title") || null,
       }),
     };
   }

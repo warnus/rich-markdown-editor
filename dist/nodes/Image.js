@@ -139,8 +139,6 @@ class Image extends Node_1.default {
             const transaction = tr.setNodeMarkup(pos, undefined, {
                 src,
                 alt,
-                title,
-                layoutClass,
             });
             view.dispatch(transaction);
         };
@@ -212,8 +210,6 @@ class Image extends Node_1.default {
                         return {
                             src: img === null || img === void 0 ? void 0 : img.getAttribute("src"),
                             alt: img === null || img === void 0 ? void 0 : img.getAttribute("alt"),
-                            title: img === null || img === void 0 ? void 0 : img.getAttribute("title"),
-                            layoutClass: layoutClass,
                         };
                     },
                 },
@@ -223,7 +219,6 @@ class Image extends Node_1.default {
                         return {
                             src: dom.getAttribute("src"),
                             alt: dom.getAttribute("alt"),
-                            title: dom.getAttribute("title"),
                         };
                     },
                 },
@@ -262,7 +257,10 @@ class Image extends Node_1.default {
             node: "image",
             getAttrs: token => {
                 console.log(token);
-                return Object.assign({ src: token.attrGet("src"), alt: (token.children[0] && token.children[0].content) || null }, getLayoutAndTitle(token.attrGet("title")));
+                return {
+                    src: token.attrGet("src"),
+                    alt: (token.children[0] && token.children[0].content) || null,
+                };
             },
         };
     }
@@ -338,8 +336,10 @@ class Image extends Node_1.default {
                 const [okay, alt, src, matchedTitle] = match;
                 const { tr } = state;
                 if (okay) {
-                    tr.replaceWith(start - 1, end, type.create(Object.assign({ src,
-                        alt }, getLayoutAndTitle(matchedTitle))));
+                    tr.replaceWith(start - 1, end, type.create({
+                        src,
+                        alt,
+                    }));
                 }
                 return tr;
             }),

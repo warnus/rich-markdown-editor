@@ -154,8 +154,8 @@ export default class Image extends Node {
             return {
               src: img?.getAttribute("src"),
               alt: img?.getAttribute("alt"),
-              title: img?.getAttribute("title"),
-              layoutClass: layoutClass,
+              // title: img?.getAttribute("title"),
+              // layoutClass: layoutClass,
             };
           },
         },
@@ -165,7 +165,7 @@ export default class Image extends Node {
             return {
               src: dom.getAttribute("src"),
               alt: dom.getAttribute("alt"),
-              title: dom.getAttribute("title"),
+              // title: dom.getAttribute("title"),
             };
           },
         },
@@ -227,8 +227,8 @@ export default class Image extends Node {
     const transaction = tr.setNodeMarkup(pos, undefined, {
       src,
       alt,
-      title,
-      layoutClass,
+      // title,
+      // layoutClass,
     });
     view.dispatch(transaction);
   };
@@ -318,7 +318,7 @@ export default class Image extends Node {
         return {
           src: token.attrGet("src"),
           alt: (token.children[0] && token.children[0].content) || null,
-          ...getLayoutAndTitle(token.attrGet("title")),
+          // ...getLayoutAndTitle(token.attrGet("title")),
         };
       },
     };
@@ -423,7 +423,7 @@ export default class Image extends Node {
             type.create({
               src,
               alt,
-              ...getLayoutAndTitle(matchedTitle),
+              // ...getLayoutAndTitle(matchedTitle),
             })
           );
         }
