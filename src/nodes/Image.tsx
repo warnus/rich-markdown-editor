@@ -314,6 +314,7 @@ export default class Image extends Node {
     return {
       node: "image",
       getAttrs: token => {
+        console.log(token)
         return {
           src: token.attrGet("src"),
           alt: (token.children[0] && token.children[0].content) || null,
