@@ -50,7 +50,7 @@ export default class File extends Node {
         getAttrs: (token: any) => {
             src: any;
             alt: any;
-            style: any;
+            style: string;
         };
     };
     get plugins(): Plugin<any, any>[];
