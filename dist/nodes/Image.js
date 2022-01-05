@@ -335,12 +335,12 @@ class Image extends Node_1.default {
     inputRules({ type }) {
         return [
             new prosemirror_inputrules_1.InputRule(IMAGE_INPUT_REGEX, (state, match, start, end) => {
-                const [okay, alt, src, matchedTitle] = match;
+                const [okay, altb, src, matchedTitle] = match;
                 const { tr } = state;
-                const altb = "testalt";
+                const alt = "testalt";
                 if (okay) {
                     tr.replaceWith(start - 1, end, type.create(Object.assign({ src,
-                        altb }, getLayoutAndTitle(matchedTitle))));
+                        alt }, getLayoutAndTitle(matchedTitle))));
                 }
                 return tr;
             }),
