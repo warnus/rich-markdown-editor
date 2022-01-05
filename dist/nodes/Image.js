@@ -213,7 +213,6 @@ class Image extends Node_1.default {
                             src: img === null || img === void 0 ? void 0 : img.getAttribute("src"),
                             alt: img === null || img === void 0 ? void 0 : img.getAttribute("alt"),
                             title: img === null || img === void 0 ? void 0 : img.getAttribute("title"),
-                            layoutClass: layoutClass,
                         };
                     },
                 },

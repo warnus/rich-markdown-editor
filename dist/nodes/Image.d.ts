@@ -25,7 +25,7 @@ export default class Image extends Node {
         draggable: boolean;
         parseDOM: {
             tag: string;
-            getAttrs: (dom: HTMLImageElement) => {
+            getAttrs: (dom: HTMLDivElement) => {
                 src: string | null;
                 alt: string | null;
                 title: string | null;
