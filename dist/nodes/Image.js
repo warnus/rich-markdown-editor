@@ -258,10 +258,7 @@ class Image extends Node_1.default {
             node: "image",
             getAttrs: token => {
                 console.log(token);
-                return {
-                    src: token.attrGet("src"),
-                    alt: (token.children[0] && token.children[0].content) || null,
-                };
+                return Object.assign({ src: token.attrGet("src"), alt: (token.children[0] && token.children[0].content) || null }, getLayoutAndTitle(token.attrGet("title")));
             },
         };
     }
