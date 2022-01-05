@@ -165,7 +165,7 @@ export default class Image extends Node {
             return {
               src: dom.getAttribute("src"),
               alt: dom.getAttribute("alt"),
-              title: dom.getAttribute("title"),
+              // title: dom.getAttribute("title"),
             };
           },
         },
@@ -270,7 +270,7 @@ export default class Image extends Node {
             image={{
               src,
               alt,
-              title,
+              // title,
             }}
             defaultStyles={{
               overlay: {

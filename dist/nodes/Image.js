@@ -165,7 +165,6 @@ class Image extends Node_1.default {
                     React.createElement(react_medium_image_zoom_1.default, { image: {
                             src,
                             alt,
-                            title,
                         }, defaultStyles: {
                             overlay: {
                                 backgroundColor: theme.background,
@@ -216,7 +215,6 @@ class Image extends Node_1.default {
                         return {
                             src: dom.getAttribute("src"),
                             alt: dom.getAttribute("alt"),
-                            title: dom.getAttribute("title"),
                         };
                     },
                 },
