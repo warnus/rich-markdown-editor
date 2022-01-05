@@ -111,6 +111,11 @@ function Example(props) {
                 return new Promise(resolve => {
                     setTimeout(() => resolve(URL.createObjectURL(file)), 1500);
                 });
+            }, uploadFile: file => {
+                console.log("File upload triggered: ", file);
+                return new Promise(resolve => {
+                    setTimeout(() => resolve(URL.createObjectURL(file)), 1500);
+                });
             }, embeds: embeds }, props))));
 }
 exports.default = Example;

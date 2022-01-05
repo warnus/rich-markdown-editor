@@ -48,8 +48,6 @@ export default class File extends Node {
     parseMarkdown(): {
         block: string;
         getAttrs: (token: any) => {
-            src: any;
-            alt: any;
             style: any;
         };
     };
