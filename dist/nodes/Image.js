@@ -243,10 +243,7 @@ class Image extends Node_1.default {
             state.esc((node.attrs.alt || "").replace("\n", "") || "") +
             "](" +
             state.esc(node.attrs.src);
-        if (node.attrs.layoutClass) {
-            markdown += ' "' + state.esc(node.attrs.layoutClass) + '"';
-        }
-        else if (node.attrs.title) {
+        if (node.attrs.title) {
             markdown += ' "' + state.esc(node.attrs.title) + '"';
         }
         markdown += ")";
