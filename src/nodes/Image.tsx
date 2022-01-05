@@ -359,6 +359,7 @@ export default class Image extends Node {
           layoutClass: "left-50",
         };
         const { selection } = state;
+        attrs.alt = "test alt"
         dispatch(state.tr.setNodeMarkup(selection.from, undefined, attrs));
         return true;
       },
