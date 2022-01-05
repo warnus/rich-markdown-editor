@@ -32,7 +32,10 @@ const getDataTransferFiles_1 = __importDefault(require("../lib/getDataTransferFi
 const uploadPlaceholder_1 = __importDefault(require("../lib/uploadPlaceholder"));
 const insertFiles_1 = __importDefault(require("../commands/insertFiles"));
 const Node_1 = __importDefault(require("./Node"));
-const IMAGE_INPUT_REGEX = /!\[(?<alt>[^\]\[]*?)]\((?<filename>[^\]\[]*?)(?=\“|\))\“?(?<layoutclass>[^\]\[\”]+)?\”?\)$/;
+const IMAGE_INPUT_REGEX = /!\[(?<alt>[^\]\[]*?)]\((?<filename>[^\]\[]*?)(?=\“|\))\“?(?<
+    > [ ^ ], [];
++;
+$ / ;
 const uploadPlugin = options => new prosemirror_state_1.Plugin({
     props: {
         handleDOMEvents: {
@@ -140,7 +143,6 @@ class Image extends Node_1.default {
                 src,
                 alt,
                 title,
-                layoutClass,
             });
             view.dispatch(transaction);
         };
@@ -247,7 +249,10 @@ class Image extends Node_1.default {
             state.esc((node.attrs.alt || "").replace("\n", "") || "") +
             "](" +
             state.esc(node.attrs.src);
-        if (node.attrs.title) {
+        if (node.attrs.layoutClass) {
+            markdown += ' "' + state.esc(node.attrs.layoutClass) + '"';
+        }
+        else if (node.attrs.title) {
             markdown += ' "' + state.esc(node.attrs.title) + '"';
         }
         markdown += ")";

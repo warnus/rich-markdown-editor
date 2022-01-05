@@ -17,7 +17,8 @@ import Node from "./Node";
  * ![](image.jpg "class") -> [, "", "image.jpg", "small"]
  * ![Lorem](image.jpg "class") -> [, "Lorem", "image.jpg", "small"]
  */
-const IMAGE_INPUT_REGEX = /!\[(?<alt>[^\]\[]*?)]\((?<filename>[^\]\[]*?)(?=\“|\))\“?(?<layoutclass>[^\]\[\”]+)?\”?\)$/;
+const IMAGE_INPUT_REGEX = /!\[(?<alt>[^\]\[]*?)]\((?<filename>[^\]\[]*?)(?=\“|\))\“?(?<
+>[^\]\[\”]+)?\”?\)$/;
 
 const uploadPlugin = options =>
   new Plugin({
@@ -229,7 +230,7 @@ export default class Image extends Node {
       src,
       alt,
       title,
-      layoutClass,
+      // layoutClass,
     });
     view.dispatch(transaction);
   };
@@ -302,10 +303,9 @@ export default class Image extends Node {
       state.esc((node.attrs.alt || "").replace("\n", "") || "") +
       "](" +
       state.esc(node.attrs.src);
-    // if (node.attrs.layoutClass) {
-    //   markdown += ' "' + state.esc(node.attrs.layoutClass) + '"';
-    // } else 
-    if (node.attrs.title) {
+    if (node.attrs.layoutClass) {
+      markdown += ' "' + state.esc(node.attrs.layoutClass) + '"';
+    } else if (node.attrs.title) {
       markdown += ' "' + state.esc(node.attrs.title) + '"';
     }
     markdown += ")";
