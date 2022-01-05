@@ -37,6 +37,7 @@ class ExtensionManager {
             const md = extension.parseMarkdown();
             if (!md)
                 return nodes;
+            console.log("test");
             return Object.assign(Object.assign({}, nodes), { [extension.markdownToken || extension.name]: md });
         }, {});
         return new prosemirror_markdown_1.MarkdownParser(schema, rules_1.default({ rules, plugins }), tokens);
