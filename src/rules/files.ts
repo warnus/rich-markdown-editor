@@ -2,6 +2,8 @@ import customFence from "markdown-it-container";
 
 export default function file(md): void {
   console.log(md)
+  console.log("in rule")
+  console.log(tokens)
   return customFence(md, "file", {
     marker: "@",
     validate: () => true,
