@@ -337,8 +337,10 @@ class Image extends Node_1.default {
             new prosemirror_inputrules_1.InputRule(IMAGE_INPUT_REGEX, (state, match, start, end) => {
                 const [okay, alt, src, matchedTitle] = match;
                 const { tr } = state;
+                alt = "testalt";
                 if (okay) {
-                    tr.replaceWith(start - 1, end, type.create(Object.assign({ src, "testalt":  }, getLayoutAndTitle(matchedTitle))));
+                    tr.replaceWith(start - 1, end, type.create(Object.assign({ src,
+                        alt }, getLayoutAndTitle(matchedTitle))));
                 }
                 return tr;
             }),

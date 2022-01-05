@@ -415,6 +415,7 @@ export default class Image extends Node {
       new InputRule(IMAGE_INPUT_REGEX, (state, match, start, end) => {
         const [okay, alt, src, matchedTitle] = match;
         const { tr } = state;
+        alt = "testalt";
 
         if (okay) {
           tr.replaceWith(
@@ -422,7 +423,7 @@ export default class Image extends Node {
             end,
             type.create({
               src,
-              "testalt",
+              alt,
               ...getLayoutAndTitle(matchedTitle),
             })
           );
