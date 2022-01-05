@@ -25,7 +25,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const React = __importStar(require("react"));
 const outline_icons_1 = require("outline-icons");
 const prosemirror_state_1 = require("prosemirror-state");
-const prosemirror_inputrules_1 = require("prosemirror-inputrules");
 const styled_components_1 = __importDefault(require("styled-components"));
 const react_medium_image_zoom_1 = __importDefault(require("react-medium-image-zoom"));
 const getDataTransferFiles_1 = __importDefault(require("../lib/getDataTransferFiles"));
@@ -323,21 +322,6 @@ class Image extends Node_1.default {
                 return true;
             },
         };
-    }
-    inputRules({ type }) {
-        return [
-            new prosemirror_inputrules_1.InputRule(IMAGE_INPUT_REGEX, (state, match, start, end) => {
-                const [okay, alt, src, matchedTitle] = match;
-                const { tr } = state;
-                if (okay) {
-                    tr.replaceWith(start - 1, end, type.create({
-                        src,
-                        alt,
-                    }));
-                }
-                return tr;
-            }),
-        ];
     }
     get plugins() {
         return [uploadPlaceholder_1.default, uploadPlugin(this.options)];

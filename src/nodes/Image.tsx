@@ -410,28 +410,28 @@ export default class Image extends Node {
     };
   }
 
-  inputRules({ type }) {
-    return [
-      new InputRule(IMAGE_INPUT_REGEX, (state, match, start, end) => {
-        const [okay, alt, src, matchedTitle] = match;
-        const { tr } = state;
+  // inputRules({ type }) {
+  //   return [
+  //     new InputRule(IMAGE_INPUT_REGEX, (state, match, start, end) => {
+  //       const [okay, alt, src, matchedTitle] = match;
+  //       const { tr } = state;
 
-        if (okay) {
-          tr.replaceWith(
-            start - 1,
-            end,
-            type.create({
-              src,
-              alt,
-              // ...getLayoutAndTitle(matchedTitle),
-            })
-          );
-        }
+  //       if (okay) {
+  //         tr.replaceWith(
+  //           start - 1,
+  //           end,
+  //           type.create({
+  //             src,
+  //             alt,
+  //             // ...getLayoutAndTitle(matchedTitle),
+  //           })
+  //         );
+  //       }
 
-        return tr;
-      }),
-    ];
-  }
+  //       return tr;
+  //     }),
+  //   ];
+  // }
 
   get plugins() {
     return [uploadPlaceholderPlugin, uploadPlugin(this.options)];
