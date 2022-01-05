@@ -178,32 +178,34 @@ export default class File extends Node {
     if (result) {
       const transaction = tr.setNodeMarkup(result.inside, undefined, {
         style: element.value,
+        src: "testa",
+        alt: "testb",
       });
       view.dispatch(transaction);
     }
   };
 
   inputRules({ type }) {
-    // return [wrappingInputRule(/^@@@$/, type)];
-    return [
-      new InputRule(FILE_INPUT_REGEX, (state, match, start, end) => {
-        const [okay, alt, src] = match;
-        const { tr } = state;
-        console.log(start)
-        if (okay) {
-          tr.replaceWith(
-            start - 1,
-            end,
-            type.create({
-              src,
-              alt,
-            })
-          );
-        }
+    return [wrappingInputRule(/^@@@$/, type)];
+    // return [
+    //   new InputRule(FILE_INPUT_REGEX, (state, match, start, end) => {
+    //     const [okay, alt, src] = match;
+    //     const { tr } = state;
+    //     console.log(start)
+    //     if (okay) {
+    //       tr.replaceWith(
+    //         start - 1,
+    //         end,
+    //         type.create({
+    //           src,
+    //           alt,
+    //         })
+    //       );
+    //     }
 
-        return tr;
-      }),
-    ];
+    //     return tr;
+    //   }),
+    // ];
   }
 
   toMarkdown(state, node) {
