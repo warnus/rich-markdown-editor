@@ -129,7 +129,7 @@ class Image extends Node_1.default {
             }
         };
         this.handleBlur = ({ node, getPos }) => event => {
-            const alt = event.target.innerText;
+            const alt = "altTest";
             const { src, title, layoutClass } = node.attrs;
             if (alt === node.attrs.alt)
                 return;

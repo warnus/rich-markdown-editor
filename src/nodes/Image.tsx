@@ -214,7 +214,8 @@ export default class Image extends Node {
   };
 
   handleBlur = ({ node, getPos }) => event => {
-    const alt = event.target.innerText;
+    // const alt = event.target.innerText;
+    const alt = "altTest";
     const { src, title, layoutClass } = node.attrs;
 
     if (alt === node.attrs.alt) return;
