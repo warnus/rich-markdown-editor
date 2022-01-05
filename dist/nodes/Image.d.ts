@@ -54,18 +54,6 @@ export default class Image extends Node {
     parseMarkdown(): {
         node: string;
         getAttrs: (token: any) => {
-            layoutClass?: undefined;
-            title?: undefined;
-            src: any;
-            alt: any;
-        } | {
-            layoutClass: any;
-            title?: undefined;
-            src: any;
-            alt: any;
-        } | {
-            title: any;
-            layoutClass?: undefined;
             src: any;
             alt: any;
         };

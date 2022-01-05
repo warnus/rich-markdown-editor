@@ -319,7 +319,7 @@ export default class Image extends Node {
         return {
           src: token.attrGet("src"),
           alt: (token.children[0] && token.children[0].content) || null,
-          ...getLayoutAndTitle(token.attrGet("title")),
+          // ...getLayoutAndTitle(token.attrGet("title")),
         };
       },
     };
