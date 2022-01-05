@@ -154,7 +154,7 @@ export default class Image extends Node {
             return {
               src: img?.getAttribute("src"),
               alt: img?.getAttribute("alt"),
-              title: img?.getAttribute("title"),
+              // title: img?.getAttribute("title"),
               // layoutClass: layoutClass,
             };
           },
@@ -228,7 +228,7 @@ export default class Image extends Node {
     const transaction = tr.setNodeMarkup(pos, undefined, {
       src,
       alt,
-      title,
+      // title,
       // layoutClass,
     });
     view.dispatch(transaction);

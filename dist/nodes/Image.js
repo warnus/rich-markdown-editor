@@ -139,7 +139,6 @@ class Image extends Node_1.default {
             const transaction = tr.setNodeMarkup(pos, undefined, {
                 src,
                 alt,
-                title,
             });
             view.dispatch(transaction);
         };
@@ -208,7 +207,6 @@ class Image extends Node_1.default {
                         return {
                             src: img === null || img === void 0 ? void 0 : img.getAttribute("src"),
                             alt: img === null || img === void 0 ? void 0 : img.getAttribute("alt"),
-                            title: img === null || img === void 0 ? void 0 : img.getAttribute("title"),
                         };
                     },
                 },

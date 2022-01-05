@@ -28,7 +28,6 @@ export default class Image extends Node {
             getAttrs: (dom: HTMLDivElement) => {
                 src: string | null;
                 alt: string | null;
-                title: string | null;
             };
         }[];
         toDOM: (node: any) => (string | any[] | {
