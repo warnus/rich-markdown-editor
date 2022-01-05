@@ -225,9 +225,11 @@ export default class File extends Node {
       // getAttrs: tok => ({ style: tok.info }),
       getAttrs: token => {
         console.log(token)
+        var file_regex =  /\[(?<alt>[^]*?)\]\((?<filename>[^]*?)\)@@@/g;
+        var arr = file_regex.exec("[test](image.jpg)@@@");
         return {
-          src: token.info,
-          alt: token.attrGet("alt"),
+          src: arr[2],
+          alt: arr[1],
           style: "info"
         };
       },
