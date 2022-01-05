@@ -191,10 +191,10 @@ class File extends Node_1.default {
             getAttrs: token => {
                 console.log(token);
                 const file_regex = /\[(?<alt>[^]*?)\]\((?<filename>[^]*?)\)@@@/g;
-                const arr = file_regex.exec("[test](image.jpg)@@@");
+                const result = file_regex.exec(token.info);
                 return {
-                    src: arr[2],
-                    alt: arr[1],
+                    src: result ? result[2] : null,
+                    alt: result ? result[1] : null,
                     style: "info"
                 };
             },
