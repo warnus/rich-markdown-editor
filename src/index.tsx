@@ -538,7 +538,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
     if (!this.element) {
       throw new Error("createView called before ref available");
     }
-
+    console.log("create View")
     const isEditingCheckbox = tr => {
       return tr.steps.some(
         (step: Step) =>

@@ -80,7 +80,7 @@ export default class ExtensionManager {
           [extension.markdownToken || extension.name]: md,
         };
       }, {});
-    console.log(tokens)
+      
     return new MarkdownParser(schema, makeRules({ rules, plugins }), tokens);
   }
 

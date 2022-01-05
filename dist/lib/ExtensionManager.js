@@ -39,7 +39,6 @@ class ExtensionManager {
                 return nodes;
             return Object.assign(Object.assign({}, nodes), { [extension.markdownToken || extension.name]: md });
         }, {});
-        console.log(tokens);
         return new prosemirror_markdown_1.MarkdownParser(schema, rules_1.default({ rules, plugins }), tokens);
     }
     get marks() {
