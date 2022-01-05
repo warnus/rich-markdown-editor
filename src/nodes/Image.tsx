@@ -148,14 +148,14 @@ export default class Image extends Node {
             const className = dom.className;
             const layoutClassMatched =
               className && className.match(/image-(.*)$/);
-            // const layoutClass = layoutClassMatched
-            //   ? layoutClassMatched[1]
-            //   : null;
+            const layoutClass = layoutClassMatched
+              ? layoutClassMatched[1]
+              : null;
             return {
               src: img?.getAttribute("src"),
               alt: img?.getAttribute("alt"),
-              // title: img?.getAttribute("title"),
-              // layoutClass: layoutClass,
+              title: img?.getAttribute("title"),
+              layoutClass: layoutClass,
             };
           },
         },
@@ -165,7 +165,7 @@ export default class Image extends Node {
             return {
               src: dom.getAttribute("src"),
               alt: dom.getAttribute("alt"),
-              // title: dom.getAttribute("title"),
+              title: dom.getAttribute("title"),
             };
           },
         },
@@ -214,8 +214,7 @@ export default class Image extends Node {
   };
 
   handleBlur = ({ node, getPos }) => event => {
-    // const alt = event.target.innerText;
-    const alt = "altTest";
+    const alt = event.target.innerText;
     const { src, title, layoutClass } = node.attrs;
 
     if (alt === node.attrs.alt) return;
@@ -228,8 +227,8 @@ export default class Image extends Node {
     const transaction = tr.setNodeMarkup(pos, undefined, {
       src,
       alt,
-      // title,
-      // layoutClass,
+      title,
+      layoutClass,
     });
     view.dispatch(transaction);
   };
@@ -270,7 +269,7 @@ export default class Image extends Node {
             image={{
               src,
               alt,
-              // title,
+              title,
             }}
             defaultStyles={{
               overlay: {
@@ -302,10 +301,9 @@ export default class Image extends Node {
       state.esc((node.attrs.alt || "").replace("\n", "") || "") +
       "](" +
       state.esc(node.attrs.src);
-    // if (node.attrs.layoutClass) {
-    //   markdown += ' "' + state.esc(node.attrs.layoutClass) + '"';
-    // } else 
-    if (node.attrs.title) {
+    if (node.attrs.layoutClass) {
+      markdown += ' "' + state.esc(node.attrs.layoutClass) + '"';
+    } else if (node.attrs.title) {
       markdown += ' "' + state.esc(node.attrs.title) + '"';
     }
     markdown += ")";
@@ -316,11 +314,10 @@ export default class Image extends Node {
     return {
       node: "image",
       getAttrs: token => {
-        console.log(token)
         return {
           src: token.attrGet("src"),
           alt: (token.children[0] && token.children[0].content) || null,
-          // ...getLayoutAndTitle(token.attrGet("title")),
+          ...getLayoutAndTitle(token.attrGet("title")),
         };
       },
     };
@@ -347,7 +344,7 @@ export default class Image extends Node {
         const attrs = {
           ...state.selection.node.attrs,
           title: null,
-          // layoutClass: "right-50",
+          layoutClass: "right-50",
         };
         const { selection } = state;
         dispatch(state.tr.setNodeMarkup(selection.from, undefined, attrs));
@@ -360,7 +357,6 @@ export default class Image extends Node {
           layoutClass: "left-50",
         };
         const { selection } = state;
-        attrs.alt = "test alt"
         dispatch(state.tr.setNodeMarkup(selection.from, undefined, attrs));
         return true;
       },
@@ -418,8 +414,7 @@ export default class Image extends Node {
       new InputRule(IMAGE_INPUT_REGEX, (state, match, start, end) => {
         const [okay, alt, src, matchedTitle] = match;
         const { tr } = state;
-        // const alt = "testalt";
-        console.log(matchedTitle)
+
         if (okay) {
           tr.replaceWith(
             start - 1,
@@ -427,7 +422,7 @@ export default class Image extends Node {
             type.create({
               src,
               alt,
-              // ...getLayoutAndTitle(matchedTitle),
+              ...getLayoutAndTitle(matchedTitle),
             })
           );
         }
