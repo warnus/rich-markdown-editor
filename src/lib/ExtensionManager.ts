@@ -74,13 +74,13 @@ export default class ExtensionManager {
       .reduce((nodes, extension: Node | Mark) => {
         const md = extension.parseMarkdown();
         if (!md) return nodes;
-        console.log("test")
+        
         return {
           ...nodes,
           [extension.markdownToken || extension.name]: md,
         };
       }, {});
-
+    console.log(tokens)
     return new MarkdownParser(schema, makeRules({ rules, plugins }), tokens);
   }
 
