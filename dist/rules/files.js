@@ -7,14 +7,13 @@ const markdown_it_container_1 = __importDefault(require("markdown-it-container")
 function file(md) {
     console.log(md);
     console.log("in rule");
-    console.log(tokens);
     return markdown_it_container_1.default(md, "file", {
         marker: "@",
         validate: () => true,
         render: function (tokens, idx) {
             const { info } = tokens[idx];
             if (tokens[idx].nesting === 1) {
-                return `<div class="notice notice-${md.utils.escapeHtml(info)}">\n`;
+                return `<div class="notice notice-${md.utils.escapeHtml(info)}">\n`, console.log(tokens);
             }
             else {
                 return "</div>\n";
