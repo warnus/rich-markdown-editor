@@ -185,12 +185,6 @@ class Image extends Node_1.default {
                 alt: {
                     default: null,
                 },
-                layoutClass: {
-                    default: null,
-                },
-                title: {
-                    default: null,
-                },
             },
             content: "text*",
             marks: "",

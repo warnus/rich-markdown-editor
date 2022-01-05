@@ -11,12 +11,6 @@ export default class Image extends Node {
             alt: {
                 default: null;
             };
-            layoutClass: {
-                default: null;
-            };
-            title: {
-                default: null;
-            };
         };
         content: string;
         marks: string;

@@ -128,12 +128,12 @@ export default class Image extends Node {
         alt: {
           default: null,
         },
-        layoutClass: {
-          default: null,
-        },
-        title: {
-          default: null,
-        },
+        // layoutClass: {
+        //   default: null,
+        // },
+        // title: {
+        //   default: null,
+        // },
       },
       content: "text*",
       marks: "",
