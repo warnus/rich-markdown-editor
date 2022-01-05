@@ -148,9 +148,9 @@ export default class Image extends Node {
             const className = dom.className;
             const layoutClassMatched =
               className && className.match(/image-(.*)$/);
-            const layoutClass = layoutClassMatched
-              ? layoutClassMatched[1]
-              : null;
+            // const layoutClass = layoutClassMatched
+            //   ? layoutClassMatched[1]
+            //   : null;
             return {
               src: img?.getAttribute("src"),
               alt: img?.getAttribute("alt"),

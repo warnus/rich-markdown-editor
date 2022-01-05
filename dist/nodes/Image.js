@@ -205,9 +205,6 @@ class Image extends Node_1.default {
                         const img = dom.getElementsByTagName("img")[0];
                         const className = dom.className;
                         const layoutClassMatched = className && className.match(/image-(.*)$/);
-                        const layoutClass = layoutClassMatched
-                            ? layoutClassMatched[1]
-                            : null;
                         return {
                             src: img === null || img === void 0 ? void 0 : img.getAttribute("src"),
                             alt: img === null || img === void 0 ? void 0 : img.getAttribute("alt"),
