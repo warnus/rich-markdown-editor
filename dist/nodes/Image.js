@@ -279,7 +279,7 @@ class Image extends Node_1.default {
                 return true;
             },
             alignRight: () => (state, dispatch) => {
-                const attrs = Object.assign(Object.assign({}, state.selection.node.attrs), { title: null, layoutClass: "right-50" });
+                const attrs = Object.assign(Object.assign({}, state.selection.node.attrs), { title: null });
                 const { selection } = state;
                 dispatch(state.tr.setNodeMarkup(selection.from, undefined, attrs));
                 return true;
