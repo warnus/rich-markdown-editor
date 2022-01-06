@@ -83,11 +83,14 @@ exports.StyledEditor = styled_components_1.default("div") `
   }
 
   .loader {
-    border: 16px solid #f3f3f3; /* Light grey */
-    border-top: 16px solid #3498db; /* Blue */
+    border: 5px solid #f3f3f3;
     border-radius: 50%;
-    width: 120px;
-    height: 120px;
+    border-top: 5px solid #3498db;
+    width: 2.5em;
+    height: 2.5em;
+    margin: 80px auto;
+    position: relative;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
     animation: spin 2s linear infinite;
   }
   
