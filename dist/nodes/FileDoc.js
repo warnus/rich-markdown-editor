@@ -179,9 +179,7 @@ class File extends Node_1.default {
     }
     toMarkdown(state, node) {
         state.write("\n@@@");
-        state.write("[" +
-            state.esc(node.attrs.alt) + "]" + "(" +
-            state.esc(node.attrs.src) + ")");
+        state.write("test");
         state.write("@@@");
         state.closeBlock(node);
     }
@@ -190,11 +188,7 @@ class File extends Node_1.default {
             block: "container_file",
             getAttrs: token => {
                 console.log(token);
-                const file_regex = /\[(?<alt>[^]*?)\]\((?<filename>[^]*?)\)@@@/g;
-                const result = file_regex.exec(token.info);
                 return {
-                    src: result ? result[2] : null,
-                    alt: result ? result[1] : null,
                     style: "info"
                 };
             },

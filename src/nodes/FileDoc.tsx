@@ -187,33 +187,15 @@ export default class File extends Node {
 
   inputRules({ type }) {
     return [wrappingInputRule(/^@@@$/, type)];
-    // return [
-    //   new InputRule(FILE_INPUT_REGEX, (state, match, start, end) => {
-    //     const [okay, alt, src] = match;
-    //     const { tr } = state;
-    //     console.log(start)
-    //     if (okay) {
-    //       tr.replaceWith(
-    //         start - 1,
-    //         end,
-    //         type.create({
-    //           src,
-    //           alt,
-    //         })
-    //       );
-    //     }
-
-    //     return tr;
-    //   }),
-    // ];
   }
 
   toMarkdown(state, node) {
     state.write("\n@@@");
-    state.write("[" +  
-      state.esc(node.attrs.alt) + "]" + "(" +
-      state.esc(node.attrs.src) + ")"
-    )
+    // state.write("[" +  
+      // state.esc(node.attrs.alt) + "]" + "(" +
+      // state.esc(node.attrs.src) + ")"
+    // )
+    state.write("test")
     // state.ensureNewLine();
     state.write("@@@");
     state.closeBlock(node);
@@ -225,11 +207,11 @@ export default class File extends Node {
       // getAttrs: tok => ({ style: tok.info }),
       getAttrs: token => {
         console.log(token)
-        const file_regex =  /\[(?<alt>[^]*?)\]\((?<filename>[^]*?)\)@@@/g;
-        const result = file_regex.exec(token.info);
+        // const file_regex =  /\[(?<alt>[^]*?)\]\((?<filename>[^]*?)\)@@@/g;
+        // const result = file_regex.exec(token.info);
         return {
-          src: result? result[2] : null,
-          alt: result? result[1] : null,
+          // src: result? result[2] : null,
+          // alt: result? result[1] : null,
           style: "info"
         };
       },
