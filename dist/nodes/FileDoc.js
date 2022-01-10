@@ -182,8 +182,8 @@ class File extends Node_1.default {
         state.write("[" +
             state.esc(node.attrs.alt) + "]" + "(" +
             state.esc(node.attrs.src) + ")");
-        state.ensureNewLine();
         state.write("@@@");
+        state.ensureNewLine();
         state.closeBlock(node);
     }
     parseMarkdown() {
