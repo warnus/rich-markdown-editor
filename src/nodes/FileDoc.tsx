@@ -192,11 +192,11 @@ export default class File extends Node {
   toMarkdown(state, node) {
     state.write("\n@@@");
     // state.renderContent(node);
+    state.write("[" +  
+      state.esc(node.attrs.alt) + "]" + "(" +
+      state.esc(node.attrs.src) + ")"
+    )
     state.ensureNewLine();
-    // state.write("[" +  
-      // state.esc(node.attrs.alt) + "]" + "(" +
-      // state.esc(node.attrs.src) + ")"
-    // )
     // state.write("test")
     // state.ensureNewLine();
     state.write("@@@");
@@ -209,13 +209,13 @@ export default class File extends Node {
       // getAttrs: tok => ({ style: tok.info }),
       getAttrs: token => {
         console.log(token)
-        // const file_regex =  /\[(?<alt>[^]*?)\]\((?<filename>[^]*?)\)@@@/g;
-        // const result = file_regex.exec(token.info);
+        const file_regex =  /\[(?<alt>[^]*?)\]\((?<filename>[^]*?)\)@@@/g;
+        const result = file_regex.exec(token.info);
         return {
-          // src: result? result[2] : null,
-          // alt: result? result[1] : null,
-          src: "test_src",
-          alt: "test_alt",
+          src: result? result[2] : null,
+          alt: result? result[1] : null,
+          // src: "test_src",
+          // alt: "test_alt",
           style: "info"
         };
       },
