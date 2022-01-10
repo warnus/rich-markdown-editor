@@ -179,7 +179,7 @@ class File extends Node_1.default {
     }
     toMarkdown(state, node) {
         state.write("\n@@@");
-        state.renderContent(node);
+        state.ensureNewLine();
         state.write("@@@");
         state.closeBlock(node);
     }
