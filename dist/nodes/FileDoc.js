@@ -182,8 +182,8 @@ class File extends Node_1.default {
         state.write("[" +
             state.esc(node.attrs.alt) + "]" + "(" +
             state.esc(node.attrs.src) + ")");
-        state.write("@@@");
         state.ensureNewLine();
+        state.write("@@@");
         state.closeBlock(node);
     }
     parseMarkdown() {
@@ -191,7 +191,7 @@ class File extends Node_1.default {
             block: "container_file",
             getAttrs: token => {
                 console.log(token);
-                const file_regex = /\[(?<alt>[^]*?)\]\((?<filename>[^]*?)\)@@@/g;
+                const file_regex = /\[(?<alt>[^]*?)\]\((?<filename>[^]*?)\)/g;
                 const result = file_regex.exec(token.info);
                 return {
                     src: result ? result[2] : null,

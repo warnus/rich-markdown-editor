@@ -196,8 +196,9 @@ export default class File extends Node {
       state.esc(node.attrs.alt) + "]" + "(" +
       state.esc(node.attrs.src) + ")"
     )
-    state.write("@@@");
     state.ensureNewLine();
+    state.write("@@@");
+    
     // state.write("test")
     // state.ensureNewLine();
 
@@ -210,7 +211,7 @@ export default class File extends Node {
       // getAttrs: tok => ({ style: tok.info }),
       getAttrs: token => {
         console.log(token)
-        const file_regex =  /\[(?<alt>[^]*?)\]\((?<filename>[^]*?)\)@@@/g;
+        const file_regex =  /\[(?<alt>[^]*?)\]\((?<filename>[^]*?)\)/g;
         const result = file_regex.exec(token.info);
         return {
           src: result? result[2] : null,
