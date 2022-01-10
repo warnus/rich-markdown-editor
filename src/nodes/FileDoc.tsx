@@ -212,6 +212,8 @@ export default class File extends Node {
         return {
           // src: result? result[2] : null,
           // alt: result? result[1] : null,
+          src: "test_src",
+          alt: "test_alt",
           style: "info"
         };
       },

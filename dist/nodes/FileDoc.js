@@ -189,6 +189,8 @@ class File extends Node_1.default {
             getAttrs: token => {
                 console.log(token);
                 return {
+                    src: "test_src",
+                    alt: "test_alt",
                     style: "info"
                 };
             },
