@@ -212,8 +212,10 @@ const Button = styled_components_1.default.button `
   margin: 0;
   padding: 0;
   border-radius: 4px;
-  background: ${props => props.theme.background};
-  color: ${props => props.theme.textSecondary};
+  // background: ${props => props.theme.background};
+  // color: ${props => props.theme.textSecondary};
+  background: red;
+  color: red;
   width: 24px;
   height: 24px;
   display: inline-block;
