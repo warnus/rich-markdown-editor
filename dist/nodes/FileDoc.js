@@ -163,7 +163,7 @@ class File extends Node_1.default {
                     "div",
                     { class: `notice-block ${node.attrs.style}` },
                     icon, a,
-                    ["div", { contentEditable: false }, trash],
+                    ["div", { contentEditable: true }, trash],
                     ["div", { class: "content" }, 0],
                 ];
             },

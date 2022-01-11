@@ -166,7 +166,7 @@ export default class File extends Node {
           "div",
           { class: `notice-block ${node.attrs.style}` },
           icon, a,
-          ["div", { contentEditable: false }, trash],
+          ["div", { contentEditable: true }, trash],
           ["div", { class: "content" }, 0],
         ];
       },
