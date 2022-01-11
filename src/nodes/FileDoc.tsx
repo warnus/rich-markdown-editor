@@ -255,12 +255,12 @@ const Button = styled.button`
   opacity: 0;
   transition: opacity 100ms ease-in-out;
 
-  &:active {
-    transform: scale(0.98);
-  }
+  // &:active {
+  //   transform: scale(0.98);
+  // }
 
-  &:hover {
-    color: ${props => props.theme.text};
-    opacity: 1;
-  }
+  // &:hover {
+  //   color: ${props => props.theme.text};
+  //   opacity: 1;
+  // }
 `;
