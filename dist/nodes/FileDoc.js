@@ -230,9 +230,9 @@ const Button = styled_components_1.default.button `
   //   transform: scale(0.98);
   // }
 
-  // &:hover {
-  //   color: ${props => props.theme.text};
-  //   opacity: 1;
-  // }
+  &:hover {
+    color: ${props => props.theme.text};
+    opacity: 1;
+  }
 `;
 //# sourceMappingURL=FileDoc.js.map
