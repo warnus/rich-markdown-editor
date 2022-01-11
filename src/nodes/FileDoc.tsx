@@ -255,7 +255,7 @@ const Button = styled.button`
   display: inline-block;
   cursor: pointer;
   opacity: 0;
-  transition: opacity 100ms ease-in-out;
+  // transition: opacity 100ms ease-in-out;
 
   // &:active {
   //   transform: scale(0.98);
