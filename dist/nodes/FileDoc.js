@@ -27,6 +27,7 @@ const prosemirror_state_1 = require("prosemirror-state");
 const toggleWrap_1 = __importDefault(require("../commands/toggleWrap"));
 const outline_icons_1 = require("outline-icons");
 const React = __importStar(require("react"));
+const styled_components_1 = __importDefault(require("styled-components"));
 const react_dom_1 = __importDefault(require("react-dom"));
 const Node_1 = __importDefault(require("./Node"));
 const files_1 = __importDefault(require("../rules/files"));
@@ -153,7 +154,8 @@ class File extends Node_1.default {
                 icon.className = "icon";
                 react_dom_1.default.render(component, icon);
                 let button_component;
-                button_component = React.createElement(outline_icons_1.TrashIcon, null);
+                button_component = React.createElement(Button, null,
+                    React.createElement(outline_icons_1.TrashIcon, null));
                 const trash = document.createElement("div");
                 trash.className = "trash";
                 react_dom_1.default.render(button_component, trash);
@@ -202,4 +204,30 @@ class File extends Node_1.default {
     }
 }
 exports.default = File;
+const Button = styled_components_1.default.button `
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  border-radius: 4px;
+  background: ${props => props.theme.background};
+  color: ${props => props.theme.textSecondary};
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 100ms ease-in-out;
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &:hover {
+    color: ${props => props.theme.text};
+    opacity: 1;
+  }
+`;
 //# sourceMappingURL=FileDoc.js.map
