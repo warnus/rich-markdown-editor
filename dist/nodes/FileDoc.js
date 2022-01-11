@@ -143,29 +143,25 @@ class File extends Node_1.default {
                 },
             ],
             toDOM: node => {
-                const select = document.createElement("select");
-                select.addEventListener("change", this.handleStyleChange);
                 const a = document.createElement("a");
                 a.href = node.attrs.src;
                 const fileName = document.createTextNode(node.attrs.alt);
                 a.appendChild(fileName);
-                this.styleOptions.forEach(([key, label]) => {
-                    const option = document.createElement("option");
-                    option.value = key;
-                    option.innerText = label;
-                    option.selected = node.attrs.style === key;
-                    select.appendChild(option);
-                });
                 let component;
                 component = React.createElement(outline_icons_1.LinkIcon, { color: "currentColor" });
                 const icon = document.createElement("div");
                 icon.className = "icon";
                 react_dom_1.default.render(component, icon);
+                let button_component;
+                button_component = React.createElement(outline_icons_1.TrashIcon, null);
+                const trash = document.createElement("div");
+                trash.className = "trash";
+                react_dom_1.default.render(button_component, trash);
                 return [
                     "div",
                     { class: `notice-block ${node.attrs.style}` },
                     icon, a,
-                    ["div", { contentEditable: false }, select],
+                    ["div", { contentEditable: false }, trash],
                     ["div", { class: "content" }, 0],
                 ];
             },

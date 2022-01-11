@@ -1,7 +1,7 @@
 import { wrappingInputRule } from "prosemirror-inputrules";
 import { Plugin } from "prosemirror-state";
 import toggleWrap from "../commands/toggleWrap";
-import { WarningIcon, InfoIcon, StarredIcon, LinkIcon } from "outline-icons";
+import { WarningIcon, InfoIcon, StarredIcon, LinkIcon, TrashIcon } from "outline-icons";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import Node from "./Node";
@@ -129,21 +129,21 @@ export default class File extends Node {
         },
       ],
       toDOM: node => {
-        const select = document.createElement("select");
-        select.addEventListener("change", this.handleStyleChange);
-
+        // const select = document.createElement("select");
+        // select.addEventListener("change", this.handleStyleChange);
+        
         const a = document.createElement("a");
         a.href = node.attrs.src;
         const fileName = document.createTextNode(node.attrs.alt);
         a.appendChild(fileName);
 
-        this.styleOptions.forEach(([key, label]) => {
-          const option = document.createElement("option");
-          option.value = key;
-          option.innerText = label;
-          option.selected = node.attrs.style === key;
-          select.appendChild(option);
-        });
+        // this.styleOptions.forEach(([key, label]) => {
+        //   const option = document.createElement("option");
+        //   option.value = key;
+        //   option.innerText = label;
+        //   option.selected = node.attrs.style === key;
+        //   select.appendChild(option);
+        // });
 
         let component;
 
@@ -153,11 +153,19 @@ export default class File extends Node {
         icon.className = "icon";
         ReactDOM.render(component, icon);
 
+        let button_component;
+
+        button_component = <TrashIcon />;
+
+        const trash = document.createElement("div");
+        trash.className = "trash";
+        ReactDOM.render(button_component, trash);
+
         return [
           "div",
           { class: `notice-block ${node.attrs.style}` },
           icon, a,
-          ["div", { contentEditable: false }, select],
+          ["div", { contentEditable: false }, trash],
           ["div", { class: "content" }, 0],
         ];
       },
