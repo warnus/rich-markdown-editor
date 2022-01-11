@@ -84,6 +84,9 @@ const uploadPlugin = options => new prosemirror_state_1.Plugin({
 class File extends Node_1.default {
     constructor() {
         super(...arguments);
+        this.handleTrash = event => {
+            console.log("Trash Click!!");
+        };
         this.handleStyleChange = event => {
             const { view } = this.editor;
             const { tr } = view.state;
@@ -157,6 +160,7 @@ class File extends Node_1.default {
                 button_component = React.createElement(Button, null,
                     React.createElement(outline_icons_1.TrashIcon, null));
                 const trash = document.createElement("div");
+                trash.addEventListener("trash", this.handleTrash);
                 trash.className = "trash";
                 react_dom_1.default.render(button_component, trash);
                 return [

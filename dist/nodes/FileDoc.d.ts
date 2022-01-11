@@ -40,6 +40,7 @@ export default class File extends Node {
     commands({ type }: {
         type: any;
     }): (attrs: any) => (state: any, dispatch: any) => boolean;
+    handleTrash: (event: any) => void;
     handleStyleChange: (event: any) => void;
     inputRules({ type }: {
         type: any;

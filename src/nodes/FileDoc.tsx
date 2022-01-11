@@ -159,6 +159,7 @@ export default class File extends Node {
         button_component = <Button><TrashIcon /></Button>;
 
         const trash = document.createElement("div");
+        trash.addEventListener("trash", this.handleTrash)
         trash.className = "trash";
         ReactDOM.render(button_component, trash);
 
@@ -175,6 +176,10 @@ export default class File extends Node {
 
   commands({ type }) {
     return attrs => toggleWrap(type, attrs);
+  }
+
+  handleTrash = event => {
+    console.log("Trash Click!!")
   }
 
   handleStyleChange = event => {
