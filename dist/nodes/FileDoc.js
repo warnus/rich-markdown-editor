@@ -34,7 +34,6 @@ const files_1 = __importDefault(require("../rules/files"));
 const uploadFilePlaceholder_1 = __importDefault(require("../lib/uploadFilePlaceholder"));
 const getDataTransferFiles_1 = __importDefault(require("../lib/getDataTransferFiles"));
 const insertAllFiles_1 = __importDefault(require("../commands/insertAllFiles"));
-const FILE_INPUT_REGEX = /@@@\[(?<alt>[^]*?)\]\((?<filename>[^]*?)\)@@@/;
 const uploadPlugin = options => new prosemirror_state_1.Plugin({
     props: {
         handleDOMEvents: {
@@ -133,7 +132,7 @@ class File extends Node_1.default {
             draggable: true,
             parseDOM: [
                 {
-                    tag: "div.notice-block",
+                    tag: "div.file-block",
                     preserveWhitespace: "full",
                     contentElement: "div:last-child",
                     getAttrs: (dom) => ({
@@ -164,7 +163,7 @@ class File extends Node_1.default {
                 react_dom_1.default.render(button_component, trash);
                 return [
                     "div",
-                    { class: `notice-block ${node.attrs.style}` },
+                    { class: `file-block ${node.attrs.style}` },
                     icon, a,
                     ["div", { contentEditable: true }, trash],
                     ["div", { class: "content" }, 0],

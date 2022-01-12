@@ -12,15 +12,6 @@ import uploadFilePlaceholderPlugin from "../lib/uploadFilePlaceholder";
 import getDataTransferFiles from "../lib/getDataTransferFiles";
 import insertAllFiles from "../commands/insertAllFiles";
 
-/**
- * Matches following attributes in Markdown-typed image: [, title, src]
- *
- * Example:
- * @Lorem@(file.doc) -> [, "Lorem", "image.jpg"]
- * ![](image.jpg "class") -> [, "", "image.jpg", "small"]
- * ![Lorem](image.jpg "class") -> [, "Lorem", "image.jpg", "small"]
- */
-const FILE_INPUT_REGEX = /@@@\[(?<alt>[^]*?)\]\((?<filename>[^]*?)\)@@@/;
 const uploadPlugin = options =>
   new Plugin({
     props: {
@@ -116,7 +107,7 @@ export default class File extends Node {
       draggable: true,
       parseDOM: [
         {
-          tag: "div.notice-block",
+          tag: "div.file-block",
           preserveWhitespace: "full",
           contentElement: "div:last-child",
           getAttrs: (dom: HTMLDivElement) => ({
@@ -165,7 +156,7 @@ export default class File extends Node {
 
         return [
           "div",
-          { class: `notice-block ${node.attrs.style}` },
+          { class: `file-block ${node.attrs.style}` },
           icon, a,
           ["div", { contentEditable: true }, trash],
           ["div", { class: "content" }, 0],
@@ -205,24 +196,18 @@ export default class File extends Node {
 
   toMarkdown(state, node) {
     state.write("\n@@@");
-    // state.renderContent(node);
     state.write("[" +  
       state.esc(node.attrs.alt) + "]" + "(" +
       state.esc(node.attrs.src) + ")"
     )
     state.ensureNewLine();
     state.write("@@@");
-    
-    // state.write("test")
-    // state.ensureNewLine();
-
     state.closeBlock(node);
   }
 
   parseMarkdown() {
     return {
       block: "container_file",
-      // getAttrs: tok => ({ style: tok.info }),
       getAttrs: token => {
         console.log(token)
         const file_regex =  /\[(?<alt>[^]*?)\]\((?<filename>[^]*?)\)/g;
@@ -230,8 +215,6 @@ export default class File extends Node {
         return {
           src: result? result[2] : null,
           alt: result? result[1] : null,
-          // src: "test_src",
-          // alt: "test_alt",
           style: "info"
         };
       },
