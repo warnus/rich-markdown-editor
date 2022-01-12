@@ -36,6 +36,8 @@ export declare const base: {
     blockToolbarSelectedBackground: string;
     blockToolbarHoverBackground: string;
     blockToolbarDivider: string;
+    fileBlockBackground: string;
+    fileBlockText: string;
     noticeInfoBackground: string;
     noticeInfoText: string;
     noticeTipBackground: string;
@@ -112,6 +114,8 @@ export declare const light: {
     blockToolbarSelectedBackground: string;
     blockToolbarHoverBackground: string;
     blockToolbarDivider: string;
+    fileBlockBackground: string;
+    fileBlockText: string;
     noticeInfoBackground: string;
     noticeInfoText: string;
     noticeTipBackground: string;
@@ -188,6 +192,8 @@ export declare const dark: {
     blockToolbarSelectedBackground: string;
     blockToolbarHoverBackground: string;
     blockToolbarDivider: string;
+    fileBlockBackground: string;
+    fileBlockText: string;
     noticeInfoBackground: string;
     noticeInfoText: string;
     noticeTipBackground: string;

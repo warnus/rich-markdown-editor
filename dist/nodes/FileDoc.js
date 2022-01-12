@@ -86,21 +86,6 @@ class File extends Node_1.default {
         this.handleTrash = () => event => {
             console.log("Trash Click!!");
         };
-        this.handleStyleChange = event => {
-            const { view } = this.editor;
-            const { tr } = view.state;
-            const element = event.target;
-            const { top, left } = element.getBoundingClientRect();
-            const result = view.posAtCoords({ top, left });
-            if (result) {
-                const transaction = tr.setNodeMarkup(result.inside, undefined, {
-                    style: element.value,
-                    src: "testa",
-                    alt: "testb",
-                });
-                view.dispatch(transaction);
-            }
-        };
     }
     get styleOptions() {
         return Object.entries({
@@ -122,9 +107,6 @@ class File extends Node_1.default {
                 alt: {
                     default: "",
                 },
-                style: {
-                    default: "info",
-                },
             },
             content: "block+",
             group: "block",
@@ -136,11 +118,6 @@ class File extends Node_1.default {
                     preserveWhitespace: "full",
                     contentElement: "div:last-child",
                     getAttrs: (dom) => ({
-                        style: dom.className.includes("tip")
-                            ? "tip"
-                            : dom.className.includes("warning")
-                                ? "warning"
-                                : undefined,
                         alt: dom.className.includes("a")
                     }),
                 },
@@ -163,7 +140,7 @@ class File extends Node_1.default {
                 react_dom_1.default.render(button_component, trash);
                 return [
                     "div",
-                    { class: `file-block ${node.attrs.style}` },
+                    { class: `file-block` },
                     icon, a,
                     ["div", { contentEditable: true }, trash],
                     ["div", { class: "content" }, 0],
@@ -196,7 +173,6 @@ class File extends Node_1.default {
                 return {
                     src: result ? result[2] : null,
                     alt: result ? result[1] : null,
-                    style: "info"
                 };
             },
         };

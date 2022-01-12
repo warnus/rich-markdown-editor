@@ -56,6 +56,9 @@ export const base = {
   blockToolbarHoverBackground: colors.greyLight,
   blockToolbarDivider: colors.greyMid,
 
+  fileBlockBackground: "#F0F8FF",
+  fileBlockText: colors.almostBlack,
+
   noticeInfoBackground: "#F5BE31",
   noticeInfoText: colors.almostBlack,
   noticeTipBackground: "#9E5CF7",

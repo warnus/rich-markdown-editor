@@ -97,9 +97,9 @@ export default class File extends Node {
         alt: {
           default: "",
         },
-        style: {
-          default: "info",
-        },
+        // style: {
+        //   default: "info",
+        // },
       },
       content: "block+",
       group: "block",
@@ -111,31 +111,20 @@ export default class File extends Node {
           preserveWhitespace: "full",
           contentElement: "div:last-child",
           getAttrs: (dom: HTMLDivElement) => ({
-            style: dom.className.includes("tip")
-              ? "tip"
-              : dom.className.includes("warning")
-              ? "warning"
-              : undefined,
+            // style: dom.className.includes("tip")
+            //   ? "tip"
+            //   : dom.className.includes("warning")
+            //   ? "warning"
+            //   : undefined,
             alt: dom.className.includes("a")
           }),
         },
       ],
       toDOM: node => {
-        // const select = document.createElement("select");
-        // select.addEventListener("change", this.handleStyleChange);
-        
         const a = document.createElement("a");
         a.href = node.attrs.src;
         const fileName = document.createTextNode(node.attrs.alt);
         a.appendChild(fileName);
-
-        // this.styleOptions.forEach(([key, label]) => {
-        //   const option = document.createElement("option");
-        //   option.value = key;
-        //   option.innerText = label;
-        //   option.selected = node.attrs.style === key;
-        //   select.appendChild(option);
-        // });
 
         let component;
 
@@ -156,7 +145,8 @@ export default class File extends Node {
 
         return [
           "div",
-          { class: `file-block ${node.attrs.style}` },
+          // { class: `file-block ${node.attrs.style}` },
+          { class: `file-block` },
           icon, a,
           ["div", { contentEditable: true }, trash],
           ["div", { class: "content" }, 0],
@@ -172,23 +162,6 @@ export default class File extends Node {
   handleTrash = () => event => {
     console.log("Trash Click!!")
   }
-
-  handleStyleChange = event => {
-    const { view } = this.editor;
-    const { tr } = view.state;
-    const element = event.target;
-    const { top, left } = element.getBoundingClientRect();
-    const result = view.posAtCoords({ top, left });
-
-    if (result) {
-      const transaction = tr.setNodeMarkup(result.inside, undefined, {
-        style: element.value,
-        src: "testa",
-        alt: "testb",
-      });
-      view.dispatch(transaction);
-    }
-  };
 
   inputRules({ type }) {
     return [wrappingInputRule(/^@@@$/, type)];
@@ -215,7 +188,7 @@ export default class File extends Node {
         return {
           src: result? result[2] : null,
           alt: result? result[1] : null,
-          style: "info"
+          // style: "info"
         };
       },
     };

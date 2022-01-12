@@ -327,14 +327,14 @@ export const StyledEditor = styled("div")<{
   .file-block {
     display: flex;
     align-items: center;
-    background: ${props => props.theme.noticeInfoBackground};
-    color: ${props => props.theme.noticeInfoText};
+    background: ${props => props.theme.fileBlockBackground};
+    color: ${props => props.theme.fileBlockText};
     border-radius: 4px;
     padding: 8px 16px;
     margin: 8px 0;
 
     a {
-      color: ${props => props.theme.noticeInfoText};
+      color: ${props => props.theme.fileBlockText};
     }
 
     a:not(.heading-name) {
