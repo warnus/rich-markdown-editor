@@ -3,12 +3,16 @@ import Node from "./Node";
 import filesRule from "../rules/files";
 import { InputRule } from "prosemirror-inputrules";
 export default class File extends Node {
+    get styleOptions(): [string, any][];
     get name(): string;
     get rulePlugins(): (typeof filesRule)[];
     get schema(): {
         attrs: {
             src: {};
             alt: {
+                default: string;
+            };
+            style: {
                 default: string;
             };
         };
@@ -21,6 +25,7 @@ export default class File extends Node {
             preserveWhitespace: string;
             contentElement: string;
             getAttrs: (dom: HTMLDivElement) => {
+                style: string | undefined;
                 alt: boolean;
             };
         }[];
@@ -45,6 +50,7 @@ export default class File extends Node {
         getAttrs: (token: any) => {
             src: string | null;
             alt: string | null;
+            style: string;
         };
     };
     get plugins(): Plugin<any, any>[];

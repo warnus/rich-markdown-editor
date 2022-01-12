@@ -74,13 +74,13 @@ const uploadPlugin = options =>
   });
 
 export default class File extends Node {
-  // get styleOptions() {
-  //   return Object.entries({
-  //     info: this.options.dictionary.info,
-  //     warning: this.options.dictionary.warning,
-  //     tip: this.options.dictionary.tip,
-  //   });
-  // }
+  get styleOptions() {
+    return Object.entries({
+      info: this.options.dictionary.info,
+      warning: this.options.dictionary.warning,
+      tip: this.options.dictionary.tip,
+    });
+  }
 
   get name() {
     return "container_file";
@@ -97,9 +97,9 @@ export default class File extends Node {
         alt: {
           default: "",
         },
-        // style: {
-        //   default: "info",
-        // },
+        style: {
+          default: "info",
+        },
       },
       content: "block+",
       group: "block",
@@ -111,11 +111,11 @@ export default class File extends Node {
           preserveWhitespace: "full",
           contentElement: "div:last-child",
           getAttrs: (dom: HTMLDivElement) => ({
-            // style: dom.className.includes("tip")
-            //   ? "tip"
-            //   : dom.className.includes("warning")
-            //   ? "warning"
-            //   : undefined,
+            style: dom.className.includes("tip")
+              ? "tip"
+              : dom.className.includes("warning")
+              ? "warning"
+              : undefined,
             alt: dom.className.includes("a")
           }),
         },
@@ -136,8 +136,8 @@ export default class File extends Node {
 
         return [
           "div",
-          // { class: `file-block ${node.attrs.style}` },
-          { class: `file-block info` },
+          { class: `file-block ${node.attrs.style}` },
+          // { class: `file-block info` },
           icon, a,
           ["div", { contentEditable: true }],
           ["div", { class: "content" }, 0],
@@ -179,7 +179,7 @@ export default class File extends Node {
         return {
           src: result? result[2] : null,
           alt: result? result[1] : null,
-          // style: "info"
+          style: "info"
         };
       },
     };
