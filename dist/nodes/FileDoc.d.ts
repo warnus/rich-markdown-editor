@@ -31,7 +31,7 @@ export default class File extends Node {
         }[];
         toDOM: (node: any) => (string | HTMLAnchorElement | HTMLDivElement | {
             class: string;
-        } | (string | {
+        } | (string | HTMLDivElement | {
             contentEditable: boolean;
         })[] | (string | number | {
             class: string;
@@ -41,6 +41,7 @@ export default class File extends Node {
         type: any;
     }): (attrs: any) => (state: any, dispatch: any) => boolean;
     handleTrash: () => (event: any) => void;
+    handleStyleChange: (event: any) => void;
     inputRules({ type }: {
         type: any;
     }): InputRule<any>[];

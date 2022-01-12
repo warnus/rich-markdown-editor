@@ -121,10 +121,21 @@ export default class File extends Node {
         },
       ],
       toDOM: node => {
+        // const select = document.createElement("select");
+        // select.addEventListener("change", this.handleStyleChange);
+        
         const a = document.createElement("a");
         a.href = node.attrs.src;
         const fileName = document.createTextNode(node.attrs.alt);
         a.appendChild(fileName);
+
+        // this.styleOptions.forEach(([key, label]) => {
+        //   const option = document.createElement("option");
+        //   option.value = key;
+        //   option.innerText = label;
+        //   option.selected = node.attrs.style === key;
+        //   select.appendChild(option);
+        // });
 
         let component;
 
@@ -134,12 +145,20 @@ export default class File extends Node {
         icon.className = "icon";
         ReactDOM.render(component, icon);
 
+        let button_component;
+
+        button_component = <Button><TrashIcon onClick={this.handleTrash()}/></Button>;
+
+        const trash = document.createElement("div");
+
+        trash.className = "trash";
+        ReactDOM.render(button_component, trash);
+
         return [
           "div",
           { class: `file-block ${node.attrs.style}` },
-          // { class: `file-block info` },
           icon, a,
-          ["div", { contentEditable: true }],
+          ["div", { contentEditable: true }, trash],
           ["div", { class: "content" }, 0],
         ];
       },
@@ -153,6 +172,23 @@ export default class File extends Node {
   handleTrash = () => event => {
     console.log("Trash Click!!")
   }
+
+  handleStyleChange = event => {
+    const { view } = this.editor;
+    const { tr } = view.state;
+    const element = event.target;
+    const { top, left } = element.getBoundingClientRect();
+    const result = view.posAtCoords({ top, left });
+
+    if (result) {
+      const transaction = tr.setNodeMarkup(result.inside, undefined, {
+        style: element.value,
+        src: "testa",
+        alt: "testb",
+      });
+      view.dispatch(transaction);
+    }
+  };
 
   inputRules({ type }) {
     return [wrappingInputRule(/^@@@$/, type)];
@@ -189,3 +225,32 @@ export default class File extends Node {
     return [uploadFilePlaceholderPlugin, uploadPlugin(this.options)];
   }
 }
+
+const Button = styled.button`
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  border-radius: 4px;
+  // background: ${props => props.theme.background};
+  // color: ${props => props.theme.textSecondary};
+  background: red;
+  color: red;
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  cursor: pointer;
+  opacity: 0;
+  // transition: opacity 100ms ease-in-out;
+
+  // &:active {
+  //   transform: scale(0.98);
+  // }
+
+  &:hover {
+    color: ${props => props.theme.text};
+    opacity: 1;
+  }
+`;
