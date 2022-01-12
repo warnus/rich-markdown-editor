@@ -3,7 +3,6 @@ import Node from "./Node";
 import filesRule from "../rules/files";
 import { InputRule } from "prosemirror-inputrules";
 export default class File extends Node {
-    get styleOptions(): [string, any][];
     get name(): string;
     get rulePlugins(): (typeof filesRule)[];
     get schema(): {
@@ -27,7 +26,7 @@ export default class File extends Node {
         }[];
         toDOM: (node: any) => (string | HTMLAnchorElement | HTMLDivElement | {
             class: string;
-        } | (string | HTMLDivElement | {
+        } | (string | {
             contentEditable: boolean;
         })[] | (string | number | {
             class: string;

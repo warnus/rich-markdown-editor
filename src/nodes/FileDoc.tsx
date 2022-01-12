@@ -74,13 +74,13 @@ const uploadPlugin = options =>
   });
 
 export default class File extends Node {
-  get styleOptions() {
-    return Object.entries({
-      info: this.options.dictionary.info,
-      warning: this.options.dictionary.warning,
-      tip: this.options.dictionary.tip,
-    });
-  }
+  // get styleOptions() {
+  //   return Object.entries({
+  //     info: this.options.dictionary.info,
+  //     warning: this.options.dictionary.warning,
+  //     tip: this.options.dictionary.tip,
+  //   });
+  // }
 
   get name() {
     return "container_file";
@@ -134,21 +134,12 @@ export default class File extends Node {
         icon.className = "icon";
         ReactDOM.render(component, icon);
 
-        let button_component;
-
-        button_component = <Button><TrashIcon onClick={this.handleTrash()}/></Button>;
-
-        const trash = document.createElement("div");
-
-        trash.className = "trash";
-        ReactDOM.render(button_component, trash);
-
         return [
           "div",
           // { class: `file-block ${node.attrs.style}` },
-          { class: `file-block` },
+          { class: `file-block info` },
           icon, a,
-          ["div", { contentEditable: true }, trash],
+          ["div", { contentEditable: true }],
           ["div", { class: "content" }, 0],
         ];
       },
@@ -198,32 +189,3 @@ export default class File extends Node {
     return [uploadFilePlaceholderPlugin, uploadPlugin(this.options)];
   }
 }
-
-const Button = styled.button`
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  border: 0;
-  margin: 0;
-  padding: 0;
-  border-radius: 4px;
-  // background: ${props => props.theme.background};
-  // color: ${props => props.theme.textSecondary};
-  background: red;
-  color: red;
-  width: 24px;
-  height: 24px;
-  display: inline-block;
-  cursor: pointer;
-  opacity: 0;
-  // transition: opacity 100ms ease-in-out;
-
-  // &:active {
-  //   transform: scale(0.98);
-  // }
-
-  &:hover {
-    color: ${props => props.theme.text};
-    opacity: 1;
-  }
-`;
