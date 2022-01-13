@@ -107,7 +107,7 @@ export default class File extends Node {
       draggable: true,
       parseDOM: [
         {
-          tag: "div.notice-block",
+          tag: "div.file-block",
           preserveWhitespace: "full",
           contentElement: "div:last-child",
           getAttrs: (dom: HTMLDivElement) => ({
@@ -156,7 +156,7 @@ export default class File extends Node {
 
         return [
           "div",
-          { class: `notice-block ${node.attrs.style}` },
+          { class: `file-block ${node.attrs.style}` },
           icon, a,
           ["div", { contentEditable: true }, trash],
           ["div", { class: "content" }, 0],
