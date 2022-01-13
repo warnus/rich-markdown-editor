@@ -132,7 +132,7 @@ class File extends Node_1.default {
             draggable: true,
             parseDOM: [
                 {
-                    tag: "div.file-block",
+                    tag: "div.notice-block",
                     preserveWhitespace: "full",
                     contentElement: "div:last-child",
                     getAttrs: (dom) => ({
@@ -163,7 +163,7 @@ class File extends Node_1.default {
                 react_dom_1.default.render(button_component, trash);
                 return [
                     "div",
-                    { class: `file-block ${node.attrs.style}` },
+                    { class: `notice-block ${node.attrs.style}` },
                     icon, a,
                     ["div", { contentEditable: true }, trash],
                     ["div", { class: "content" }, 0],
