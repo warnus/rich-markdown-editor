@@ -327,8 +327,8 @@ export const StyledEditor = styled("div")<{
   .file-block {
     display: flex;
     align-items: center;
-    background: "#F0F8FF";
-    color: "#181A1B";
+    background: #F0F8FF;
+    color: #181A1B;
     border-radius: 4px;
     padding: 8px 16px;
     margin: 8px 0;
