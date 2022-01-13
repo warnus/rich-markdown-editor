@@ -13,7 +13,7 @@ export default function file(md): void {
       console.log(tokens)
       if (tokens[idx].nesting === 1) {
         // opening tag
-        return `<div class="notice notice-${md.utils.escapeHtml(info)}">\n`;
+        return `<div class="file file-${md.utils.escapeHtml(info)}">\n`;
       } else {
         // closing tag
         return "</div>\n";
