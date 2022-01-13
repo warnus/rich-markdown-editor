@@ -10,6 +10,7 @@ const embeds_1 = __importDefault(require("../rules/embeds"));
 const breaks_1 = __importDefault(require("../rules/breaks"));
 const tables_1 = __importDefault(require("../rules/tables"));
 const notices_1 = __importDefault(require("../rules/notices"));
+const files_1 = __importDefault(require("../rules/files"));
 const underlines_1 = __importDefault(require("../rules/underlines"));
 const emoji_1 = __importDefault(require("../rules/emoji"));
 const defaultRules = [
@@ -21,6 +22,7 @@ const defaultRules = [
     underlines_1.default,
     tables_1.default,
     notices_1.default,
+    files_1.default,
     emoji_1.default,
 ];
 function renderToHtml(markdown, rulePlugins = defaultRules) {
