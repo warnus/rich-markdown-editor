@@ -56,29 +56,12 @@ const insertAllFiles = function(view, event, pos, files, options) {
         // then forget about inserting this file
         if (pos === null) return;
 
-        // otherwise, insert it at the placeholder's position, and remove
-        // the placeholder itself
-        // const title = file.name;
-        // const href = src;
-        // console.log(href)
         const transaction = view.state.tr
           .replaceWith(pos, pos, schema.nodes.container_file.create({ src, alt: file.name }))
           .setMeta(uploadFilePlaceholderPlugin, { remove: { id } })
           ;
 
         view.dispatch(transaction);
-        // const title = file.name;
-        // const href = `creating#${src}…`;
-        // view.dispatch(
-        //   view.state.tr
-        //     .insertText(title, from, to)
-        //     .setMeta(uploadFilePlaceholderPlugin, { remove: { id } })
-        //     .addMark(
-        //       from,
-        //       to + title.length,
-        //       state.schema.marks.link.create({ href })
-        //     )
-        // );
       })
       .catch(error => {
         console.error(error);

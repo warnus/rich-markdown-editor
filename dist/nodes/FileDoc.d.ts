@@ -26,7 +26,7 @@ export default class File extends Node {
         }[];
         toDOM: (node: any) => (string | HTMLAnchorElement | HTMLDivElement | {
             class: string;
-        } | (string | HTMLDivElement | {
+        } | (string | {
             contentEditable: boolean;
         })[] | (string | number | {
             class: string;
