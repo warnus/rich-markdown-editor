@@ -635,6 +635,13 @@ export const StyledEditor = styled("div")<{
       }
     }
 
+    &.file-block {
+      select,
+      button {
+        ${props => (props.rtl ? "left" : "right")}: 4px;
+      }
+    }
+
     button {
       padding: 2px 4px;
     }
