@@ -335,7 +335,7 @@ exports.StyledEditor = styled_components_1.default("div") `
     margin: 8px 0;
 
     a {
-      color: ${props => props.theme.fileBlockText};
+      color: #181A1B;
     }
 
     a:not(.heading-name) {
