@@ -31,7 +31,7 @@ const insertAllFiles = function(view, event, pos, files, options) {
   // we'll use this to track of how many files have succeeded or failed
   let complete = 0;
   const { state } = view;
-  const { from, to } = state.selection;
+  // const { from, to } = state.selection;
   // the user might have dropped multiple files at once, we need to loop
   for (const file of files) {
     // Use an object to act as the ID for this upload, clever.
@@ -49,7 +49,7 @@ const insertAllFiles = function(view, event, pos, files, options) {
     // to allow all placeholders to be entered at once with the uploads
     // happening in the background in parallel.
     uploadFile(file)
-      .then(src => {
+      .then((src) => {
         const pos = findPlaceholder(view.state, id);
 
         // if the content around the placeholder has been deleted
@@ -57,13 +57,16 @@ const insertAllFiles = function(view, event, pos, files, options) {
         if (pos === null) return;
 
         const transaction = view.state.tr
-          .replaceWith(pos, pos, schema.nodes.container_file.create({ src, alt: file.name }))
-          .setMeta(uploadFilePlaceholderPlugin, { remove: { id } })
-          ;
+          .replaceWith(
+            pos,
+            pos,
+            schema.nodes.container_file.create({ src, alt: file.name })
+          )
+          .setMeta(uploadFilePlaceholderPlugin, { remove: { id } });
 
         view.dispatch(transaction);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
 
         // cleanup the placeholder if there is a failure
