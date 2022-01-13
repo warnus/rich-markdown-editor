@@ -328,8 +328,8 @@ exports.StyledEditor = styled_components_1.default("div") `
   .file-block {
     display: flex;
     align-items: center;
-    background: ${props => props.theme.fileBlockBackground};
-    color: ${props => props.theme.fileBlockText};
+    background: "#F0F8FF";
+    color: "#181A1B";
     border-radius: 4px;
     padding: 8px 16px;
     margin: 8px 0;
