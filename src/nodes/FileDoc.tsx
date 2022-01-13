@@ -10,7 +10,7 @@ import uploadFilePlaceholderPlugin from "../lib/uploadFilePlaceholder";
 import getDataTransferFiles from "../lib/getDataTransferFiles";
 import insertAllFiles from "../commands/insertAllFiles";
 
-const uploadPlugin = (options) =>
+const uploadPlugin = options =>
   new Plugin({
     props: {
       handleDOMEvents: {
@@ -27,8 +27,8 @@ const uploadPlugin = (options) =>
           // check if we actually pasted any files
           const files = Array.prototype.slice
             .call(event.clipboardData.items)
-            .map((dt) => dt.getAsFile())
-            .filter((file) => file);
+            .map(dt => dt.getAsFile())
+            .filter(file => file);
 
           if (files.length === 0) return false;
 
@@ -102,7 +102,7 @@ export default class File extends Node {
           }),
         },
       ],
-      toDOM: (node) => {
+      toDOM: node => {
         const a = document.createElement("a");
         a.href = node.attrs.src;
         const fileName = document.createTextNode(node.attrs.alt);
@@ -127,7 +127,7 @@ export default class File extends Node {
   }
 
   commands({ type }) {
-    return (attrs) => toggleWrap(type, attrs);
+    return attrs => toggleWrap(type, attrs);
   }
 
   inputRules({ type }) {
@@ -152,7 +152,7 @@ export default class File extends Node {
   parseMarkdown() {
     return {
       block: "container_file",
-      getAttrs: (token) => {
+      getAttrs: token => {
         const file_regex = /\[(?<alt>[^]*?)\]\((?<filename>[^]*?)\)/g;
         const result = file_regex.exec(token.info);
         return {
