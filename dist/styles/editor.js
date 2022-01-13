@@ -633,6 +633,13 @@ exports.StyledEditor = styled_components_1.default("div") `
       }
     }
 
+    &.file-block {
+      select,
+      button {
+        ${props => (props.rtl ? "left" : "right")}: 4px;
+      }
+    }
+
     button {
       padding: 2px 4px;
     }

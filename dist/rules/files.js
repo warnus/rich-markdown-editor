@@ -15,7 +15,7 @@ function file(md) {
             console.log("customFence");
             console.log(tokens);
             if (tokens[idx].nesting === 1) {
-                return `<div class="notice notice-${md.utils.escapeHtml(info)}">\n`;
+                return `<div class="file file-${md.utils.escapeHtml(info)}">\n`;
             }
             else {
                 return "</div>\n";
