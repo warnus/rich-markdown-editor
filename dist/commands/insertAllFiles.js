@@ -34,8 +34,6 @@ const insertAllFiles = function (view, event, pos, files, options) {
         onFileUploadStart();
     const { schema } = view.state;
     let complete = 0;
-    const { state } = view;
-    const { from, to } = state.selection;
     for (const file of files) {
         const id = {};
         const { tr } = view.state;

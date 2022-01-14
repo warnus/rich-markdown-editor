@@ -104,7 +104,7 @@ class File extends Node_1.default {
                     preserveWhitespace: "full",
                     contentElement: "div:last-child",
                     getAttrs: (dom) => ({
-                        alt: dom.className.includes("a")
+                        alt: dom.className.includes("a"),
                     }),
                 },
             ],
@@ -113,15 +113,15 @@ class File extends Node_1.default {
                 a.href = node.attrs.src;
                 const fileName = document.createTextNode(node.attrs.alt);
                 a.appendChild(fileName);
-                let component;
-                component = React.createElement(outline_icons_1.LinkIcon, { color: "currentColor" });
+                const component = React.createElement(outline_icons_1.LinkIcon, { color: "currentColor" });
                 const icon = document.createElement("div");
                 icon.className = "icon";
                 react_dom_1.default.render(component, icon);
                 return [
                     "div",
                     { class: `file-block` },
-                    icon, a,
+                    icon,
+                    a,
                     ["div", { contentEditable: true }],
                     ["div", { class: "content" }, 0],
                 ];
@@ -137,8 +137,11 @@ class File extends Node_1.default {
     toMarkdown(state, node) {
         state.write("\n@@@");
         state.write("[" +
-            state.esc(node.attrs.alt) + "]" + "(" +
-            state.esc(node.attrs.src) + ")");
+            state.esc(node.attrs.alt) +
+            "]" +
+            "(" +
+            state.esc(node.attrs.src) +
+            ")");
         state.ensureNewLine();
         state.write("@@@");
         state.closeBlock(node);

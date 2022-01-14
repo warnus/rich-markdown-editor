@@ -1,7 +1,6 @@
 import { Plugin } from "prosemirror-state";
 import Node from "./Node";
 import filesRule from "../rules/files";
-import { InputRule } from "prosemirror-inputrules";
 export default class File extends Node {
     get name(): string;
     get rulePlugins(): (typeof filesRule)[];
@@ -37,7 +36,7 @@ export default class File extends Node {
     }): (attrs: any) => (state: any, dispatch: any) => boolean;
     inputRules({ type }: {
         type: any;
-    }): InputRule<any>[];
+    }): import("prosemirror-inputrules").InputRule<any>[];
     toMarkdown(state: any, node: any): void;
     parseMarkdown(): {
         block: string;
